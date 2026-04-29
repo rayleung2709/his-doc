@@ -548,6 +548,20 @@ function autoRecommend(){
     });
 }
 
+['dob-y','dob-m','dob-d'].forEach(id => {
+    document.getElementById(id).addEventListener('paste', function(e) {
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        const result = parseDOB(pasted);
+        if (result && result.y && result.m && result.d) {
+            e.preventDefault();
+            document.getElementById('dob-y').value = result.y;
+            document.getElementById('dob-m').value = result.m;
+            document.getElementById('dob-d').value = result.d;
+            onInput(); // trigger recalculation
+        }
+    });
+});
+  
 // ============ Events ============
 function clearAll(){
     ['wt','dob-y','dob-m','dob-d','temp-f'].forEach(id=>document.getElementById(id).value='');
@@ -561,6 +575,26 @@ function onInput(){
     try{localStorage.setItem('paedCalc2',JSON.stringify({wt:document.getElementById('wt').value,dy:document.getElementById('dob-y').value,dm:document.getElementById('dob-m').value,dd:document.getElementById('dob-d').value,g:document.getElementById('gender').value,tf:document.getElementById('temp-f').value}))}catch(e){}
 }
 
+function parseDOB(str) {
+    str = str.trim().replace(/[/]/g, '-');
+    const months = {JAN:1,FEB:2,MAR:3,APR:4,MAY:5,JUN:6,JUL:7,AUG:8,SEP:9,OCT:10,NOV:11,DEC:12};
+
+    // DD-MMM-YYYY e.g. 20-APR-1987
+    let m = str.match(/^(\d{1,2})[-\s]?([A-Z]{3})[-\s]?(\d{4})$/i);
+    if (m) return { d: parseInt(m[1]), m: months[m[2].toUpperCase()], y: parseInt(m[3]) };
+
+    // YYYY-MM-DD e.g. 1987-04-20
+    m = str.match(/^(\d{4})[-](\d{1,2})[-](\d{1,2})$/);
+    if (m) return { y: parseInt(m[1]), m: parseInt(m[2]), d: parseInt(m[3]) };
+
+    // DD-MM-YYYY or DD/MM/YYYY e.g. 20-04-1987
+    m = str.match(/^(\d{1,2})[-](\d{1,2})[-](\d{4})$/);
+    if (m) return { d: parseInt(m[1]), m: parseInt(m[2]), y: parseInt(m[3]) };
+
+    // MM-DD-YYYY (less common, skip or add if needed)
+    return null;
+}
+  
 function loadSaved(){
     try{
         const d=JSON.parse(localStorage.getItem('paedCalc2'));
