@@ -837,7 +837,7 @@ function saveCurrentPatientToRecent(){
   const key=p.patientId||(p.englishSurname+'|'+p.englishGiven+'|'+p.chineseName);
   let list=getRecentPatients();
   list=list.filter(x=>{const k=x.patientId||(x.englishSurname+'|'+x.englishGiven+'|'+x.chineseName);return k!==key});
-  list.unshift(p);list=list.slice(0,15);
+  list.unshift(p);list=list.slice(0,500);
   try{localStorage.setItem(RECENT_KEY,JSON.stringify(list))}catch(e){}
   renderRecentPatients();
 }
