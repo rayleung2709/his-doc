@@ -1,223 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Ray Leung's CUMC portal page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 40px;
+        }
+        a.card {
+            display: block;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            color: white;
+            text-decoration: none;
+        }
+        a.card:hover {
+            border-color: #666;
+            background: #222;
+        }
+        .card h2 {
+            margin: 0 0 6px 0;
+            font-size: 18px;
+        }
+        .card p {
+            margin: 0;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dr. Ray Leung</h1>
+    <p class="subtitle"> @ Emergency Medicine Centre · CUHK Medical Centre</p>
 
-export default function WelcomeDashboard() {
-  const [time, setTime] = useState(new Date());
-  const [greeting, setGreeting] = useState('');
+    <a class="card" href="./drug.html">
+        <h2>💊 Paed Drug Calculator</h2>
+        <p>Weight-based paediatric dosing</p>
+    </a>
 
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    <a class="card" href="./doc.html">
+        <h2>📄 HIS Document Generator</h2>
+        <p>Referral &amp; Sick Leave letters</p>
+    </a>
 
-  useEffect(() => {
-    const hour = time.getHours();
-    if (hour < 6) setGreeting('夜深了，辛苦晒');
-    else if (hour < 12) setGreeting('Good morning');
-    else if (hour < 14) setGreeting('Lunch time');
-    else if (hour < 18) setGreeting('Good afternoon');
-    else if (hour < 22) setGreeting('Good evening');
-    else setGreeting('夜深了，辛苦晒');
-  }, [time]);
-
-  const formatDate = (d) => {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-  };
-
-  const formatTime = (d) => {
-    return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  };
-
-  const tools = [
-    {
-      id: 'paed',
-      title: 'Paed Drug Calculator',
-      subtitle: 'Weight-based paediatric dosing',
-      url: './drug.html',
-      description: 'Analgesics, antibiotics, antivirals, respiratory, GI drugs with auto-formulation selection and PCM optimisation.',
-      icon: '💊',
-      color: 'from-blue-500 to-cyan-400',
-      shadow: 'shadow-blue-500/20',
-      border: 'border-blue-500/30',
-      hoverBorder: 'hover:border-blue-400/60',
-    },
-    {
-      id: 'his',
-      title: 'HIS Document Generator',
-      subtitle: 'Referral & Sick Leave letters',
-      url: './doc.html',
-      description: 'Auto-parse patient info, generate A4 referral letters and sick leave certificates. Print-ready PDF output.',
-      icon: '📄',
-      color: 'from-violet-500 to-purple-400',
-      shadow: 'shadow-violet-500/20',
-      border: 'border-violet-500/30',
-      hoverBorder: 'hover:border-violet-400/60',
-    },
-    {
-      id: 'queue',
-      title: 'EMCQMS',
-      subtitle: 'Queue Management System',
-      url: 'https://rayleung2709.github.io/emc-cqms/',
-      description: 'Real-time queue board for EMC consultations. Room management, calling, review queue, skip & transfer.',
-      icon: '🏥',
-      color: 'from-emerald-500 to-teal-400',
-      shadow: 'shadow-emerald-500/20',
-      border: 'border-emerald-500/30',
-      hoverBorder: 'hover:border-emerald-400/60',
-    },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-950 text-white overflow-hidden relative">
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 flex flex-col min-h-screen">
-        {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-gray-400 text-sm font-medium tracking-wider uppercase mb-2"
-              >
-                {greeting}
-              </motion.p>
-              <motion.h1
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-4xl md:text-5xl font-black tracking-tight"
-              >
-                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Dr. Ray Leung
-                </span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="text-gray-500 mt-2 text-sm font-semibold"
-              >
-                @ Emergency Medicine Centre · CUHK Medical Centre
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-right"
-            >
-              <div className="font-mono text-3xl md:text-4xl font-bold text-white/90 tracking-wide">
-                {formatTime(time)}
-              </div>
-              <div className="text-gray-500 text-sm font-semibold mt-1">
-                {formatDate(time)}
-              </div>
-            </motion.div>
-          </div>
-        </motion.header>
-
-        {/* Tool Cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1"
-        >
-          {tools.map((tool) => (
-            <motion.a
-              key={tool.id}
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={itemVariants}
-              whileHover={{ y: -6, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`
-                block no-underline
-                relative group cursor-pointer
-                bg-gray-900/80 backdrop-blur-sm
-                border ${tool.border} ${tool.hoverBorder}
-                rounded-2xl p-8
-                transition-all duration-300
-                hover:bg-gray-900/95
-                ${tool.shadow} hover:shadow-lg
-              `}
-            >
-              {/* Glow effect on hover */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-
-              <div className="relative z-10">
-                <div className="text-4xl mb-5">{tool.icon}</div>
-                <h2 className="text-xl font-black text-white mb-1 tracking-tight">
-                  {tool.title}
-                </h2>
-                <p className={`text-sm font-bold bg-gradient-to-r ${tool.color} bg-clip-text text-transparent mb-4`}>
-                  {tool.subtitle}
-                </p>
-                <p className="text-gray-400 text-sm leading-relaxed font-medium">
-                  {tool.description}
-                </p>
-
-                <div className="mt-6 flex items-center gap-2 text-gray-500 group-hover:text-gray-300 transition-colors">
-                  <span className="text-xs font-bold uppercase tracking-wider">Launch</span>
-                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="mt-12 pt-6 border-t border-gray-800/50"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-            <p className="text-gray-600 text-xs font-semibold">
-              Powered by Dr Ray Leung Limited
-            </p>
-            <div className="flex items-center gap-4">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400/80">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                All systems operational
-              </span>
-            </div>
-          </div>
-        </motion.footer>
-      </div>
-    </div>
-  );
-}
+    <a class="card" href="https://rayleung2709.github.io/emc-cqms/" target="_blank">
+        <h2>🏥 EMCQMS</h2>
+        <p>Queue Management System</p>
+    </a>
+</body>
+</html>
