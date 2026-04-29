@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -400,6 +399,21 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
   </div>
 
   <div class="section">
+    <h3>Document Header</h3>
+    <div class="field">
+      <label for="headerText">Header text (right side, each line = one line on paper)</label>
+      <textarea id="headerText" style="min-height:110px;font-size:12px;line-height:1.35">Emergency Medicine Centre
+CUHK Medical Centre
+9 Chak Cheung Street, Shatin, New Territories, Hong Kong
+Tel: 3946 6888      Fax: /
+Email:general@cuhkmc.hk</textarea>
+    </div>
+    <div class="actions">
+      <button class="secondary" id="resetHeaderBtn" style="font-size:12px;padding:7px 12px">Reset to Default</button>
+    </div>
+  </div>
+
+  <div class="section">
     <h3>Actions</h3>
     <div class="actions">
       <button class="secondary" id="todayBtn">Today</button>
@@ -438,7 +452,7 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
         <section class="page" id="referralPage">
           <div class="doc-header">
             <img class="logo" id="logoReferral" alt="CUHKMC logo" src="cuhkmc-logo.png">
-            <div class="header-right en">Emergency Medicine Centre
+            <div class="header-right en" id="headerRightRef">Emergency Medicine Centre
 CUHK Medical Centre
 9 Chak Cheung Street, Shatin, New Territories, Hong Kong
 Tel: 3946 6888      Fax: /
@@ -466,7 +480,7 @@ Email:general@cuhkmc.hk</div>
         <section class="page hidden" id="sickPage">
           <div class="doc-header">
             <img class="logo" id="logoSick" alt="CUHKMC logo" src="cuhkmc-logo.png">
-            <div class="header-right en">Emergency Medicine Centre
+            <div class="header-right en" id="headerRightSick">Emergency Medicine Centre
 CUHK Medical Centre
 9 Chak Cheung Street, Shatin, New Territories, Hong Kong
 Tel: 3946 6888      Fax: /
@@ -523,14 +537,20 @@ Email:general@cuhkmc.hk</div>
 <div class="floating-status" id="floatingStatus">Saved</div>
 
 <script>
-const STORAGE_KEY='cuhkmc_doc_v41';
-const LAST_PATIENT_KEY='cuhkmc_last_patient_v41';
-const RECENT_KEY='cuhkmc_recent_v41';
-const IMAGES_KEY='cuhkmc_images_v41';
-const DARK_KEY='cuhkmc_dark_v41';
+const STORAGE_KEY='cuhkmc_doc_v42';
+const LAST_PATIENT_KEY='cuhkmc_last_patient_v42';
+const RECENT_KEY='cuhkmc_recent_v42';
+const IMAGES_KEY='cuhkmc_images_v42';
+const DARK_KEY='cuhkmc_dark_v42';
 let activeTab='referral';
 let zoomLevel=1;
 let shellNaturalWidth=0;
+
+const DEFAULT_HEADER_TEXT=`Emergency Medicine Centre
+CUHK Medical Centre
+9 Chak Cheung Street, Shatin, New Territories, Hong Kong
+Tel: 3946 6888      Fax: /
+Email:general@cuhkmc.hk`;
 
 const IMG_MAP={
   logo:['logoReferral','logoSick'],
@@ -555,7 +575,8 @@ const fields=[
   'refRecipientCn','refRecipientEn','refBody',
   'sickRecipientCn','sickRecipientEn','sickDiagnosis','sickDays',
   'sickFrom','sickFromPeriod','sickTo','sickToPeriod','sickRemarks',
-  'doctorNameEn','doctorNameCn','doctorTitle'
+  'doctorNameEn','doctorNameCn','doctorTitle',
+  'headerText'
 ];
 
 function el(id){return document.getElementById(id)}
@@ -694,6 +715,12 @@ function checkOverflow(){
 function updatePreview(){
   el('patientId').value=normalizeHkid(el('patientId').value);
   const dd=el('docDate').value;const st=el('printTimestamp').value;
+
+  /* Header text */
+  const ht=el('headerText').value;
+  el('headerRightRef').textContent=ht;
+  el('headerRightSick').textContent=ht;
+
   el('pvRefDate').textContent=formatDDMMMYYYY(dd);
   el('pvRefRecipientCn').textContent=el('refRecipientCn').value;
   el('pvRefRecipientEn').textContent=el('refRecipientEn').value;
@@ -886,13 +913,20 @@ function setToday(){
   showStatus('Today applied');
 }
 
+/* ====== Reset Header ====== */
+function resetHeader(){
+  el('headerText').value=DEFAULT_HEADER_TEXT;
+  updatePreview();autoSaveDebounced();
+  showStatus('Header reset to default');
+}
+
 /* ====== Clear Form Keep Doctor ====== */
 function clearFormKeepDoctor(){
-  showConfirm('Clear current form but keep doctor settings?').then(ok=>{
+  showConfirm('Clear current form but keep doctor & header settings?').then(ok=>{
     if(!ok)return;
-    const de=el('doctorNameEn').value,dc=el('doctorNameCn').value,dt=el('doctorTitle').value;
-    fields.forEach(id=>{if(['doctorNameEn','doctorNameCn','doctorTitle'].includes(id))return;if(el(id))el(id).value=''});
-    el('doctorNameEn').value=de;el('doctorNameCn').value=dc;el('doctorTitle').value=dt;
+    const de=el('doctorNameEn').value,dc=el('doctorNameCn').value,dt=el('doctorTitle').value,ht=el('headerText').value;
+    fields.forEach(id=>{if(['doctorNameEn','doctorNameCn','doctorTitle','headerText'].includes(id))return;if(el(id))el(id).value=''});
+    el('doctorNameEn').value=de;el('doctorNameCn').value=dc;el('doctorTitle').value=dt;el('headerText').value=ht;
     el('refRecipientEn').value='To Whom It May Concern,';
     el('sickRecipientCn').value='致有關人士:';
     el('sickRecipientEn').value='To Whom It May Concern,';
@@ -1132,6 +1166,7 @@ el('duplicateBtn').addEventListener('click',duplicateLastPatient);
 el('clearPatientBtn').addEventListener('click',clearPatientFields);
 el('clearRecentBtn').addEventListener('click',clearRecentPatients);
 el('clearImagesBtn').addEventListener('click',clearAllImages);
+el('resetHeaderBtn').addEventListener('click',resetHeader);
 el('darkToggle').addEventListener('click',toggleDarkMode);
 
 el('zoomInBtn').addEventListener('click',()=>setZoom(zoomLevel+.1));
