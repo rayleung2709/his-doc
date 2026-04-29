@@ -170,9 +170,9 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
     <div class="header-right" style="margin-top:12px">
         <span class="hdr-label">Wt</span><input type="number" id="wt" class="hdr-input" placeholder="kg" step="0.1" min="0.5" max="100">
         <span class="hdr-label">DOB</span>
-        <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:58px">
-        <input type="number" id="dob-m" class="hdr-input" placeholder="MM" style="width:42px">
-        <input type="number" id="dob-d" class="hdr-input" placeholder="DD" style="width:42px">
+        <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:120px">
+        <input type="number" id="dob-m" class="hdr-input" placeholder="MM" style="width:60px">
+        <input type="number" id="dob-d" class="hdr-input" placeholder="DD" style="width:60px">
         <select id="gender" class="hdr-select"><option value="M">♂</option><option value="F">♀</option></select>
         <span class="hdr-label">°F</span><input type="number" id="temp-f" class="hdr-input" placeholder="°F" step="0.1">
         <button class="btn-clear" onclick="clearAll()">Clear</button>
@@ -223,7 +223,7 @@ analgesics: [
 antibiotics: [
     {name:'Amoxicillin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 250mg',c:250,t:'cap'},{l:'Cap 500mg',c:500,t:'cap'}],dose:15,freq:'TDS',maxD:500,note:'Standard: 25-50mg/kg/day ÷ TDS'},
     {name:'Amoxicillin (High-dose)',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],dose:30,freq:'TDS',maxD:1000,note:'80-90mg/kg/day; AOM/sinusitis'},
-    {name:'Augmentin',forms:[{l:'Syr 156 (125/31)/5ml',c:25,t:'syr'},{l:'Syr 312 (250/62)/5ml',c:50,t:'syr'},{l:'Syr 457 (400/57)/5ml BD',c:80,t:'syr',freqOverride:'BD'},{l:'Tab 375',c:250,t:'tab'},{l:'Tab 1000 (875/125)',c:875,t:'tab',freqOverride:'BD'}],dose:15,freq:'TDS',maxD:500,note:'Dose based on amoxicillin component'},
+    {name:'Augmentin',forms:[{l:'Syr 156 (125/31)/5ml',c:25,t:'syr'},{l:'Syr 312 (250/62)/5ml',c:50,t:'syr'},{l:'Syr 457 (400/57)/5ml BD',c:80,t:'syr',freqOverride:'BD'},{l:'Tab 375',c:250,t:'tab'},{l:'Tab 625 (500/125)',c:500,t:'tab'},{l:'Tab 1000 (875/125)',c:875,t:'tab',freqOverride:'BD'}],dose:15,freq:'TDS',maxD:500,note:'Dose based on amoxicillin component'},
     {name:'Cefuroxime (Zinnat)',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:15,freq:'BD',maxD:500,note:''},
     {name:'Cephalexin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Syr 250mg/5ml',c:50,t:'syr'}],dose:12.5,freq:'QID',maxD:500,note:'25-50mg/kg/day'},
     {name:'Azithromycin',forms:[{l:'Syr 200mg/5ml',c:40,t:'syr'}],dose:10,freq:'DAILY',maxD:500,note:'Day1: 10mg/kg; Day2-5: 5mg/kg'},
