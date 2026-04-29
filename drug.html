@@ -5,84 +5,153 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paediatric Drug Calculator</title>
 <style>
+:root{
+  --bg:#eef2f7;--bg-accent:#e4ebf5;--panel:#fff;--panel-2:#f8fafc;
+  --border:#d9e2ec;--border-strong:#c4d0dd;--text:#12202f;--muted:#5b6b7c;
+  --primary:#0f172a;--primary-2:#1d4ed8;--primary-soft:#dbeafe;
+  --danger:#b91c1c;--danger-soft:#fee2e2;
+  --shadow:0 12px 36px rgba(15,23,42,.08);--shadow-soft:0 8px 24px rgba(15,23,42,.06);
+  --ui-font:Inter,Tahoma,Arial,sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f6fa;padding:10px;color:#2d3436;font-size:14px}
-.container{max-width:900px;margin:0 auto}
+html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{padding:18px}
+.container{max-width:960px;margin:0 auto}
 
-/* Header */
-.header{background:#2d3436;color:#fff;padding:16px 20px;border-radius:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.header h1{font-size:1.1em;font-weight:700}
+/* Header / Brand */
+.header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-soft);margin-bottom:14px;transition:background .35s,border-color .35s}
+.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.header h1{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
+.header h1 span{margin-right:6px}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-2);background:var(--primary-soft);border:1px solid #bfdbfe;padding:6px 10px;border-radius:999px;margin-bottom:10px;transition:background .35s,border-color .35s,color .35s}
 .header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.hdr-input{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:6px 10px;color:#fff;font-size:.9em;outline:none;width:70px;text-align:center}
-.hdr-input::placeholder{color:rgba(255,255,255,.5)}
-.hdr-input:focus{border-color:#74b9ff}
-.hdr-label{font-size:.78em;color:#b2bec3;margin-right:2px}
-.hdr-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:6px 8px;color:#fff;font-size:.9em;outline:none}
+.hdr-input{width:70px;padding:9px 10px;border:1px solid var(--border-strong);border-radius:12px;font-size:13px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;text-align:center;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
+.hdr-input::placeholder{color:#94a3b8}
+.hdr-input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16);background:#fff}
+.hdr-label{font-size:11px;font-weight:800;color:#334155;letter-spacing:.01em;margin-right:2px;transition:color .35s}
+.hdr-select{padding:9px 10px;border:1px solid var(--border-strong);border-radius:12px;font-size:13px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;cursor:pointer;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
+.hdr-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
 .hdr-select option{color:#333}
+.dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
+.dark-toggle:hover{transform:scale(1.08)}
 
 /* Info chips */
-.info-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.chip{background:#fff;border:1px solid #dfe6e9;border-radius:20px;padding:5px 14px;font-size:.82em;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
 .chip.age{color:#6c5ce7}
 .chip.pct{color:#e17055}
 .chip.temp{color:#d63031}
 .chip.wt{color:#00b894}
 
 /* Tabs */
-.tabs{display:flex;gap:4px;margin-bottom:0;flex-wrap:wrap}
-.tab{padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;font-size:.82em;font-weight:600;background:#dfe6e9;color:#636e72;transition:all .15s;border:none}
-.tab:hover{background:#b2bec3;color:#fff}
-.tab.active{background:#fff;color:#2d3436;box-shadow:0 -2px 6px rgba(0,0,0,.06)}
+.tabs{display:flex;gap:6px;margin-bottom:0;flex-wrap:wrap}
+.tab{padding:10px 16px;border-radius:12px 12px 0 0;cursor:pointer;font-size:13px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
+.tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
+.tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
 
 /* Panel */
-.panel{background:#fff;border-radius:0 8px 12px 12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:14px;min-height:200px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:18px;box-shadow:var(--shadow-soft);margin-bottom:14px;min-height:200px;transition:background .35s,border-color .35s}
 
 /* Drug table */
 .dtable{width:100%;border-collapse:collapse}
-.dtable th{text-align:left;font-size:.72em;text-transform:uppercase;color:#b2bec3;padding:6px 8px;border-bottom:2px solid #f0f0f0;letter-spacing:.3px}
-.dtable td{padding:8px;border-bottom:1px solid #f8f8f8;vertical-align:middle}
-.dtable tr:hover{background:#fafbfc}
-.drug-name{font-weight:700;font-size:.9em}
-.drug-note{color:#b2bec3;font-size:.75em;margin-top:2px}
-.form-select{padding:4px 8px;border:1px solid #dfe6e9;border-radius:5px;font-size:.82em;background:#fff;cursor:pointer;max-width:180px}
-.dose-val{font-weight:700;color:#0984e3;font-size:.95em;white-space:nowrap}
-.vol-val{font-weight:700;color:#d63031;font-size:.95em;white-space:nowrap}
-.freq-val{color:#636e72;font-size:.85em;white-space:nowrap}
-.capped{background:#fff9e6}
-.max-badge{background:#fdcb6e;color:#2d3436;font-size:.65em;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px}
+.dtable th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
+.dtable td{padding:10px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:13px}
+.dtable tr:hover{background:var(--panel-2)}
+.drug-name{font-weight:800;font-size:13px;color:var(--text)}
+.drug-note{color:var(--muted);font-size:11px;margin-top:3px}
+.form-select{padding:7px 10px;border:1px solid var(--border-strong);border-radius:10px;font-size:12px;font-family:var(--ui-font);background:#fff;cursor:pointer;max-width:180px;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
+.form-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
+.dose-val{font-weight:800;color:var(--primary-2);font-size:13px;white-space:nowrap}
+.vol-val{font-weight:800;color:#d63031;font-size:13px;white-space:nowrap}
+.freq-val{color:var(--muted);font-size:12px;white-space:nowrap;font-weight:600}
+.capped{background:#fef9e7}
+.max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;font-weight:700;margin-left:6px}
 
 /* Paracetamol highlight */
-.pcm-box{background:linear-gradient(135deg,#fff9e6,#ffeaa7);border:1px solid #fdcb6e;border-radius:10px;padding:14px 18px;margin-bottom:14px}
-.pcm-title{font-weight:700;font-size:.95em;margin-bottom:8px;color:#2d3436}
-.pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pcm-option{background:#fff;border-radius:8px;padding:10px 14px;border:2px solid #dfe6e9;position:relative}
-.pcm-option.winner{border-color:#00b894;background:#f0fff4}
-.pcm-option .badge{position:absolute;top:-8px;right:10px;background:#00b894;color:#fff;font-size:.65em;padding:2px 8px;border-radius:10px;font-weight:700}
-.pcm-option h4{font-size:.8em;color:#636e72;margin-bottom:4px}
-.pcm-option .big{font-size:1.1em;font-weight:700;color:#2d3436}
-.pcm-option .sub{font-size:.78em;color:#636e72;margin-top:3px}
-.pcm-form{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pcm-form label{font-size:.8em;font-weight:600;color:#636e72}
+.pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
+.pcm-title{font-weight:800;font-size:14px;margin-bottom:10px;color:var(--primary)}
+.pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pcm-option{background:#fff;border-radius:14px;padding:14px 16px;border:2px solid var(--border);position:relative;transition:border-color .2s,background .2s}
+.pcm-option.winner{border-color:#10b981;background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.pcm-option .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;padding:3px 10px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+.pcm-option h4{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.pcm-option .big{font-size:15px;font-weight:800;color:var(--text)}
+.pcm-option .sub{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600}
+.pcm-form{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pcm-form label{font-size:12px;font-weight:800;color:#334155}
 
 /* Fluid */
-.fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:#dfe6e9;border-radius:8px;overflow:hidden;font-size:.85em}
-.fluid-box>div{background:#fff;padding:8px 12px;text-align:center}
-.fluid-box .fh{background:#f8f9fa;font-weight:700;font-size:.75em;color:#636e72;text-transform:uppercase}
-.fluid-box .fl{text-align:left;font-weight:600;font-size:.85em}
-.fluid-box .fv{font-weight:700;color:#0984e3}
+.fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:13px}
+.fluid-box>div{background:#fff;padding:10px 14px;text-align:center}
+.fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.fluid-box .fl{text-align:left;font-weight:700;font-size:13px;color:var(--text)}
+.fluid-box .fv{font-weight:800;color:var(--primary-2)}
 
 /* Disclaimer */
-.disc{background:#ffeaa7;border-radius:8px;padding:12px 16px;font-size:.75em;color:#636e72;margin-top:12px}
+.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:14px 18px;font-size:12px;color:var(--muted);margin-top:14px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
 
-.btn-clear{background:#dfe6e9;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.78em;font-weight:600;color:#636e72}
-.btn-clear:hover{background:#b2bec3;color:#fff}
+/* Buttons */
+button{border:0;border-radius:12px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+.btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:12px;padding:8px 14px;transition:background .25s,border-color .25s,color .25s}
+.btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
+
+/* ========= DARK MODE ========= */
+body.dark{background:radial-gradient(circle at top left,#161926 0%,#111420 42%,#0d1017 100%)}
+body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
+body.dark .header h1{color:#e8ecf4}
+body.dark .brand-badge{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.3);color:#7cb3f4}
+body.dark .hdr-label{color:#8899b2}
+body.dark .hdr-input{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .hdr-input::placeholder{color:#4a5578}
+body.dark .hdr-input:focus{background:#2a3048;border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+body.dark .hdr-select{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .hdr-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:#3a4060;color:#cad3e0}
+body.dark .chip{background:#1c2035;border-color:#2a3050;color:#b0bdd0}
+body.dark .chip.age{color:#a29bfe}body.dark .chip.pct{color:#fab1a0}body.dark .chip.temp{color:#ff7675}body.dark .chip.wt{color:#55efc4}
+body.dark .tab{background:#1c2035;border-color:#2d3450;color:#6b7a94}
+body.dark .tab:hover{border-color:#4a5580;color:#b0bdd0}
+body.dark .tab.active{background:#1c2035;color:#e8ecf4;border-color:#3a4060}
+body.dark .panel{background:#1c2035;border-color:#2a3050}
+body.dark .dtable th{color:#6b7a94;border-bottom-color:#2a3050}
+body.dark .dtable td{border-bottom-color:#232840}
+body.dark .dtable tr:hover{background:#242940}
+body.dark .drug-name{color:#e8ecf4}
+body.dark .drug-note{color:#5b6b7c}
+body.dark .form-select{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .form-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+body.dark .dose-val{color:#60a5fa}
+body.dark .vol-val{color:#ff7675}
+body.dark .freq-val{color:#6b7a94}
+body.dark .capped{background:rgba(251,191,36,.08)}
+body.dark .pcm-box{background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(245,158,11,.06));border-color:rgba(251,191,36,.3)}
+body.dark .pcm-title{color:#e8ecf4}
+body.dark .pcm-option{background:#242940;border-color:#333a55}
+body.dark .pcm-option.winner{border-color:#10b981;background:rgba(16,185,129,.08)}
+body.dark .pcm-option h4{color:#6b7a94}
+body.dark .pcm-option .big{color:#e8ecf4}
+body.dark .pcm-option .sub{color:#6b7a94}
+body.dark .pcm-form label{color:#8899b2}
+body.dark .fluid-box{background:#333a55}
+body.dark .fluid-box>div{background:#1c2035}
+body.dark .fluid-box .fh{background:#242940;color:#6b7a94}
+body.dark .fluid-box .fl{color:#e8ecf4}
+body.dark .fluid-box .fv{color:#60a5fa}
+body.dark .disc{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050;color:#6b7a94}
+body.dark .btn-clear{background:#242940;border-color:#333a55;color:#c4d0e0}
+body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 
 @media(max-width:600px){
     .pcm-grid{grid-template-columns:1fr}
-    .header{flex-direction:column;align-items:flex-start}
-    .tab{padding:7px 10px;font-size:.75em}
-    .dtable{font-size:.82em}
-    .form-select{max-width:140px;font-size:.75em}
+    .header-top{flex-direction:column;align-items:flex-start}
+    .tab{padding:8px 12px;font-size:11px}
+    .dtable{font-size:12px}
+    .dtable td{padding:7px 6px}
+    .form-select{max-width:130px;font-size:11px}
+    .fluid-box{font-size:11px}
+    .fluid-box>div{padding:7px 8px}
 }
 </style>
 </head>
@@ -91,8 +160,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 <!-- Header -->
 <div class="header">
-    <h1>🧒 Paed Drug Calculator</h1>
-    <div class="header-right">
+    <div class="brand-badge">Dr. Ray Leung Limited</div>
+    <div class="header-top">
+        <h1><span>🧒</span>Paed Drug Calculator</h1>
+        <div class="header-right">
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+        </div>
+    </div>
+    <div class="header-right" style="margin-top:12px">
         <span class="hdr-label">Wt</span><input type="number" id="wt" class="hdr-input" placeholder="kg" step="0.1" min="0.5" max="100">
         <span class="hdr-label">DOB</span>
         <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:58px">
@@ -117,6 +192,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 
 <script>
+// ============ Dark Mode ============
+const DARK_KEY_PAED='paedCalc_dark';
+function loadDarkMode(){try{if(localStorage.getItem(DARK_KEY_PAED)==='true')applyDark(true)}catch(e){}}
+function toggleDark(){const on=document.body.classList.contains('dark');applyDark(!on)}
+function applyDark(on){document.body.classList.toggle('dark',on);document.getElementById('darkToggle').textContent=on?'☀️':'🌙';try{localStorage.setItem(DARK_KEY_PAED,on?'true':'false')}catch(e){}}
+document.getElementById('darkToggle').addEventListener('click',toggleDark);
+loadDarkMode();
+
 // ============ Growth Data (WHO LMS Weight-for-Age) ============
 const growthData={M:[[0,.3487,3.3464,.14602],[1,.2297,4.4709,.13395],[2,.197,5.5675,.12385],[3,.1738,6.3762,.11727],[4,.1553,7.0023,.11316],[5,.1395,7.5105,.1108],[6,.1257,7.934,.10958],[9,.0956,8.964,.10714],[12,.0693,9.6479,.10591],[15,.0437,10.306,.10523],[18,.019,10.917,.10499],[21,-.005,11.487,.10513],[24,-.028,12.022,.10559],[30,-.073,13.014,.10715],[36,-.113,13.929,.10923],[42,-.148,14.808,.11158],[48,-.178,15.672,.11406],[54,-.202,16.547,.1167],[60,-.221,17.447,.11949],[72,-.246,19.365,.12581],[84,-.254,21.518,.13371],[96,-.247,24.009,.14391],[108,-.224,27.018,.15535],[120,-.186,30.643,.1669]],F:[[0,.3809,3.2322,.14171],[1,.1714,4.1873,.13724],[2,.0962,5.1282,.13],[3,.0402,5.8458,.12619],[4,-.005,6.4237,.12402],[5,-.043,6.8985,.12274],[6,-.068,7.297,.12204],[9,-.101,8.2,.12088],[12,-.11,8.948,.12055],[15,-.107,9.617,.12066],[18,-.098,10.245,.12108],[21,-.085,10.849,.12177],[24,-.069,11.438,.12269],[30,-.034,12.577,.12509],[36,-.001,13.679,.12801],[42,.031,14.777,.13129],[48,.059,15.878,.13483],[54,.084,16.982,.13866],[60,.106,18.112,.14299],[72,.138,20.515,.15317],[84,.155,23.244,.16545],[96,.158,26.454,.17958],[108,.149,30.313,.1935],[120,.131,34.715,.20684]]};
 
@@ -237,11 +320,9 @@ function calcPCM(wt, formIdx) {
     const dailyMax = Math.min(75*wt, 4000);
     const singleMax = 1000;
 
-    // Q4H = 6 doses/day
     let q4h_per = Math.min(dailyMax/6, singleMax);
     let q4h_daily = q4h_per * 6;
 
-    // Q6H = 4 doses/day
     let q6h_per = Math.min(15*wt, dailyMax/4, singleMax);
     let q6h_daily = q6h_per * 4;
 
@@ -308,8 +389,8 @@ const tabDefs = [
 ];
 
 let activeTab = 'analgesics';
-let formSelections = {}; // drugKey -> formIdx
-let pcmFormIdx = 1; // default to 250mg/5ml
+let formSelections = {};
+let pcmFormIdx = 1;
 
 function switchTab(id){activeTab=id;render()}
 
@@ -351,14 +432,12 @@ function renderPanel(){
     const wt=getWt(),ageMo=getAgeMo();
     let html='';
 
-    // Paracetamol box (only in analgesics tab)
     if(activeTab==='analgesics'){
         html+=renderPCM(wt);
     }
 
-    // Drug table
     const list=drugs[activeTab];
-    if(!list||!list.length){panel.innerHTML=html||'<p style="color:#b2bec3;text-align:center;padding:40px">No drugs in this category</p>';return;}
+    if(!list||!list.length){panel.innerHTML=html||'<p style="color:var(--muted);text-align:center;padding:40px">No drugs in this category</p>';return;}
 
     html+=`<table class="dtable"><thead><tr><th>Drug</th><th>Formulation</th><th>Per Dose</th><th>Volume / Amount</th><th>Frequency</th></tr></thead><tbody>`;
 
@@ -368,7 +447,7 @@ function renderPanel(){
         const r=calcDrug(drug,wt,ageMo,fi);
 
         let formOpts=drug.forms.map((f,i)=>`<option value="${i}"${i===fi?' selected':''}>${f.l}</option>`).join('');
-        let formHtml=drug.forms.length>1?`<select class="form-select" onchange="formSelections['${key}']=parseInt(this.value);render()">${formOpts}</select>`:`<span style="font-size:.82em;color:#636e72">${drug.forms[0].l}</span>`;
+        let formHtml=drug.forms.length>1?`<select class="form-select" onchange="formSelections['${key}']=parseInt(this.value);render()">${formOpts}</select>`:`<span style="font-size:12px;color:var(--muted)">${drug.forms[0].l}</span>`;
 
         html+=`<tr${r.capped?' class="capped"':''}>
             <td><div class="drug-name">${drug.name}</div>${drug.note?'<div class="drug-note">'+drug.note+'</div>':''}</td>
@@ -385,7 +464,7 @@ function renderPanel(){
 
 function renderPCM(wt){
     const pcm=calcPCM(wt,pcmFormIdx);
-    if(!pcm) return `<div class="pcm-box"><div class="pcm-title">Paracetamol (Panadol)</div><p style="color:#b2bec3;font-size:.85em">Enter weight to calculate</p></div>`;
+    if(!pcm) return `<div class="pcm-box"><div class="pcm-title">Paracetamol (Panadol)</div><p style="color:var(--muted);font-size:13px">Enter weight to calculate</p></div>`;
 
     const w=pcm.winner;
     const q4=pcm.q4h, q6=pcm.q6h;
@@ -411,21 +490,21 @@ function renderPCM(wt){
         <div class="pcm-form">
             <label>Formulation:</label>
             <select class="form-select" onchange="pcmFormIdx=parseInt(this.value);render()">${formOpts}</select>
-            <span style="font-size:.75em;color:#636e72">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max</span>
+            <span style="font-size:11px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max</span>
         </div>
     </div>`;
 }
 
 function renderFluids(panel){
     const wt=getWt();
-    if(!wt){panel.innerHTML='<p style="color:#b2bec3;text-align:center;padding:40px">Enter weight to calculate fluids</p>';return;}
+    if(!wt){panel.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px">Enter weight to calculate fluids</p>';return;}
     let daily;
     if(wt<=10)daily=wt*100;else if(wt<=20)daily=1000+(wt-10)*50;else daily=1500+(wt-20)*20;
     const bolus=20*wt;
 
     const rows=[{l:'Maintenance',m:1},{l:'Maint × 1.25',m:1.25},{l:'Maint × 1.5',m:1.5}];
 
-    let html=`<div style="margin-bottom:12px;font-size:.85em;color:#636e72"><strong>Holliday-Segar</strong> · Daily: <strong>${Math.round(daily)} ml</strong> · Bolus (20ml/kg): <strong>${Math.round(bolus)} ml</strong></div>`;
+    let html=`<div style="margin-bottom:14px;font-size:13px;color:var(--muted)"><strong style="color:var(--text)">Holliday-Segar</strong> · Daily: <strong style="color:var(--primary-2)">${Math.round(daily)} ml</strong> · Bolus (20ml/kg): <strong style="color:var(--primary-2)">${Math.round(bolus)} ml</strong></div>`;
     html+=`<div class="fluid-box">
         <div class="fh"></div><div class="fh">No Bolus</div><div class="fh">+ Bolus ×1</div><div class="fh">+ Bolus ×2</div>`;
     rows.forEach(r=>{
@@ -444,23 +523,18 @@ function autoRecommend(){
     const wt=getWt(),ageMo=getAgeMo();
     if(!wt)return;
 
-    // PCM: pick best formulation
-    if(wt>=25) pcmFormIdx=1; // 250mg/5ml
-    else pcmFormIdx=0; // 120mg/5ml
-    if(ageMo!==null && ageMo>=72 && wt>=20) pcmFormIdx=3; // Tab 500 for >6y and decent weight
+    if(wt>=25) pcmFormIdx=1;
+    else pcmFormIdx=0;
+    if(ageMo!==null && ageMo>=72 && wt>=20) pcmFormIdx=3;
 
-    // For each drug category, auto-pick best formulation
     Object.keys(drugs).forEach(cat=>{
         drugs[cat].forEach((drug,di)=>{
             if(drug.forms.length<=1)return;
             const key=cat+'_'+di;
-            // Prefer syrups for young/light, tabs for older/heavier
             if(ageMo!==null && ageMo>=72 && wt>=20){
-                // Try to find a tab/cap
                 const tabIdx=drug.forms.findIndex(f=>f.t==='tab'||f.t==='cap');
                 if(tabIdx>=0){formSelections[key]=tabIdx;return;}
             }
-            // For syrups: prefer higher concentration if dose is large
             const dose=drug.dose*wt;
             let bestIdx=0,bestVol=999;
             drug.forms.forEach((f,i)=>{
