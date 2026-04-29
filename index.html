@@ -45,6 +45,13 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .section h3{margin:0 0 12px;font-size:12px;letter-spacing:.08em;color:#3f4f62;text-transform:uppercase;font-weight:800;transition:color .35s}
 .section h3 span{font-weight:600;opacity:.5}
 
+/* ====== Collapsible Section ====== */
+.section-header{cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;margin:0;font-size:12px;letter-spacing:.08em;color:#3f4f62;text-transform:uppercase;font-weight:800;transition:color .35s;padding:2px 0;border-radius:6px}
+.section-header:hover{color:var(--primary-2)}
+.section-header .arrow{transition:transform .3s;font-size:10px;color:var(--muted)}
+.section-header.collapsed .arrow{transform:rotate(-90deg)}
+.section-body{overflow:hidden;transition:max-height .35s ease,opacity .3s ease}
+
 .field{margin-bottom:12px}.field:last-child{margin-bottom:0}
 .field label{display:block;margin-bottom:6px;font-size:12px;font-weight:800;color:#334155;letter-spacing:.01em;transition:color .35s}
 .field input,.field textarea{width:100%;padding:11px 12px;border:1px solid var(--border-strong);border-radius:12px;font-size:14px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
@@ -118,6 +125,9 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .tab-btn.active{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;border-color:#3b82f6}
 .sidebar.dark .section{background:#1c2035;border-color:#2a3050}
 .sidebar.dark .section h3{color:#7889a4}
+.sidebar.dark .section-header{color:#7889a4}
+.sidebar.dark .section-header:hover{color:#7cb3f4}
+.sidebar.dark .section-header .arrow{color:#4a5578}
 .sidebar.dark .field label{color:#8899b2}
 .sidebar.dark .field input,.sidebar.dark .field textarea{background:#242940;border-color:#333a55;color:#dce3ef}
 .sidebar.dark .field input:focus,.sidebar.dark .field textarea:focus{background:#2a3048;border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
@@ -139,7 +149,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .recent-list::-webkit-scrollbar-thumb{background:#333a55}
 
 .preview{padding:22px;overflow-y:auto;height:100%;position:relative}
-.preview-toolbar{max-width:980px;margin:0 auto 16px;display:flex;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10}
+.preview-toolbar{width:fit-content;margin:0 auto 16px;display:flex;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10}
 .toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .toolbar-row-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .toolbar-row-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -236,6 +246,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
   .toolbar-row{flex-direction:column;align-items:flex-start}
   .toolbar-row-right{width:100%}
   .toolbar-divider{display:none}
+  .preview-toolbar{width:auto}
 }
 
 @media print{
@@ -348,64 +359,88 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <div class="overflow-hint hidden" id="sickOverflowHint">⚠ Content may overflow the A4 page</div>
   </div>
 
+  <!-- ====== Collapsible: Doctor ====== -->
   <div class="section">
-    <h3>Doctor</h3>
-    <div class="field"><label for="doctorNameEn">Doctor English Name</label><input id="doctorNameEn" value="Dr LEUNG Tsz Hang Ray"></div>
-    <div class="field"><label for="doctorNameCn">Doctor Chinese Name</label><input id="doctorNameCn" value="梁子恒 醫生"></div>
-    <div class="field"><label for="doctorTitle">Doctor Title</label><textarea id="doctorTitle">Specialist in Emergency Medicine
+    <div class="section-header collapsed" onclick="toggleSection(this)">
+      <span>Doctor</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="section-body" style="max-height:0;opacity:0;margin-top:0">
+      <div style="padding-top:12px">
+        <div class="field"><label for="doctorNameEn">Doctor English Name</label><input id="doctorNameEn" value="Dr LEUNG Tsz Hang Ray"></div>
+        <div class="field"><label for="doctorNameCn">Doctor Chinese Name</label><input id="doctorNameCn" value="梁子恒 醫生"></div>
+        <div class="field"><label for="doctorTitle">Doctor Title</label><textarea id="doctorTitle">Specialist in Emergency Medicine
 MB ChB (CUHK), FHKCEM, FHKAM (Emergency Medicine)
 Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic Unit, CUHK</textarea></div>
-  </div>
-
-  <div class="section">
-    <h3>Document Images</h3>
-    <div class="img-grid">
-      <div class="img-upload-zone" data-img-key="logo">
-        <img class="img-thumb" id="thumbLogo" alt="">
-        <span class="img-plus">+</span>
-        <span class="img-label">Clinic Logo</span>
-        <button class="img-remove-btn" title="Remove">&times;</button>
-        <input type="file" accept="image/*" hidden>
       </div>
-      <div class="img-upload-zone" data-img-key="signature">
-        <img class="img-thumb" id="thumbSig" alt="">
-        <span class="img-plus">+</span>
-        <span class="img-label">Signature</span>
-        <button class="img-remove-btn" title="Remove">&times;</button>
-        <input type="file" accept="image/*" hidden>
-      </div>
-      <div class="img-upload-zone" data-img-key="barcodeRef">
-        <img class="img-thumb" id="thumbBarcodeRef" alt="">
-        <span class="img-plus">+</span>
-        <span class="img-label">Ref Barcode</span>
-        <button class="img-remove-btn" title="Remove">&times;</button>
-        <input type="file" accept="image/*" hidden>
-      </div>
-      <div class="img-upload-zone" data-img-key="barcodeSick">
-        <img class="img-thumb" id="thumbBarcodeSick" alt="">
-        <span class="img-plus">+</span>
-        <span class="img-label">Sick Barcode</span>
-        <button class="img-remove-btn" title="Remove">&times;</button>
-        <input type="file" accept="image/*" hidden>
-      </div>
-    </div>
-    <div class="img-actions">
-      <button class="secondary" id="clearImagesBtn" style="font-size:12px;padding:7px 12px">Clear All Images</button>
     </div>
   </div>
 
+  <!-- ====== Collapsible: Document Images ====== -->
   <div class="section">
-    <h3>Document Header</h3>
-    <div class="field">
-      <label for="headerText">Header text (right side)</label>
-      <textarea id="headerText" style="min-height:110px;font-size:12px;line-height:1.35">Emergency Medicine Centre
+    <div class="section-header collapsed" onclick="toggleSection(this)">
+      <span>Document Images</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="section-body" style="max-height:0;opacity:0;margin-top:0">
+      <div style="padding-top:12px">
+        <div class="img-grid">
+          <div class="img-upload-zone" data-img-key="logo">
+            <img class="img-thumb" id="thumbLogo" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Clinic Logo</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+          <div class="img-upload-zone" data-img-key="signature">
+            <img class="img-thumb" id="thumbSig" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Signature</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+          <div class="img-upload-zone" data-img-key="barcodeRef">
+            <img class="img-thumb" id="thumbBarcodeRef" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Ref Barcode</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+          <div class="img-upload-zone" data-img-key="barcodeSick">
+            <img class="img-thumb" id="thumbBarcodeSick" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Sick Barcode</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+        </div>
+        <div class="img-actions">
+          <button class="secondary" id="clearImagesBtn" style="font-size:12px;padding:7px 12px">Clear All Images</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Collapsible: Document Header ====== -->
+  <div class="section">
+    <div class="section-header collapsed" onclick="toggleSection(this)">
+      <span>Document Header</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="section-body" style="max-height:0;opacity:0;margin-top:0">
+      <div style="padding-top:12px">
+        <div class="field">
+          <label for="headerText">Header text (right side)</label>
+          <textarea id="headerText" style="min-height:110px;font-size:12px;line-height:1.35">Emergency Medicine Centre
 CUHK Medical Centre
 9 Chak Cheung Street, Shatin, New Territories, Hong Kong
 Tel: 3946 6888      Fax: /
 Email:general@cuhkmc.hk</textarea>
-    </div>
-    <div class="actions">
-      <button class="secondary" id="resetHeaderBtn" style="font-size:12px;padding:7px 12px">Reset to Default</button>
+        </div>
+        <div class="actions">
+          <button class="secondary" id="resetHeaderBtn" style="font-size:12px;padding:7px 12px">Reset to Default</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -576,6 +611,24 @@ function showStatus(msg){
 }
 
 function debounce(fn,ms){let t;return function(){const a=arguments,c=this;clearTimeout(t);t=setTimeout(()=>fn.apply(c,a),ms)}}
+
+/* ====== Collapsible Sections ====== */
+function toggleSection(header){
+  const body=header.nextElementSibling;
+  const isCollapsed=header.classList.contains('collapsed');
+  if(isCollapsed){
+    header.classList.remove('collapsed');
+    body.style.maxHeight=body.scrollHeight+'px';
+    body.style.opacity='1';
+    setTimeout(()=>{if(!header.classList.contains('collapsed'))body.style.maxHeight='none'},350);
+  }else{
+    body.style.maxHeight=body.scrollHeight+'px';
+    body.offsetHeight;
+    body.style.maxHeight='0';
+    body.style.opacity='0';
+    header.classList.add('collapsed');
+  }
+}
 
 /* ====== Modal ====== */
 function showModal(opts){
