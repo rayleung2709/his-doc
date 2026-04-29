@@ -41,10 +41,6 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .tab-btn:hover{transform:translateY(-1px);border-color:#94a3b8;box-shadow:0 6px 18px rgba(15,23,42,.08)}
 .tab-btn.active{background:linear-gradient(135deg,#111827 0%,#1e3a8a 100%);color:#fff;border-color:#1e3a8a;box-shadow:0 10px 24px rgba(30,58,138,.22)}
 
-.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.quick-chip{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.9);color:var(--text);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:.18s ease}
-.quick-chip:hover{background:#fff;transform:translateY(-1px);box-shadow:0 8px 18px rgba(15,23,42,.06)}
-
 .section{background:var(--panel);border:1px solid var(--border);border-radius:18px;margin-bottom:14px;padding:14px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s}
 .section h3{margin:0 0 12px;font-size:12px;letter-spacing:.08em;color:#3f4f62;text-transform:uppercase;font-weight:800;transition:color .35s}
 .section h3 span{font-weight:600;opacity:.5}
@@ -107,6 +103,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .primary{background:linear-gradient(135deg,#111827 0%,#1d4ed8 100%);color:#fff;box-shadow:0 10px 20px rgba(29,78,216,.18)}
 .secondary{background:#eef2f7;color:#12202f;border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);transition:background .25s,border-color .25s,color .25s}
 .danger{background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);color:#fff;box-shadow:0 10px 20px rgba(185,28,28,.15)}
+.warning-btn{background:linear-gradient(135deg,#d97706 0%,#92400e 100%);color:#fff;box-shadow:0 10px 20px rgba(217,119,6,.15)}
 
 /* ========= DARK MODE ========= */
 .sidebar.dark{background:linear-gradient(180deg,#161926 0%,#111420 100%);border-color:#232840}
@@ -119,8 +116,6 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .tab-btn{background:#1c2035;border-color:#2d3450;color:#b0bdd0}
 .sidebar.dark .tab-btn:hover{border-color:#4a5580;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .sidebar.dark .tab-btn.active{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;border-color:#3b82f6}
-.sidebar.dark .quick-chip{background:rgba(255,255,255,.05);border-color:#2d3450;color:#b0bdd0}
-.sidebar.dark .quick-chip:hover{background:rgba(255,255,255,.1);border-color:#4a5580;box-shadow:0 8px 18px rgba(0,0,0,.2)}
 .sidebar.dark .section{background:#1c2035;border-color:#2a3050}
 .sidebar.dark .section h3{color:#7889a4}
 .sidebar.dark .field label{color:#8899b2}
@@ -144,13 +139,17 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .recent-list::-webkit-scrollbar-thumb{background:#333a55}
 
 .preview{padding:22px;overflow-y:auto;height:100%;position:relative}
-.preview-toolbar{max-width:980px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10;flex-wrap:wrap}
+.preview-toolbar{max-width:980px;margin:0 auto 16px;display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10}
+.toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toolbar-row-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar-row-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .preview-toolbar-title{font-size:13px;color:var(--muted);line-height:1.45;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .preview-toolbar strong{color:var(--primary)}
-.preview-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toolbar-divider{width:1px;height:22px;background:var(--border);flex-shrink:0}
 .zoom-controls{display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:3px 6px}
 .zoom-btn{width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center;font-size:16px;border-radius:8px;line-height:1}
 .zoom-label{font-size:11px;font-weight:700;color:var(--muted);min-width:38px;text-align:center;user-select:none}
+.tb{font-size:12px;padding:7px 12px;border-radius:10px}
 
 .paper-wrap{display:flex;justify-content:center;align-items:flex-start;padding-bottom:24px}
 .paper-shell{background:linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.25) 100%);border:1px solid rgba(255,255,255,.8);border-radius:24px;padding:16px;box-shadow:0 24px 60px rgba(15,23,42,.10);will-change:transform;transition:transform .2s,margin .2s}
@@ -230,11 +229,13 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
   .preview-toolbar{max-width:100%;position:relative;top:auto}
 }
 @media(max-width:840px){
-  .row-2,.row-3,.quick-actions,.img-grid{grid-template-columns:1fr}
+  .row-2,.row-3,.img-grid{grid-template-columns:1fr}
   .tabs{grid-template-columns:1fr 1fr}
   .sidebar{padding:14px}.preview{padding:12px}
   .paper-shell{width:100%;overflow:auto;padding:10px}
-  .preview-toolbar{flex-direction:column;align-items:flex-start}
+  .toolbar-row{flex-direction:column;align-items:flex-start}
+  .toolbar-row-right{width:100%}
+  .toolbar-divider{display:none}
 }
 
 @media print{
@@ -267,11 +268,6 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
   <div class="tabs">
     <button class="tab-btn active" id="tabReferral">Referral</button>
     <button class="tab-btn" id="tabSick">Sick Leave</button>
-  </div>
-
-  <div class="quick-actions">
-    <button class="quick-chip" id="todayChip">今日日期</button>
-    <button class="quick-chip" id="printChip">直接列印</button>
   </div>
 
   <div class="section">
@@ -401,7 +397,7 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
   <div class="section">
     <h3>Document Header</h3>
     <div class="field">
-      <label for="headerText">Header text (right side, each line = one line on paper)</label>
+      <label for="headerText">Header text (right side)</label>
       <textarea id="headerText" style="min-height:110px;font-size:12px;line-height:1.35">Emergency Medicine Centre
 CUHK Medical Centre
 9 Chak Cheung Street, Shatin, New Territories, Hong Kong
@@ -413,36 +409,37 @@ Email:general@cuhkmc.hk</textarea>
     </div>
   </div>
 
-  <div class="section">
-    <h3>Actions</h3>
-    <div class="actions">
-      <button class="secondary" id="todayBtn">Today</button>
-      <button class="secondary" id="refreshTimestampBtn">Refresh Timestamp</button>
-      <button class="secondary" id="printBtn">Print</button>
-      <button class="secondary" id="clearFormBtn">Clear Form Keep Doctor</button>
-      <button class="danger" id="clearBtn">Clear Saved Draft</button>
-    </div>
-  </div>
-
 </aside>
 
 <main class="preview">
   <div class="preview-toolbar">
-    <div class="preview-toolbar-title">
-      <strong>Preview</strong>
-      <span class="overflow-badge hidden" id="overflowBadge">⚠ Content overflows page</span>
-    </div>
-    <div class="preview-toolbar-actions">
-      <div class="zoom-controls">
-        <button class="secondary zoom-btn" id="zoomOutBtn" title="Zoom out">−</button>
-        <span class="zoom-label" id="zoomLabel">100%</span>
-        <button class="secondary zoom-btn" id="zoomInBtn" title="Zoom in">+</button>
-        <button class="secondary zoom-btn" id="zoomFitBtn" title="Fit to width" style="width:auto;padding:0 8px;font-size:11px;">Fit</button>
+    <div class="toolbar-row">
+      <div class="toolbar-row-left">
+        <div class="preview-toolbar-title">
+          <strong>Preview</strong>
+          <span class="overflow-badge hidden" id="overflowBadge">⚠ Content overflows page</span>
+        </div>
       </div>
-      <button class="secondary" id="clearFormBtn">Clear Form Keep Doctor</button>
-      <button class="secondary" id="toolbarTodayBtn">Today</button>
-      <button class="secondary" id="toolbarRefreshBtn">Refresh TS</button>
-      <button class="primary" id="toolbarPrintBtn">Print / PDF</button>
+      <div class="toolbar-row-right">
+        <div class="zoom-controls">
+          <button class="secondary zoom-btn" id="zoomOutBtn" title="Zoom out">−</button>
+          <span class="zoom-label" id="zoomLabel">100%</span>
+          <button class="secondary zoom-btn" id="zoomInBtn" title="Zoom in">+</button>
+          <button class="secondary zoom-btn" id="zoomFitBtn" title="Fit to width" style="width:auto;padding:0 8px;font-size:11px;">Fit</button>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar-row">
+      <div class="toolbar-row-left">
+        <button class="secondary tb" id="toolbarTodayBtn">Today</button>
+        <button class="secondary tb" id="toolbarRefreshBtn">Refresh Timestamp</button>
+        <span class="toolbar-divider"></span>
+        <button class="secondary tb" id="toolbarClearFormBtn">Clear Form</button>
+        <button class="danger tb" id="toolbarClearDraftBtn" style="font-size:12px;padding:7px 12px">Clear Draft</button>
+      </div>
+      <div class="toolbar-row-right">
+        <button class="primary tb" id="toolbarPrintBtn" style="font-size:13px;padding:9px 18px">🖨 Print / PDF</button>
+      </div>
     </div>
   </div>
 
@@ -717,7 +714,6 @@ function updatePreview(){
   el('patientId').value=normalizeHkid(el('patientId').value);
   const dd=el('docDate').value;const st=el('printTimestamp').value;
 
-  /* Header text */
   const ht=el('headerText').value;
   el('headerRightRef').textContent=ht;
   el('headerRightSick').textContent=ht;
@@ -1150,18 +1146,14 @@ fields.forEach(id=>{
 el('tabReferral').addEventListener('click',()=>{switchTab('referral');autoSaveDebounced()});
 el('tabSick').addEventListener('click',()=>{switchTab('sick');autoSaveDebounced()});
 
-el('todayChip').addEventListener('click',setToday);
-el('printChip').addEventListener('click',validateAndPrint);
+/* Toolbar actions */
 el('toolbarTodayBtn').addEventListener('click',setToday);
 el('toolbarRefreshBtn').addEventListener('click',()=>{refreshTimestamp();updatePreview();autoSaveDebounced();showStatus('Timestamp refreshed')});
 el('toolbarPrintBtn').addEventListener('click',validateAndPrint);
+el('toolbarClearFormBtn').addEventListener('click',clearFormKeepDoctor);
+el('toolbarClearDraftBtn').addEventListener('click',clearDraft);
 
-el('todayBtn').addEventListener('click',setToday);
-el('refreshTimestampBtn').addEventListener('click',()=>{refreshTimestamp();updatePreview();autoSaveDebounced();showStatus('Timestamp refreshed')});
-el('printBtn').addEventListener('click',validateAndPrint);
-el('clearFormBtn').addEventListener('click',clearFormKeepDoctor);
-el('clearBtn').addEventListener('click',clearDraft);
-
+/* Sidebar contextual actions */
 el('parseBtn').addEventListener('click',parsePatientLine);
 el('duplicateBtn').addEventListener('click',duplicateLastPatient);
 el('clearPatientBtn').addEventListener('click',clearPatientFields);
