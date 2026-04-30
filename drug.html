@@ -18,7 +18,6 @@ html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle 
 body{padding:18px}
 .container{max-width:960px;margin:0 auto}
 
-/* Header / Brand */
 .header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-soft);margin-bottom:14px;transition:background .35s,border-color .35s}
 .header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .header h1{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
@@ -35,24 +34,17 @@ body{padding:18px}
 .dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
 .dark-toggle:hover{transform:scale(1.08)}
 
-/* Info chips */
 .info-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
-.chip.age{color:#6c5ce7}
-.chip.pct{color:#e17055}
-.chip.temp{color:#d63031}
-.chip.wt{color:#00b894}
+.chip.age{color:#6c5ce7}.chip.pct{color:#e17055}.chip.temp{color:#d63031}.chip.wt{color:#00b894}
 
-/* Tabs */
-.tabs{display:flex;gap:6px;margin-bottom:0;flex-wrap:wrap}
-.tab{padding:10px 16px;border-radius:12px 12px 0 0;cursor:pointer;font-size:13px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
+.tabs{display:flex;gap:4px;margin-bottom:0;flex-wrap:wrap}
+.tab{padding:9px 14px;border-radius:12px 12px 0 0;cursor:pointer;font-size:12px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
 .tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
 .tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
 
-/* Panel */
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:18px;box-shadow:var(--shadow-soft);margin-bottom:14px;min-height:200px;transition:background .35s,border-color .35s}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:18px;box-shadow:var(--shadow-soft);margin-bottom:14px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
 
-/* Drug table */
 .dtable{width:100%;border-collapse:collapse}
 .dtable th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
 .dtable td{padding:10px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:13px}
@@ -67,37 +59,31 @@ body{padding:18px}
 .capped{background:#fef9e7}
 .max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;font-weight:700;margin-left:6px}
 
-/* Paracetamol highlight */
 .pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
 .pcm-title{font-weight:800;font-size:14px;margin-bottom:10px;color:var(--primary)}
 .pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pcm-option{background:#fff;border-radius:14px;padding:14px 16px;border:2px solid var(--border);position:relative;transition:border-color .2s,background .2s}
 .pcm-option.winner{border-color:#10b981;background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
-.pcm-option .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;padding:3px 10px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+.pcm-option .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;padding:3px 10px;border-radius:999px;font-weight:800}
 .pcm-option h4{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .pcm-option .big{font-size:15px;font-weight:800;color:var(--text)}
 .pcm-option .sub{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600}
 .pcm-form{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .pcm-form label{font-size:12px;font-weight:800;color:#334155}
 
-/* Fluid */
 .fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:13px}
 .fluid-box>div{background:#fff;padding:10px 14px;text-align:center}
 .fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .fluid-box .fl{text-align:left;font-weight:700;font-size:13px;color:var(--text)}
 .fluid-box .fv{font-weight:800;color:var(--primary-2)}
 
-/* Disclaimer */
 .disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:14px 18px;font-size:12px;color:var(--muted);margin-top:14px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
 
-/* Buttons */
 button{border:0;border-radius:12px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
-button:hover{transform:translateY(-1px)}
-button:active{transform:translateY(0)}
+button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:12px;padding:8px 14px;transition:background .25s,border-color .25s,color .25s}
 .btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
 
-/* ========= DARK MODE ========= */
 body.dark{background:radial-gradient(circle at top left,#161926 0%,#111420 42%,#0d1017 100%)}
 body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
 body.dark .header h1{color:#e8ecf4}
@@ -146,7 +132,7 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 @media(max-width:600px){
     .pcm-grid{grid-template-columns:1fr}
     .header-top{flex-direction:column;align-items:flex-start}
-    .tab{padding:8px 12px;font-size:11px}
+    .tab{padding:7px 10px;font-size:11px}
     .dtable{font-size:12px}
     .dtable td{padding:7px 6px}
     .form-select{max-width:130px;font-size:11px}
@@ -158,11 +144,10 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 <body>
 <div class="container">
 
-<!-- Header -->
 <div class="header">
     <div class="brand-badge">Dr. Ray Leung Limited</div>
     <div class="header-top">
-        <h1><span>🧒</span>Paediatric Drug Calculator</h1>
+        <h1><span>🧒</span>Paed Drug Calculator</h1>
         <div class="header-right">
             <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
         </div>
@@ -170,25 +155,20 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
     <div class="header-right" style="margin-top:12px">
         <span class="hdr-label">Wt</span><input type="number" id="wt" class="hdr-input" placeholder="kg" step="0.1" min="0.5" max="100">
         <span class="hdr-label">DOB</span>
-        <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:120px">
-        <input type="number" id="dob-m" class="hdr-input" placeholder="MM" style="width:60px">
-        <input type="number" id="dob-d" class="hdr-input" placeholder="DD" style="width:60px">
+        <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:58px">
+        <input type="number" id="dob-m" class="hdr-input" placeholder="MM" style="width:42px">
+        <input type="number" id="dob-d" class="hdr-input" placeholder="DD" style="width:42px">
         <select id="gender" class="hdr-select"><option value="M">♂</option><option value="F">♀</option></select>
         <span class="hdr-label">°F</span><input type="number" id="temp-f" class="hdr-input" placeholder="°F" step="0.1">
         <button class="btn-clear" onclick="clearAll()">Clear</button>
     </div>
 </div>
 
-<!-- Info bar -->
 <div class="info-bar" id="infoBar"></div>
-
-<!-- Tabs -->
 <div class="tabs" id="tabBar"></div>
-
-<!-- Panel -->
 <div class="panel" id="mainPanel"></div>
 
-<div class="disc">⚠️ <strong>Disclaimer:</strong> For clinical reference only. All doses are general recommendations. Adjust per professional judgement. Consult latest BNF or UpToDate guidelines if in doubt. Growth percentile based on WHO standards (0–120 months).</div>
+<div class="disc">⚠️ <strong>Disclaimer:</strong> For clinical reference only. All doses are general recommendations. Adjust per patient condition, renal/hepatic function, drug interactions, and latest BNFc/UpToDate guidelines. Growth percentile based on WHO standards (0–120 months).</div>
 </div>
 
 <script>
@@ -199,6 +179,32 @@ function toggleDark(){const on=document.body.classList.contains('dark');applyDar
 function applyDark(on){document.body.classList.toggle('dark',on);document.getElementById('darkToggle').textContent=on?'☀️':'🌙';try{localStorage.setItem(DARK_KEY_PAED,on?'true':'false')}catch(e){}}
 document.getElementById('darkToggle').addEventListener('click',toggleDark);
 loadDarkMode();
+
+// ============ DOB Parse ============
+function parseDOB(str){
+    str=str.trim().replace(/[\/]/g,'-');
+    const months={JAN:1,FEB:2,MAR:3,APR:4,MAY:5,JUN:6,JUL:7,AUG:8,SEP:9,OCT:10,NOV:11,DEC:12};
+    let m=str.match(/^(\d{1,2})[-\s]?([A-Z]{3})[-\s]?(\d{4})$/i);
+    if(m)return{d:parseInt(m[1]),m:months[m[2].toUpperCase()],y:parseInt(m[3])};
+    m=str.match(/^(\d{4})[-](\d{1,2})[-](\d{1,2})$/);
+    if(m)return{y:parseInt(m[1]),m:parseInt(m[2]),d:parseInt(m[3])};
+    m=str.match(/^(\d{1,2})[-](\d{1,2})[-](\d{4})$/);
+    if(m)return{d:parseInt(m[1]),m:parseInt(m[2]),y:parseInt(m[3])};
+    return null;
+}
+['dob-y','dob-m','dob-d'].forEach(id=>{
+    document.getElementById(id).addEventListener('paste',function(e){
+        const pasted=(e.clipboardData||window.clipboardData).getData('text');
+        const result=parseDOB(pasted);
+        if(result&&result.y&&result.m&&result.d){
+            e.preventDefault();
+            document.getElementById('dob-y').value=result.y;
+            document.getElementById('dob-m').value=result.m;
+            document.getElementById('dob-d').value=result.d;
+            onInput();
+        }
+    });
+});
 
 // ============ Growth Data (WHO LMS Weight-for-Age) ============
 const growthData={M:[[0,.3487,3.3464,.14602],[1,.2297,4.4709,.13395],[2,.197,5.5675,.12385],[3,.1738,6.3762,.11727],[4,.1553,7.0023,.11316],[5,.1395,7.5105,.1108],[6,.1257,7.934,.10958],[9,.0956,8.964,.10714],[12,.0693,9.6479,.10591],[15,.0437,10.306,.10523],[18,.019,10.917,.10499],[21,-.005,11.487,.10513],[24,-.028,12.022,.10559],[30,-.073,13.014,.10715],[36,-.113,13.929,.10923],[42,-.148,14.808,.11158],[48,-.178,15.672,.11406],[54,-.202,16.547,.1167],[60,-.221,17.447,.11949],[72,-.246,19.365,.12581],[84,-.254,21.518,.13371],[96,-.247,24.009,.14391],[108,-.224,27.018,.15535],[120,-.186,30.643,.1669]],F:[[0,.3809,3.2322,.14171],[1,.1714,4.1873,.13724],[2,.0962,5.1282,.13],[3,.0402,5.8458,.12619],[4,-.005,6.4237,.12402],[5,-.043,6.8985,.12274],[6,-.068,7.297,.12204],[9,-.101,8.2,.12088],[12,-.11,8.948,.12055],[15,-.107,9.617,.12066],[18,-.098,10.245,.12108],[21,-.085,10.849,.12177],[24,-.069,11.438,.12269],[30,-.034,12.577,.12509],[36,-.001,13.679,.12801],[42,.031,14.777,.13129],[48,.059,15.878,.13483],[54,.084,16.982,.13866],[60,.106,18.112,.14299],[72,.138,20.515,.15317],[84,.155,23.244,.16545],[96,.158,26.454,.17958],[108,.149,30.313,.1935],[120,.131,34.715,.20684]]};
@@ -216,48 +222,65 @@ function getAgeMo(){const y=parseInt(document.getElementById('dob-y').value),m=p
 // ============ Drug Database ============
 const drugs = {
 analgesics: [
-    {name:'Ibuprofen (Brufen)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'}],dose:10,freq:'TDS',maxD:400,note:'Max 40mg/kg/day; avoid if dehydrated'},
-    {name:'Diclofenac (Voltaren)',forms:[{l:'Supp 12.5mg',c:12.5,t:'supp'},{l:'Supp 25mg',c:25,t:'supp'}],dose:1,freq:'TDS',maxD:50,note:'Max 3mg/kg/day; ≥1y'},
-    {name:'Mefenamic Acid',forms:[{l:'Syr 50mg/5ml',c:10,t:'syr'}],dose:6.5,freq:'TDS',maxD:500,note:''},
+    {name:'Ibuprofen (Brufen)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'}],dose:10,freq:'TDS',maxD:400,note:'≥3m; Max 40mg/kg/day; avoid if dehydrated'},
+    {name:'Diclofenac (Voltaren)',forms:[{l:'Supp 12.5mg',c:12.5,t:'supp'},{l:'Supp 25mg',c:25,t:'supp'},{l:'Tab 25mg',c:25,t:'tab'}],dose:1,freq:'TDS',maxD:50,note:'Max 3mg/kg/day; ≥1y'},
+    {name:'Mefenamic Acid (Ponstan)',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:6.5,freq:'TDS',maxD:500,note:'≥6 months'},
 ],
 antibiotics: [
-    {name:'Amoxicillin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 250mg',c:250,t:'cap'},{l:'Cap 500mg',c:500,t:'cap'}],dose:15,freq:'TDS',maxD:500,note:'Standard: 25-50mg/kg/day ÷ TDS'},
+    {name:'Amoxicillin',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],dose:15,freq:'TDS',maxD:500,note:'Standard: 25-50mg/kg/day ÷ TDS'},
     {name:'Amoxicillin (High-dose)',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],dose:30,freq:'TDS',maxD:1000,note:'80-90mg/kg/day; AOM/sinusitis'},
     {name:'Augmentin',forms:[{l:'Syr 156 (125/31)/5ml',c:25,t:'syr'},{l:'Syr 312 (250/62)/5ml',c:50,t:'syr'},{l:'Syr 457 (400/57)/5ml BD',c:80,t:'syr',freqOverride:'BD'},{l:'Tab 375',c:250,t:'tab'},{l:'Tab 625 (500/125)',c:500,t:'tab'},{l:'Tab 1000 (875/125)',c:875,t:'tab',freqOverride:'BD'}],dose:15,freq:'TDS',maxD:500,note:'Dose based on amoxicillin component'},
-    {name:'Cefuroxime (Zinnat)',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:15,freq:'BD',maxD:500,note:''},
-    {name:'Cephalexin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Syr 250mg/5ml',c:50,t:'syr'}],dose:12.5,freq:'QID',maxD:500,note:'25-50mg/kg/day'},
-    {name:'Azithromycin',forms:[{l:'Syr 200mg/5ml',c:40,t:'syr'}],dose:10,freq:'DAILY',maxD:500,note:'Day1: 10mg/kg; Day2-5: 5mg/kg'},
-    {name:'Clarithromycin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:7.5,freq:'BD',maxD:500,note:''},
-    {name:'Erythromycin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'}],dose:12.5,freq:'QID',maxD:500,note:'40-50mg/kg/day'},
-    {name:'Doxycycline',forms:[{l:'Cap 100mg',c:100,t:'cap'}],dose:2,freq:'BD',maxD:100,note:'≥8y only'},
-    {name:'Co-trimoxazole (Septrin)',forms:[{l:'Susp 240mg/5ml',c:48,t:'syr'},{l:'Tab 480mg',c:480,t:'tab'}],dose:24,freq:'BD',maxD:960,note:'Dose = total TMP+SMX'},
-    {name:'Metronidazole',forms:[{l:'Susp 200mg/5ml',c:40,t:'syr'}],dose:7.5,freq:'TDS',maxD:400,note:''},
+    {name:'Azithromycin',forms:[{l:'Syr 200mg/5ml',c:40,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:10,freq:'DAILY',maxD:500,note:'≥6m; Day1: 10mg/kg; Day2-5: 5mg/kg'},
+    {name:'Cefuroxime (Zinnat)',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'},{l:'Tab 500mg',c:500,t:'tab'}],dose:15,freq:'BD',maxD:500,note:'≥3m'},
+    {name:'Cephalexin',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:12.5,freq:'QID',maxD:500,note:'25-50mg/kg/day'},
+    {name:'Clarithromycin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:7.5,freq:'BD',maxD:500,note:'≥6m'},
+    {name:'Doxycycline',forms:[{l:'Susp 25mg/5ml',c:5,t:'syr'},{l:'Cap 100mg',c:100,t:'cap'}],dose:2,freq:'BD',maxD:100,note:'≥8y only'},
+    {name:'Co-trimoxazole (Septrin)',forms:[{l:'Tab 480mg',c:480,t:'tab'}],dose:24,freq:'BD',maxD:960,note:'Dose = total TMP+SMX; ≥6w'},
+    {name:'Metronidazole',forms:[{l:'Tab 200mg',c:200,t:'tab'}],dose:7.5,freq:'TDS',maxD:400,note:''},
 ],
 antivirals: [
-    {name:'Oseltamivir (Tamiflu)',forms:[{l:'Susp 6mg/ml',c:6,t:'syr'},{l:'Cap 75mg',c:75,t:'cap'}],custom:'tamiflu',freq:'BD × 5 days',note:'Tx dose; Prophylaxis = half dose OD'},
-    {name:'Baloxavir (Xofluza)',forms:[{l:'Tab 20/40mg',c:0,t:'special'}],custom:'xofluza',freq:'ONCE',note:'≥12y; <80kg→40mg; ≥80kg→80mg'},
-    {name:'Acyclovir',forms:[{l:'Susp 200mg/5ml',c:40,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'},{l:'Tab 800mg',c:800,t:'tab'}],dose:20,freq:'5×/day (Q4H awake)',maxD:800,note:'Chickenpox 5-7 days'},
+    {name:'Oseltamivir (Tamiflu)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr'},{l:'Cap 30mg',c:30,t:'cap'},{l:'Cap 45mg',c:45,t:'cap'},{l:'Cap 75mg',c:75,t:'cap'}],custom:'tamiflu',freq:'BD × 5 days',note:'≥2w (Tx), ≥1y (Px); Prophylaxis = half dose OD'},
+    {name:'Baloxavir (Xofluza)',forms:[{l:'Tab 40mg',c:40,t:'tab'}],custom:'xofluza',freq:'ONCE',note:'≥12y; <80kg→40mg; ≥80kg→80mg'},
+    {name:'Acyclovir',forms:[{l:'Susp 200mg/5ml',c:40,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'},{l:'Tab 400mg',c:400,t:'tab'}],dose:20,freq:'5×/day (Q4H awake)',maxD:800,note:'Chickenpox 5-7 days'},
     {name:'Valaciclovir',forms:[{l:'Tab 500mg',c:500,t:'tab'}],dose:20,freq:'TDS',maxD:1000,note:'≥12y preferred'},
 ],
 respiratory: [
+    {name:'Acetylcysteine (Fluimucil)',forms:[{l:'Granules 100mg',c:100,t:'sachet'},{l:'Granules 200mg',c:200,t:'sachet'},{l:'Effervescent 600mg',c:600,t:'tab',freqOverride:'DAILY'}],custom:'acetylcysteine',freq:'BD-TDS',note:'<2y:100mg BD; 2-6y:200mg BD; >6y:200mg TDS; ≥14y:600mg daily'},
+    {name:'Bromhexine',forms:[{l:'Syr 4mg/5ml',c:0.8,t:'syr'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.3,freq:'TDS',maxD:8,note:'Mucolytic'},
+    {name:'Carbocisteine (Fluifort)',forms:[{l:'Syr 450mg/5ml',c:90,t:'syr'}],custom:'carbocisteine',freq:'BD-TDS',note:'2-5y:2.5ml; 5-12y:5ml; >12y:10ml'},
+    {name:'Guaifenesin (Robitussin)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 600mg MR',c:600,t:'tab',freqOverride:'BD'}],dose:5,freq:'Q4-6H',maxD:400,note:'Expectorant'},
+    {name:'Actifed (Triprolidine/Pseudo)',forms:[{l:'Syrup',c:6,t:'syr'},{l:'Tab 2.5/60mg',c:0,t:'special'}],custom:'actifed',freq:'TDS',note:'Decongestant combo; ≥2y'},
+    {name:'Benadryl Expectorant',forms:[{l:'Syrup',c:1,t:'syr'}],dose:0.33,freq:'TDS',maxD:15,note:'Dose = 0.33ml/kg',unit:'ml'},
+    {name:'Levodropropizine (Bronal)',forms:[{l:'Syr 30mg/5ml',c:6,t:'syr'}],dose:1,freq:'TDS',maxD:60,note:'Antitussive'},
+    {name:'Dextromethorphan',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 15mg',c:15,t:'tab'}],dose:0.5,freq:'TDS',maxD:30,note:'Antitussive; ≥2y'},
+    {name:'Prednisolone',forms:[{l:'Oral Liq 25mg/5ml',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],dose:1,freq:'DAILY (3-5d)',maxD:60,note:'Croup/Wheeze: 1-2mg/kg/day'},
+    {name:'Dexamethasone',forms:[{l:'Tab 0.5mg',c:0.5,t:'tab'},{l:'Tab 4mg',c:4,t:'tab'}],dose:0.3,freq:'STAT (single)',maxD:12,note:'Croup 0.15-0.6mg/kg; anti-emetic 0.15mg/kg'},
     {name:'Salbutamol',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'}],dose:0.15,freq:'TDS-QID',maxD:4,note:''},
-    {name:'Procaterol (Meptin)',forms:[{l:'Syr 5mcg/ml',c:5,t:'syr'}],dose:1.25,freq:'BD',maxD:50,note:'mcg/kg; unit=mcg',unit:'mcg'},
-    {name:'Montelukast',forms:[{l:'Chew Tab 4/5/10mg',c:0,t:'special'}],custom:'montelukast',freq:'NOCTE',note:'2-5y:4mg; 6-14y:5mg; ≥15y:10mg'},
-    {name:'Benadryl Expect.',forms:[{l:'Syrup (dose in ml)',c:1,t:'syr'}],dose:0.33,freq:'TDS',maxD:15,note:'Dose = 0.33ml/kg',unit:'ml'},
-    {name:'Levodropropizine',forms:[{l:'Syr 60mg/10ml',c:6,t:'syr'}],dose:1,freq:'TDS',maxD:60,note:'Antitussive'},
-    {name:'Dextromethorphan',forms:[{l:'Syr 3mg/5ml',c:0.6,t:'syr'}],dose:0.33,freq:'TDS',maxD:30,note:''},
+    {name:'Procaterol (Meptin)',forms:[{l:'Syr 25mcg/5ml',c:5,t:'syr'},{l:'Tab 25mcg',c:25,t:'tab'}],dose:1.25,freq:'BD',maxD:50,note:'mcg/kg dose',unit:'mcg'},
+    {name:'Montelukast (Singulair)',forms:[{l:'Chew 4mg',c:4,t:'tab'},{l:'Chew 5mg',c:5,t:'tab'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'montelukast',freq:'NOCTE',note:'2-5y:4mg; 6-14y:5mg; ≥15y:10mg'},
+],
+allergy: [
     {name:'Cetirizine',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'cetirizine',freq:'DAILY',note:'2-5y:2.5-5mg; ≥6y:10mg'},
-    {name:'Chlorpheniramine (Piriton)',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'},{l:'Inj 10mg/ml IM',c:10,t:'syr',freqOverride:'STAT IM'}],dose:0.1,freq:'TDS',maxD:4,note:'IM: 0.2mg/kg STAT'},
-    {name:'Bilastine',forms:[{l:'Tab 10/20mg',c:0,t:'special'}],custom:'bilastine',freq:'DAILY',note:'6-11y & ≥20kg:10mg; ≥12y:20mg'},
-    {name:'Desloratadine',forms:[{l:'Syr 0.5mg/ml',c:0.5,t:'syr'}],custom:'desloratadine',freq:'DAILY',note:'1-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
+    {name:'Loratadine (Clarityne)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'loratadine',freq:'DAILY',note:'2-5y:5mg; ≥6y:10mg'},
+    {name:'Fexofenadine (Telfast)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr',freqOverride:'BD'},{l:'Tab 120mg',c:120,t:'tab'},{l:'Tab 180mg',c:180,t:'tab'}],custom:'fexofenadine',freq:'DAILY',note:'2-11y:30mg BD; ≥12y:120-180mg daily'},
+    {name:'Levocetirizine (Xyzal)',forms:[{l:'Oral Drops 5mg/mL',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'levocetirizine',freq:'DAILY',note:'2-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
+    {name:'Desloratadine (Aerius)',forms:[{l:'Syr 2.5mg/5ml',c:0.5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'desloratadine',freq:'DAILY',note:'1-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
+    {name:'Bilastine (Labixten)',forms:[{l:'Orodispersible 10mg',c:10,t:'tab'},{l:'Tab 20mg',c:20,t:'tab'}],custom:'bilastine',freq:'DAILY',note:'6-11y & ≥20kg:10mg; ≥12y:20mg'},
+    {name:'Chlorpheniramine (Piriton)',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'},{l:'Tab 4mg',c:4,t:'tab'},{l:'Inj 10mg/ml IM',c:10,t:'syr',freqOverride:'STAT IM'}],dose:0.1,freq:'TDS',maxD:4,note:'Sedating; IM: 0.2mg/kg STAT'},
+    {name:'Hydroxyzine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'Sedating; 1mg/kg/day; ≥1y'},
+    {name:'Promethazine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'Sedating; ≥2y; also anti-emetic'},
 ],
 gi: [
-    {name:'Domperidone',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'}],dose:0.25,freq:'TDS ac',maxD:10,note:'Max 0.75mg/kg/day'},
-    {name:'Dimenhydrinate (Gravol)',forms:[{l:'Syr 12.5mg/5ml PO',c:2.5,t:'syr'},{l:'Supp 12.5/25mg PR',c:25,t:'supp'}],dose:1.25,freq:'TDS',maxD:50,note:''},
-    {name:'Ondansetron (Zofran)',forms:[{l:'Syr 4mg/5ml',c:0.8,t:'syr'},{l:'Tab 4mg',c:4,t:'tab'}],dose:0.15,freq:'BD-TDS',maxD:4,note:''},
-    {name:'Hyoscine (Buscopan)',forms:[{l:'Syr 5mg/5ml PO',c:1,t:'syr'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
-    {name:'Lactulose',forms:[{l:'Syr 3.35g/5ml',c:0,t:'special'}],custom:'lactulose',freq:'DAILY-BD',note:'<1y:2.5ml; 1-5y:5ml; 5-10y:10ml; >10y:15ml'},
-    {name:'Ranitidine',forms:[{l:'Syr 75mg/5ml',c:15,t:'syr'}],dose:2,freq:'BD',maxD:150,note:''},
+    {name:'Domperidone',forms:[{l:'Tab 10mg',c:10,t:'tab'}],dose:0.25,freq:'TDS ac',maxD:10,note:'Max 0.75mg/kg/day; short-term'},
+    {name:'Dimenhydrinate',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 50mg',c:50,t:'tab'},{l:'Supp 50mg',c:50,t:'supp'}],dose:1.25,freq:'TDS',maxD:50,note:'≥2y; anti-emetic'},
+    {name:'Ondansetron (Zofran)',forms:[{l:'Tab 4mg',c:4,t:'tab'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.15,freq:'BD-TDS',maxD:8,note:'Paed usual max 4mg/dose; ≥12y up to 8mg'},
+    {name:'Hyoscine Butylbromide (Buscopan)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
+    {name:'Famotidine',forms:[{l:'Tab 20mg',c:20,t:'tab'},{l:'Tab 40mg',c:40,t:'tab'}],dose:0.5,freq:'BD',maxD:20,note:'H2 blocker; 1mg/kg/day'},
+    {name:'Lactulose (Duphalac)',forms:[{l:'Syr 10g/15ml',c:0,t:'special'}],custom:'lactulose',freq:'DAILY-BD',note:'<1y:2.5ml; 1-5y:5ml; 5-10y:10ml; >10y:15ml'},
+    {name:'Macrogol (Forlax)',forms:[{l:'Sachet 10g',c:10,t:'sachet'}],custom:'macrogol',freq:'DAILY',note:'2-6y:1 sachet; 7-11y:2 sachets; ≥12y:1-2 sachets'},
+    {name:'Smecta (Diosmectite)',forms:[{l:'Sachet 3g',c:3,t:'sachet'}],custom:'smecta',freq:'Divided doses',note:'<1y:1/day; 1-2y:1-2/day; >2y:2-3/day'},
+    {name:'Racecadotril (Hidrasec)',forms:[{l:'Infant 10mg sachet',c:10,t:'sachet'},{l:'Children 30mg sachet',c:30,t:'sachet'},{l:'Cap 100mg',c:100,t:'cap'}],dose:1.5,freq:'TDS',maxD:100,note:'Anti-secretory; max 7 days'},
+    {name:'Dimeticone Drops',forms:[{l:'Drops 20mg/mL',c:20,t:'syr'}],dose:1,freq:'QDS (before feeds)',maxD:80,note:'Colic/flatulence'},
 ]
 };
 
@@ -270,18 +293,35 @@ function calcCustom(key, wt, ageMo, formIdx) {
         }
         case 'xofluza': {
             let d = wt<80?40:80;
-            return {mg:d, display:d+'mg', noVol:true};
+            return {mg:d, display:d+'mg ('+Math.round(d/40)+' tab)', noVol:true};
         }
         case 'montelukast': {
             let d=4;
             if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
             else{d=wt<20?4:wt<40?5:10;}
-            return {mg:d, display:d+'mg tab', noVol:true};
+            return {mg:d, display:d+'mg chew/tab', noVol:true};
         }
         case 'cetirizine': {
             let d=10;
             if(ageMo!==null){d=ageMo<24?2.5:ageMo<72?5:10;}
             else{d=wt<12?2.5:wt<20?5:10;}
+            return {mg:d};
+        }
+        case 'loratadine': {
+            let d=10;
+            if(ageMo!==null){d=ageMo<72?5:10;}
+            else{d=wt<30?5:10;}
+            return {mg:d};
+        }
+        case 'fexofenadine': {
+            if(formIdx===0) return {mg:30};
+            if(formIdx===2) return {mg:180};
+            return {mg:120};
+        }
+        case 'levocetirizine': {
+            let d=5;
+            if(ageMo!==null){d=ageMo<72?1.25:ageMo<144?2.5:5;}
+            else{d=wt<20?1.25:wt<30?2.5:5;}
             return {mg:d};
         }
         case 'bilastine': {
@@ -300,6 +340,41 @@ function calcCustom(key, wt, ageMo, formIdx) {
             else{d=wt<10?2.5:wt<18?5:wt<30?10:15;}
             return {mg:0, display:d+' ml', noVol:true};
         }
+        case 'acetylcysteine': {
+            if(formIdx===2) return {mg:600};
+            let d=200;
+            if(ageMo!==null){d=ageMo<24?100:200;}
+            else{d=wt<12?100:200;}
+            return {mg:d};
+        }
+        case 'carbocisteine': {
+            let ml=10;
+            if(ageMo!==null){ml=ageMo<60?2.5:ageMo<144?5:10;}
+            else{ml=wt<18?2.5:wt<30?5:10;}
+            return {mg:0, display:ml+' ml', noVol:true};
+        }
+        case 'actifed': {
+            if(formIdx===1){
+                let tabs=((ageMo!==null&&ageMo>=144)||wt>=30)?1:0.5;
+                return {mg:0, display:tabs+' tab'+(tabs>1?'s':''), noVol:true};
+            }
+            let ml=5;
+            if(ageMo!==null){ml=ageMo<24?1.25:ageMo<72?2.5:ageMo<144?5:10;}
+            else{ml=wt<12?1.25:wt<20?2.5:wt<30?5:10;}
+            return {mg:0, display:ml+' ml', noVol:true};
+        }
+        case 'smecta': {
+            let s=3;
+            if(ageMo!==null){s=ageMo<12?1:ageMo<24?1.5:3;}
+            else{s=wt<10?1:wt<12?1.5:3;}
+            return {mg:0, display:s+' sachet'+(s>1?'s':'')+'/day', noVol:true};
+        }
+        case 'macrogol': {
+            let s=2;
+            if(ageMo!==null){s=ageMo<72?1:ageMo<144?2:2;}
+            else{s=wt<20?1:2;}
+            return {mg:0, display:s+' sachet'+(s>1?'s':'')+'/day', noVol:true};
+        }
     }
     return null;
 }
@@ -308,13 +383,12 @@ function calcCustom(key, wt, ageMo, formIdx) {
 function calcPCM(wt, formIdx) {
     if(!wt) return null;
     const pcmForms = [
-        {l:'Syr 120mg/5ml',c:24,t:'syr'},
+        {l:'Syr 125mg/5ml',c:25,t:'syr'},
         {l:'Syr 250mg/5ml',c:50,t:'syr'},
         {l:'Chew Tab 120mg',c:120,t:'tab'},
         {l:'Tab 500mg',c:500,t:'tab'},
         {l:'Supp 125mg',c:125,t:'supp'},
         {l:'Supp 250mg',c:250,t:'supp'},
-        {l:'Supp 500mg',c:500,t:'supp'},
     ];
     const form = pcmForms[formIdx] || pcmForms[0];
     const dailyMax = Math.min(75*wt, 4000);
@@ -356,6 +430,7 @@ function calcDrug(drug, wt, ageMo, formIdx) {
         let vol = '';
         if(form.t==='syr'){vol=roundHalf(mg/form.c)+' ml';}
         else if(form.t==='tab'||form.t==='cap'){let n=Math.round(mg/form.c*4)/4;vol=n+' tab'+(n!==1?'s':'');}
+        else if(form.t==='sachet'){let n=Math.round(mg/form.c);if(n<1)n=1;vol=n+' sachet'+(n>1?'s':'');}
         return {dose:mg+(drug.unit==='mcg'?' mcg':' mg'),vol,freq,capped:false};
     }
 
@@ -373,6 +448,8 @@ function calcDrug(drug, wt, ageMo, formIdx) {
         let n=Math.round(mg/form.c*4)/4; vol=n+' tab'+(n!==1?'s':'');
     } else if(form.t==='supp'){
         let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' supp';capped=mg>drug.maxD;
+    } else if(form.t==='sachet'){
+        let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' sachet'+(n>1?'s':'');capped=mg>drug.maxD;
     }
 
     return {dose:mg+' '+u,vol,freq,capped};
@@ -384,6 +461,7 @@ const tabDefs = [
     {id:'antibiotics',label:'Antibiotics'},
     {id:'antivirals',label:'Antivirals'},
     {id:'respiratory',label:'Respiratory'},
+    {id:'allergy',label:'Allergy'},
     {id:'gi',label:'GI'},
     {id:'fluids',label:'Fluids'}
 ];
@@ -418,7 +496,7 @@ function renderInfo(){
             if(p)html+=`<span class="chip pct">📊 P${p.pct} (Z=${p.z})</span>`;
         }
     }
-    if(!isNaN(tempF)){
+    if(!isNaN(tempF)&&document.getElementById('temp-f').value!==''){
         const c=((tempF-32)*5/9).toFixed(1);
         const color=c>=38?'#d63031':c>=37.5?'#e17055':'#00b894';
         html+=`<span class="chip temp" style="color:${color}">🌡️ ${c}°C</span>`;
@@ -531,16 +609,39 @@ function autoRecommend(){
         drugs[cat].forEach((drug,di)=>{
             if(drug.forms.length<=1)return;
             const key=cat+'_'+di;
+
+            // Special: Tamiflu - pick matching cap
+            if(drug.custom==='tamiflu'&&wt){
+                const d=wt<=15?30:wt<=23?45:wt<=40?60:75;
+                if(ageMo!==null&&ageMo>=12){
+                    const capIdx=drug.forms.findIndex(f=>f.t==='cap'&&f.c===d);
+                    if(capIdx>=0){formSelections[key]=capIdx;return;}
+                    // 60mg = 2×30mg cap
+                    if(d===60){const c30=drug.forms.findIndex(f=>f.t==='cap'&&f.c===30);if(c30>=0){formSelections[key]=c30;return;}}
+                }
+                formSelections[key]=0;return;
+            }
+
+            // Special: Montelukast - pick matching strength
+            if(drug.custom==='montelukast'){
+                let d=4;
+                if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
+                else{d=wt<20?4:wt<40?5:10;}
+                const idx=drug.forms.findIndex(f=>f.c===d);
+                if(idx>=0)formSelections[key]=idx;
+                return;
+            }
+
             if(ageMo!==null && ageMo>=72 && wt>=20){
                 const tabIdx=drug.forms.findIndex(f=>f.t==='tab'||f.t==='cap');
                 if(tabIdx>=0){formSelections[key]=tabIdx;return;}
             }
-            const dose=drug.dose*wt;
+            const dose=(drug.dose||10)*wt;
             let bestIdx=0,bestVol=999;
             drug.forms.forEach((f,i)=>{
                 if(f.t==='syr'){
                     const vol=dose/f.c;
-                    if(vol>=1&&vol<=15&&vol<bestVol){bestVol=vol;bestIdx=i;}
+                    if(vol>=0.5&&vol<=15&&vol<bestVol){bestVol=vol;bestIdx=i;}
                 }
             });
             formSelections[key]=bestIdx;
@@ -548,56 +649,22 @@ function autoRecommend(){
     });
 }
 
-['dob-y','dob-m','dob-d'].forEach(id => {
-    document.getElementById(id).addEventListener('paste', function(e) {
-        const pasted = (e.clipboardData || window.clipboardData).getData('text');
-        const result = parseDOB(pasted);
-        if (result && result.y && result.m && result.d) {
-            e.preventDefault();
-            document.getElementById('dob-y').value = result.y;
-            document.getElementById('dob-m').value = result.m;
-            document.getElementById('dob-d').value = result.d;
-            onInput(); // trigger recalculation
-        }
-    });
-});
-  
 // ============ Events ============
 function clearAll(){
     ['wt','dob-y','dob-m','dob-d','temp-f'].forEach(id=>document.getElementById(id).value='');
     formSelections={};pcmFormIdx=1;render();
-    try{localStorage.removeItem('paedCalc2')}catch(e){}
+    try{localStorage.removeItem('paedCalc3')}catch(e){}
 }
 
 function onInput(){
     autoRecommend();
     render();
-    try{localStorage.setItem('paedCalc2',JSON.stringify({wt:document.getElementById('wt').value,dy:document.getElementById('dob-y').value,dm:document.getElementById('dob-m').value,dd:document.getElementById('dob-d').value,g:document.getElementById('gender').value,tf:document.getElementById('temp-f').value}))}catch(e){}
+    try{localStorage.setItem('paedCalc3',JSON.stringify({wt:document.getElementById('wt').value,dy:document.getElementById('dob-y').value,dm:document.getElementById('dob-m').value,dd:document.getElementById('dob-d').value,g:document.getElementById('gender').value,tf:document.getElementById('temp-f').value}))}catch(e){}
 }
 
-function parseDOB(str) {
-    str = str.trim().replace(/[/]/g, '-');
-    const months = {JAN:1,FEB:2,MAR:3,APR:4,MAY:5,JUN:6,JUL:7,AUG:8,SEP:9,OCT:10,NOV:11,DEC:12};
-
-    // DD-MMM-YYYY e.g. 20-APR-1987
-    let m = str.match(/^(\d{1,2})[-\s]?([A-Z]{3})[-\s]?(\d{4})$/i);
-    if (m) return { d: parseInt(m[1]), m: months[m[2].toUpperCase()], y: parseInt(m[3]) };
-
-    // YYYY-MM-DD e.g. 1987-04-20
-    m = str.match(/^(\d{4})[-](\d{1,2})[-](\d{1,2})$/);
-    if (m) return { y: parseInt(m[1]), m: parseInt(m[2]), d: parseInt(m[3]) };
-
-    // DD-MM-YYYY or DD/MM/YYYY e.g. 20-04-1987
-    m = str.match(/^(\d{1,2})[-](\d{1,2})[-](\d{4})$/);
-    if (m) return { d: parseInt(m[1]), m: parseInt(m[2]), y: parseInt(m[3]) };
-
-    // MM-DD-YYYY (less common, skip or add if needed)
-    return null;
-}
-  
 function loadSaved(){
     try{
-        const d=JSON.parse(localStorage.getItem('paedCalc2'));
+        const d=JSON.parse(localStorage.getItem('paedCalc3'));
         if(!d)return;
         if(d.wt)document.getElementById('wt').value=d.wt;
         if(d.dy)document.getElementById('dob-y').value=d.dy;
