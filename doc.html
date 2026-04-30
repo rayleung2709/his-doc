@@ -1154,7 +1154,7 @@ function setZoom(lv){
 function zoomFit(){
   if(!shellNaturalWidth)return;
   const av=document.querySelector('.preview').clientWidth-52;
-  setZoom(Math.min(av/shellNaturalWidth,0.7));
+  setZoom(Math.min(av/shellNaturalWidth,1.0));
 }
 function initZoom(){shellNaturalWidth=document.querySelector('.paper-shell').offsetWidth;zoomFit()}
 
