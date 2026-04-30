@@ -322,17 +322,6 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
   </div>
 
   <div class="section">
-    <h3>Referral</h3>
-    <div class="field"><label for="refRecipientCn">Chinese recipient line</label><input id="refRecipientCn" value=""></div>
-    <div class="field"><label for="refRecipientEn">English recipient line</label><input id="refRecipientEn" value="To Whom It May Concern,"></div>
-    <div class="field" id="fieldRefBody">
-      <label for="refBody">Referral body</label>
-      <textarea id="refBody" style="min-height:120px"></textarea>
-      <div class="overflow-hint hidden" id="refOverflowHint">⚠ Content may overflow the A4 page</div>
-    </div>
-  </div>
-
-  <div class="section">
     <h3>Sick Leave</h3>
     <div class="field"><label for="sickRecipientCn">Chinese recipient line</label><input id="sickRecipientCn" value="致有關人士:"></div>
     <div class="field"><label for="sickRecipientEn">English recipient line</label><input id="sickRecipientEn" value="To Whom It May Concern,"></div>
@@ -360,6 +349,19 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <div class="overflow-hint hidden" id="sickOverflowHint">⚠ Content may overflow the A4 page</div>
   </div>
 
+  <div class="section">
+    <h3>Referral</h3>
+    <div class="field"><label for="refRecipientCn">Chinese recipient line</label><input id="refRecipientCn" value=""></div>
+    <div class="field"><label for="refRecipientEn">English recipient line</label><input id="refRecipientEn" value="To Whom It May Concern,"></div>
+    <div class="field" id="fieldRefBody">
+      <label for="refBody">Referral body</label>
+      <textarea id="refBody" style="min-height:120px"></textarea>
+      <div class="overflow-hint hidden" id="refOverflowHint">⚠ Content may overflow the A4 page</div>
+    </div>
+  </div>
+
+  
+  
   <!-- ====== Collapsible: Doctor ====== -->
   <div class="section">
     <div class="section-header collapsed" onclick="toggleSection(this)">
@@ -487,6 +489,7 @@ Email:general@cuhkmc.hk</div>
             <div class="ref-block zh" id="pvRefRecipientCn"></div>
             <div class="ref-block-tight en" id="pvRefRecipientEn"></div>
             <div class="ref-re"><span class="en">Re:</span><span class="ref-re-line" id="pvRefPatientLine"></span></div>
+            <div class="ref-body en" id="pvSickDiagnosis"></div>
             <div class="ref-body en" id="pvRefBody"></div>
             <div class="sig-wrap sig-wrap-ref">
               <img class="sig-img" id="sigReferral" alt="Signature" src="signature.png">
