@@ -14,92 +14,92 @@
   --ui-font:Inter,Tahoma,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{padding:18px}
-.container{max-width:960px;margin:0 auto}
+html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);font-size:15px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{padding:20px}
+.container{max-width:1100px;margin:0 auto}
 
 /* Header / Brand */
-.header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow-soft);margin-bottom:14px;transition:background .35s,border-color .35s}
-.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.header h1{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
+.header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow-soft);margin-bottom:16px;transition:background .35s,border-color .35s}
+.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header h1{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
 .header h1 span{margin-right:6px}
-.brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-2);background:var(--primary-soft);border:1px solid #bfdbfe;padding:6px 10px;border-radius:999px;margin-bottom:10px;transition:background .35s,border-color .35s,color .35s}
-.header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.hdr-input{width:70px;padding:9px 10px;border:1px solid var(--border-strong);border-radius:12px;font-size:13px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;text-align:center;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-2);background:var(--primary-soft);border:1px solid #bfdbfe;padding:7px 12px;border-radius:999px;margin-bottom:10px;transition:background .35s,border-color .35s,color .35s}
+.header-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hdr-input{width:76px;padding:10px 12px;border:1px solid var(--border-strong);border-radius:12px;font-size:15px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;text-align:center;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
 .hdr-input::placeholder{color:#94a3b8}
 .hdr-input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16);background:#fff}
-.hdr-label{font-size:11px;font-weight:800;color:#334155;letter-spacing:.01em;margin-right:2px;transition:color .35s}
-.hdr-select{padding:9px 10px;border:1px solid var(--border-strong);border-radius:12px;font-size:13px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;cursor:pointer;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
+.hdr-label{font-size:13px;font-weight:800;color:#334155;letter-spacing:.01em;margin-right:2px;transition:color .35s}
+.hdr-select{padding:10px 12px;border:1px solid var(--border-strong);border-radius:12px;font-size:15px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;cursor:pointer;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
 .hdr-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
 .hdr-select option{color:#333}
-.dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
+.dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:8px 12px;font-size:16px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
 .dark-toggle:hover{transform:scale(1.08)}
 
 /* Info chips */
-.info-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
+.info-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
 .chip.age{color:#6c5ce7}
 .chip.pct{color:#e17055}
 .chip.temp{color:#d63031}
 .chip.wt{color:#00b894}
 
 /* Tabs */
-.tabs{display:flex;gap:4px;margin-bottom:0;flex-wrap:wrap}
-.tab{padding:9px 14px;border-radius:12px 12px 0 0;cursor:pointer;font-size:12px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
+.tabs{display:flex;gap:5px;margin-bottom:0;flex-wrap:wrap}
+.tab{padding:11px 18px;border-radius:12px 12px 0 0;cursor:pointer;font-size:14px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
 .tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
 .tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
 
 /* Panel */
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:18px;box-shadow:var(--shadow-soft);margin-bottom:14px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:22px;box-shadow:var(--shadow-soft);margin-bottom:16px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
 
 /* Drug table */
 .dtable{width:100%;border-collapse:collapse}
-.dtable th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
-.dtable td{padding:10px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:13px}
+.dtable th{text-align:left;font-size:12px;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
+.dtable td{padding:12px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:15px}
 .dtable tr:hover{background:var(--panel-2)}
-.drug-name{font-weight:800;font-size:13px;color:var(--text)}
-.drug-note{color:var(--muted);font-size:11px;margin-top:3px}
-.form-select{padding:7px 10px;border:1px solid var(--border-strong);border-radius:10px;font-size:12px;font-family:var(--ui-font);background:#fff;cursor:pointer;max-width:180px;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
+.drug-name{font-weight:800;font-size:15px;color:var(--text)}
+.drug-note{color:var(--muted);font-size:12px;margin-top:3px}
+.form-select{padding:8px 12px;border:1px solid var(--border-strong);border-radius:10px;font-size:14px;font-family:var(--ui-font);background:#fff;cursor:pointer;max-width:200px;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
 .form-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
-.dose-val{font-weight:800;color:var(--primary-2);font-size:13px;white-space:nowrap}
-.vol-val{font-weight:800;color:#d63031;font-size:13px;white-space:nowrap}
-.freq-val{color:var(--muted);font-size:12px;white-space:nowrap;font-weight:600}
+.dose-val{font-weight:800;color:var(--primary-2);font-size:15px;white-space:nowrap}
+.vol-val{font-weight:800;color:#d63031;font-size:15px;white-space:nowrap}
+.freq-val{color:var(--muted);font-size:14px;white-space:nowrap;font-weight:600}
 .capped{background:#fef9e7}
-.max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;font-weight:700;margin-left:6px}
+.max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:11px;padding:3px 7px;border-radius:6px;font-weight:700;margin-left:6px}
 
 /* Age warning */
 .age-warn{background:linear-gradient(135deg,#fee2e2,#fef2f2)!important}
 .age-warn:hover{background:linear-gradient(135deg,#fecaca,#fee2e2)!important}
-.age-badge{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:9px;padding:2px 7px;border-radius:6px;font-weight:800;margin-left:6px;letter-spacing:.02em;text-transform:uppercase}
+.age-badge{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:800;margin-left:6px;letter-spacing:.02em;text-transform:uppercase}
 
 /* Paracetamol highlight */
-.pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
-.pcm-title{font-weight:800;font-size:14px;margin-bottom:10px;color:var(--primary)}
-.pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.pcm-option{background:#fff;border-radius:14px;padding:14px 16px;border:2px solid var(--border);position:relative;transition:border-color .2s,background .2s}
+.pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
+.pcm-title{font-weight:800;font-size:16px;margin-bottom:12px;color:var(--primary)}
+.pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pcm-option{background:#fff;border-radius:14px;padding:16px 18px;border:2px solid var(--border);position:relative;transition:border-color .2s,background .2s}
 .pcm-option.winner{border-color:#10b981;background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
-.pcm-option .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;padding:3px 10px;border-radius:999px;font-weight:800;letter-spacing:.02em}
-.pcm-option h4{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.pcm-option .big{font-size:15px;font-weight:800;color:var(--text)}
-.pcm-option .sub{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600}
-.pcm-form{margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pcm-form label{font-size:12px;font-weight:800;color:#334155}
+.pcm-option .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:11px;padding:3px 10px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+.pcm-option h4{font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.pcm-option .big{font-size:17px;font-weight:800;color:var(--text)}
+.pcm-option .sub{font-size:14px;color:var(--muted);margin-top:4px;font-weight:600}
+.pcm-form{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pcm-form label{font-size:14px;font-weight:800;color:#334155}
 
 /* Fluid */
-.fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:13px}
-.fluid-box>div{background:#fff;padding:10px 14px;text-align:center}
-.fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.fluid-box .fl{text-align:left;font-weight:700;font-size:13px;color:var(--text)}
+.fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:15px}
+.fluid-box>div{background:#fff;padding:12px 16px;text-align:center}
+.fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.fluid-box .fl{text-align:left;font-weight:700;font-size:15px;color:var(--text)}
 .fluid-box .fv{font-weight:800;color:var(--primary-2)}
 
 /* Disclaimer */
-.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:14px 18px;font-size:12px;color:var(--muted);margin-top:14px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
+.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
 
 /* Buttons */
-button{border:0;border-radius:12px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
+button{border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
 button:hover{transform:translateY(-1px)}
 button:active{transform:translateY(0)}
-.btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:12px;padding:8px 14px;transition:background .25s,border-color .25s,color .25s}
+.btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:14px;padding:10px 16px;transition:background .25s,border-color .25s,color .25s}
 .btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
 
 /* ========= DARK MODE ========= */
@@ -151,14 +151,23 @@ body.dark .btn-clear{background:#242940;border-color:#333a55;color:#c4d0e0}
 body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 
 @media(max-width:600px){
+    html,body{font-size:13px}
+    .container{max-width:100%}
+    .header{padding:14px 16px}
+    .header h1{font-size:20px}
     .pcm-grid{grid-template-columns:1fr}
     .header-top{flex-direction:column;align-items:flex-start}
-    .tab{padding:7px 9px;font-size:10px}
-    .dtable{font-size:12px}
-    .dtable td{padding:7px 6px}
-    .form-select{max-width:130px;font-size:11px}
-    .fluid-box{font-size:11px}
-    .fluid-box>div{padding:7px 8px}
+    .tab{padding:8px 11px;font-size:11px}
+    .dtable td{padding:8px 6px;font-size:13px}
+    .drug-name{font-size:13px}
+    .dose-val,.vol-val{font-size:13px}
+    .freq-val{font-size:12px}
+    .form-select{max-width:140px;font-size:12px}
+    .fluid-box{font-size:12px}
+    .fluid-box>div{padding:8px 10px}
+    .hdr-input{font-size:13px;padding:8px 8px;width:64px}
+    .hdr-select{font-size:13px;padding:8px 8px}
+    .pcm-option .big{font-size:14px}
 }
 </style>
 </head>
@@ -575,7 +584,7 @@ function renderPanel(){
         if(ageWarn) rowClass = 'age-warn';
 
         let formOpts=drug.forms.map((f,i)=>`<option value="${i}"${i===fi?' selected':''}>${f.l}</option>`).join('');
-        let formHtml=drug.forms.length>1?`<select class="form-select" onchange="formSelections['${key}']=parseInt(this.value);render()">${formOpts}</select>`:`<span style="font-size:12px;color:var(--muted)">${drug.forms[0].l}</span>`;
+        let formHtml=drug.forms.length>1?`<select class="form-select" onchange="formSelections['${key}']=parseInt(this.value);render()">${formOpts}</select>`:`<span style="font-size:13px;color:var(--muted)">${drug.forms[0].l}</span>`;
 
         html+=`<tr${rowClass?' class="'+rowClass+'"':''}>
             <td><div class="drug-name">${drug.name}${ageWarn?'<span class="age-badge">⚠ AGE</span>':''}</div>${drug.note?'<div class="drug-note">'+drug.note+'</div>':''}</td>
@@ -592,7 +601,7 @@ function renderPanel(){
 
 function renderPCM(wt){
     const pcm=calcPCM(wt,pcmFormIdx);
-    if(!pcm) return `<div class="pcm-box"><div class="pcm-title">Paracetamol (Panadol)</div><p style="color:var(--muted);font-size:13px">Enter weight to calculate</p></div>`;
+    if(!pcm) return `<div class="pcm-box"><div class="pcm-title">Paracetamol (Panadol)</div><p style="color:var(--muted);font-size:14px">Enter weight to calculate</p></div>`;
 
     const w=pcm.winner;
     const q4=pcm.q4h, q6=pcm.q6h;
@@ -618,7 +627,7 @@ function renderPCM(wt){
         <div class="pcm-form">
             <label>Formulation:</label>
             <select class="form-select" onchange="pcmFormIdx=parseInt(this.value);render()">${formOpts}</select>
-            <span style="font-size:11px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max</span>
+            <span style="font-size:12px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max</span>
         </div>
     </div>`;
 }
@@ -632,7 +641,7 @@ function renderFluids(panel){
 
     const rows=[{l:'Maintenance',m:1},{l:'Maint × 1.25',m:1.25},{l:'Maint × 1.5',m:1.5}];
 
-    let html=`<div style="margin-bottom:14px;font-size:13px;color:var(--muted)"><strong style="color:var(--text)">Holliday-Segar</strong> · Daily: <strong style="color:var(--primary-2)">${Math.round(daily)} ml</strong> · Bolus (20ml/kg): <strong style="color:var(--primary-2)">${Math.round(bolus)} ml</strong></div>`;
+    let html=`<div style="margin-bottom:16px;font-size:15px;color:var(--muted)"><strong style="color:var(--text)">Holliday-Segar</strong> · Daily: <strong style="color:var(--primary-2)">${Math.round(daily)} ml</strong> · Bolus (20ml/kg): <strong style="color:var(--primary-2)">${Math.round(bolus)} ml</strong></div>`;
     html+=`<div class="fluid-box">
         <div class="fh"></div><div class="fh">No Bolus</div><div class="fh">+ Bolus ×1</div><div class="fh">+ Bolus ×2</div>`;
     rows.forEach(r=>{
