@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -46,7 +45,6 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .section h3{margin:0 0 12px;font-size:12px;letter-spacing:.08em;color:#3f4f62;text-transform:uppercase;font-weight:800;transition:color .35s}
 .section h3 span{font-weight:600;opacity:.5}
 
-/* ====== Collapsible Section ====== */
 .section-header{cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;margin:0;font-size:12px;letter-spacing:.08em;color:#3f4f62;text-transform:uppercase;font-weight:800;transition:color .35s;padding:2px 0;border-radius:6px}
 .section-header:hover{color:var(--primary-2)}
 .section-header .arrow{transition:transform .3s;font-size:10px;color:var(--muted)}
@@ -113,7 +111,6 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .danger{background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);color:#fff;box-shadow:0 10px 20px rgba(185,28,28,.15)}
 .warning-btn{background:linear-gradient(135deg,#d97706 0%,#92400e 100%);color:#fff;box-shadow:0 10px 20px rgba(217,119,6,.15)}
 
-/* ========= DARK MODE ========= */
 .sidebar.dark{background:linear-gradient(180deg,#161926 0%,#111420 100%);border-color:#232840}
 .sidebar.dark::-webkit-scrollbar-thumb{background:#3a4060}
 .sidebar.dark .brand{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
@@ -185,6 +182,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .ref-date .sub{margin-top:.6mm;font-size:9.8pt;line-height:1.03;font-weight:400}
 .ref-block{margin-top:14mm;font-size:10.7pt;line-height:1.24}
 .ref-block-tight{margin-top:1.1mm;font-size:10.7pt;line-height:1.24}
+.ref-address-block{margin-top:14mm;font-size:10.7pt;line-height:1.24;white-space:pre-wrap;font-family:var(--en-font)}
 .ref-re{margin-top:8.2mm;font-size:10.7pt;line-height:1.2}
 .ref-re-line{display:inline-flex;align-items:flex-end;gap:1.2mm;vertical-align:baseline;margin-left:1.1mm}
 .ref-re-seg{display:inline-block;border-bottom:1px solid #111;line-height:1.02;padding:0 0 1px;white-space:nowrap}
@@ -232,6 +230,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .modal-warn-list{list-style:none;padding:0;margin:0 0 16px}
 .modal-warn-list li{padding:6px 10px;margin-bottom:4px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;font-size:13px;font-weight:600;color:#991b1b;display:flex;align-items:center;gap:6px}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px}
+.modal-actions button:focus{outline:2px solid #3b82f6;outline-offset:2px}
 
 @media(max-width:1400px){
   .app{grid-template-columns:1fr;height:auto;overflow:visible}
@@ -319,10 +318,12 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
       <div class="field" id="fieldCnName"><label for="chineseName">Chinese Name</label><input id="chineseName"></div>
       <div class="field"><label for="patientId">HKID / ID</label><input id="patientId"></div>
     </div>
+    <div class="field" id="fieldDiagnosis"><label for="diagnosis">Diagnosis</label><input id="diagnosis" placeholder="e.g. URTI, Acute gastroenteritis"></div>
   </div>
 
   <div class="section">
     <h3>Referral</h3>
+    <div class="field"><label for="refToAddress">To Address</label><textarea id="refToAddress" style="min-height:60px" placeholder="Recipient address (multiple lines)"></textarea></div>
     <div class="field"><label for="refRecipientCn">Chinese recipient line</label><input id="refRecipientCn" value=""></div>
     <div class="field"><label for="refRecipientEn">English recipient line</label><input id="refRecipientEn" value="To Whom It May Concern,"></div>
     <div class="field" id="fieldRefBody">
@@ -337,8 +338,8 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <div class="field"><label for="sickRecipientCn">Chinese recipient line</label><input id="sickRecipientCn" value="致有關人士:"></div>
     <div class="field"><label for="sickRecipientEn">English recipient line</label><input id="sickRecipientEn" value="To Whom It May Concern,"></div>
     <div class="row-2">
-      <div class="field" id="fieldDiagnosis"><label for="sickDiagnosis">Diagnosis / reason</label><input id="sickDiagnosis"></div>
       <div class="field" id="fieldDays"><label for="sickDays">No. of days</label><input id="sickDays" type="number" min="0.5" step="0.5" value="1"></div>
+      <div class="field">&nbsp;</div>
     </div>
     <div class="row-2">
       <div class="field" id="fieldFrom">
@@ -484,6 +485,7 @@ Email:general@cuhkmc.hk</div>
           </div>
           <div class="content">
             <div class="ref-date"><span class="zh">日期:</span><span class="en" id="pvRefDate"></span><br><div class="sub en">Date&nbsp;&nbsp;&nbsp;&nbsp;(DD-MMM-YYYY)</div></div>
+            <div class="ref-address-block" id="pvRefToAddress"></div>
             <div class="ref-block zh" id="pvRefRecipientCn"></div>
             <div class="ref-block-tight en" id="pvRefRecipientEn"></div>
             <div class="ref-re"><span class="en">Re:</span><span class="ref-re-line" id="pvRefPatientLine"></span></div>
@@ -547,13 +549,13 @@ Email:general@cuhkmc.hk</div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal-box">
+  <div class="modal-box" role="dialog" aria-modal="true">
     <div class="modal-title" id="modalTitle">Confirm</div>
     <div class="modal-text" id="modalText"></div>
     <ul class="modal-warn-list hidden" id="modalWarnList"></ul>
     <div class="modal-actions">
-      <button class="secondary" id="modalCancel">Cancel</button>
-      <button class="danger" id="modalConfirm">Confirm</button>
+      <button class="secondary" id="modalCancel" tabindex="0">Cancel</button>
+      <button class="danger" id="modalConfirm" tabindex="0">Confirm</button>
     </div>
   </div>
 </div>
@@ -561,14 +563,15 @@ Email:general@cuhkmc.hk</div>
 <div class="floating-status" id="floatingStatus">Saved</div>
 
 <script>
-const STORAGE_KEY='cuhkmc_doc_v42';
-const LAST_PATIENT_KEY='cuhkmc_last_patient_v42';
-const RECENT_KEY='cuhkmc_recent_v42';
-const IMAGES_KEY='cuhkmc_images_v42';
-const DARK_KEY='cuhkmc_dark_v42';
+const STORAGE_KEY='cuhkmc_doc_v43';
+const LAST_PATIENT_KEY='cuhkmc_last_patient_v43';
+const RECENT_KEY='cuhkmc_recent_v43';
+const IMAGES_KEY='cuhkmc_images_v43';
+const DARK_KEY='cuhkmc_dark_v43';
 let activeTab='referral';
 let zoomLevel=1;
 let shellNaturalWidth=0;
+let lastDiagAutoPrefix='';
 
 const DEFAULT_HEADER_TEXT=`Emergency Medicine Centre
 CUHK Medical Centre
@@ -596,8 +599,9 @@ const fields=[
   'patientLineInput',
   'docDate','printTimestamp',
   'englishSurname','englishGiven','chineseName','patientId',
-  'refRecipientCn','refRecipientEn','refBody',
-  'sickRecipientCn','sickRecipientEn','sickDiagnosis','sickDays',
+  'diagnosis',
+  'refToAddress','refRecipientCn','refRecipientEn','refBody',
+  'sickRecipientCn','sickRecipientEn','sickDays',
   'sickFrom','sickFromPeriod','sickTo','sickToPeriod','sickRemarks',
   'doctorNameEn','doctorNameCn','doctorTitle',
   'headerText'
@@ -631,7 +635,7 @@ function toggleSection(header){
   }
 }
 
-/* ====== Modal ====== */
+/* ====== Modal with Keyboard Support ====== */
 function showModal(opts){
   return new Promise(resolve=>{
     el('modalTitle').textContent=opts.title||'Confirm';
@@ -645,8 +649,46 @@ function showModal(opts){
     el('modalConfirm').className=opts.confirmClass||'danger';
     el('modalCancel').textContent=opts.cancelText||'Cancel';
     el('modalOverlay').classList.add('visible');
-    el('modalConfirm').onclick=()=>{el('modalOverlay').classList.remove('visible');resolve(true)};
-    el('modalCancel').onclick=()=>{el('modalOverlay').classList.remove('visible');resolve(false)};
+
+    const confirmBtn=el('modalConfirm');
+    const cancelBtn=el('modalCancel');
+
+    function cleanup(){
+      el('modalOverlay').classList.remove('visible');
+      confirmBtn.onclick=null;
+      cancelBtn.onclick=null;
+      document.removeEventListener('keydown',keyHandler);
+    }
+
+    function keyHandler(e){
+      if(e.key==='Enter'){
+        e.preventDefault();
+        // If focus is on cancel, trigger cancel; otherwise trigger confirm
+        if(document.activeElement===cancelBtn){
+          cleanup();resolve(false);
+        }else{
+          cleanup();resolve(true);
+        }
+      }else if(e.key==='Escape'){
+        e.preventDefault();
+        cleanup();resolve(false);
+      }else if(e.key==='Tab'){
+        e.preventDefault();
+        // Trap focus between the two buttons
+        if(document.activeElement===confirmBtn){
+          cancelBtn.focus();
+        }else{
+          confirmBtn.focus();
+        }
+      }
+    }
+
+    document.addEventListener('keydown',keyHandler);
+    confirmBtn.onclick=()=>{cleanup();resolve(true)};
+    cancelBtn.onclick=()=>{cleanup();resolve(false)};
+
+    // Focus confirm button by default
+    setTimeout(()=>confirmBtn.focus(),50);
   });
 }
 function showConfirm(msg){return showModal({title:'Confirm',text:msg,confirmText:'Confirm',confirmClass:'danger'})}
@@ -665,6 +707,27 @@ function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'
 
 function normalizeHkid(i){let r=String(i||'').trim().toUpperCase().replace(/\s+/g,'');if(!r)return'';let m=r.match(/^([A-Z]{1,2}\d{6})\(([0-9A])\)$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})([0-9A])$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})$/);if(m)return m[1];return r}
 function maskHkid(h){const r=normalizeHkid(h);if(!r)return'';const m=r.match(/^([A-Z]{1,2})(\d{6})(?:\([0-9A]\))?$/i);if(!m)return r;return m[1]+m[2].slice(0,3)+'***'}
+
+/* ====== Diagnosis → Referral Body Auto-Sync ====== */
+function syncDiagnosisToRefBody(){
+  const diag=el('diagnosis').value.trim();
+  const newPrefix=diag?'Diagnosis: '+diag+'\n\n':'';
+  const body=el('refBody').value;
+
+  if(body===''&&newPrefix){
+    // Body is empty, fill with prefix
+    el('refBody').value=newPrefix;
+  }else if(lastDiagAutoPrefix&&body===lastDiagAutoPrefix){
+    // Body is entirely the old auto prefix
+    el('refBody').value=newPrefix;
+  }else if(lastDiagAutoPrefix&&body.startsWith(lastDiagAutoPrefix)){
+    // Body starts with old prefix, user added text after — update prefix only
+    el('refBody').value=newPrefix+body.slice(lastDiagAutoPrefix.length);
+  }
+  // else: user has completely changed the body, don't touch
+
+  lastDiagAutoPrefix=newPrefix;
+}
 
 /* ====== Sick Leave Bidirectional Calculation ====== */
 function computeToFromDays(){
@@ -763,6 +826,20 @@ function updatePreview(){
   el('headerRightSick').textContent=ht;
 
   el('pvRefDate').textContent=formatDDMMMYYYY(dd);
+
+  // To Address block — hide if empty
+  const toAddr=el('refToAddress').value.trim();
+  const pvAddr=el('pvRefToAddress');
+  pvAddr.textContent=toAddr;
+  pvAddr.style.display=toAddr?'block':'none';
+  // Adjust Chinese recipient margin when address is present
+  const pvCn=el('pvRefRecipientCn');
+  if(toAddr){
+    pvCn.style.marginTop='1.1mm';
+  }else{
+    pvCn.style.marginTop='14mm';
+  }
+
   el('pvRefRecipientCn').textContent=el('refRecipientCn').value;
   el('pvRefRecipientEn').textContent=el('refRecipientEn').value;
   el('pvRefPatientLine').innerHTML=patientSegments();
@@ -772,7 +849,7 @@ function updatePreview(){
   el('pvSickRecipientCn').textContent=el('sickRecipientCn').value;
   el('pvSickRecipientEn').textContent=el('sickRecipientEn').value;
   el('pvSickPatientName').innerHTML=sickPatientNameHtml();
-  el('pvSickDiagnosis').textContent=el('sickDiagnosis').value;
+  el('pvSickDiagnosis').textContent=el('diagnosis').value;
   el('pvSickDays').textContent=el('sickDays').value;
   el('pvSickFrom').textContent=formatDateWithPeriod(el('sickFrom').value,el('sickFromPeriod').value);
   el('pvSickTo').textContent=formatDateWithPeriod(el('sickTo').value,el('sickToPeriod').value);
@@ -793,7 +870,7 @@ function updatePreview(){
 }
 
 /* ====== Auto-save / Draft ====== */
-function getDraftData(){const d={};fields.forEach(id=>{if(el(id))d[id]=el(id).value});d.activeTab=activeTab;return d}
+function getDraftData(){const d={};fields.forEach(id=>{if(el(id))d[id]=el(id).value});d.activeTab=activeTab;d.lastDiagAutoPrefix=lastDiagAutoPrefix;return d}
 
 function autoSave(){
   try{
@@ -810,6 +887,7 @@ function autoLoad(){
     const d=JSON.parse(raw);
     fields.forEach(id=>{if(d[id]!==undefined&&el(id))el(id).value=d[id]});
     if(d.activeTab)activeTab=d.activeTab;
+    if(d.lastDiagAutoPrefix!==undefined)lastDiagAutoPrefix=d.lastDiagAutoPrefix;
     return true;
   }catch(e){return false}
 }
@@ -891,12 +969,12 @@ function renderRecentPatients(){
 
 /* ====== Patient Parsing ====== */
 function parseCommaStyle(raw){
-  const m=raw.match(/\b([A-Z][A-Z' -]+?)\s*,\s*([A-Za-z][A-Za-z' -]*?)(?=\s+(?:M|F)(?:\/|\b)|\s+\d+\b|\s+dob\b|\s+[A-Z]{1,2}\d{6}|\s*$)/i);
+  const m=raw.match(/\b([A-Z][A-Z' -]+?)\s*,\s*([A-Za-z][A-Za-z' -]*?)(?=\s+(?:M|F)(?:\/|\b)|\s*(?:M|F)\/\d+|\s+\d+\b|\s+dob\b|\s+[A-Z]{1,2}\d{6}|\s*$)/i);
   if(!m)return null;
   return{surname:normalizeEnglishToken(m[1]).toUpperCase(),given:titleCaseWords(normalizeEnglishToken(m[2]))};
 }
 function parseSpaceStyle(raw){
-  const c=raw.replace(/[，]/g,' ').replace(/\bDOB\b.*$/i,' ').replace(/\b(?:M|F)(?:\/\d+)?\b/gi,' ').replace(/\b[A-Z]{1,2}\d{6}(?:\([0-9A]\)|[0-9A])?\b/gi,' ').replace(/[\u4e00-\u9fff]/g,' ').replace(/\s+/g,' ').trim();
+  const c=raw.replace(/[，]/g,' ').replace(/([A-Za-z])([MF])\/(\d+)/g,'$1 $2/$3').replace(/\bDOB\b.*$/i,' ').replace(/\b(?:M|F)(?:\/\d+)?\b/gi,' ').replace(/\b[A-Z]{1,2}\d{6}(?:\([0-9A]\)|[0-9A])?\b/gi,' ').replace(/[\u4e00-\u9fff]/g,' ').replace(/\s+/g,' ').trim();
   const m=c.match(/\b([A-Z][A-Z' -]{2,})\b/);if(!m)return null;
   const tokens=m[1].split(/\s+/).map(t=>normalizeEnglishToken(t)).filter(Boolean);
   if(tokens.length<2)return null;
@@ -906,8 +984,9 @@ function parsePatientLine(){
   let raw = (el('patientLineInput').value || '').trim();
   if(!raw){ showStatus('Please paste a patient line first.'); return }
 
-  // ★ 新增：拆開黐住 name 嘅 gender marker（M/xx 或 F/xx）
+  // Pre-process: split gender marker stuck to name
   raw = raw.replace(/([A-Za-z\u4e00-\u9fff])([MF])\/(\d+)/g, '$1 $2/$3');
+
   let hkid='';const hm=raw.match(/([A-Z]{1,2}\d{6}\([0-9A]\)|[A-Z]{1,2}\d{6}[0-9A]?|[A-Z]{1,2}\d{6})/i);
   if(hm)hkid=normalizeHkid(hm[1]);
   let cn='';const cm=raw.match(/([\u4e00-\u9fff]{2,5})/);if(cm)cn=cm[1].trim();
@@ -975,6 +1054,7 @@ function clearFormKeepDoctor(){
     el('sickRecipientCn').value='致有關人士:';
     el('sickRecipientEn').value='To Whom It May Concern,';
     el('sickDays').value='1';el('sickFromPeriod').value='';el('sickToPeriod').value='';
+    lastDiagAutoPrefix='';
     setToday();updatePreview();autoSaveDebounced();showStatus('Form cleared');
   });
 }
@@ -992,7 +1072,7 @@ function validateAndPrint(){
   if(activeTab==='referral'){
     if(!el('refBody').value.trim()){warns.push('Referral body is empty');warnFields.push('fieldRefBody')}
   }else{
-    if(!el('sickDiagnosis').value.trim()){warns.push('Diagnosis is empty');warnFields.push('fieldDiagnosis')}
+    if(!el('diagnosis').value.trim()){warns.push('Diagnosis is empty');warnFields.push('fieldDiagnosis')}
     if(!el('sickFrom').value){warns.push('Leave From date is empty');warnFields.push('fieldFrom')}
     if(!el('sickTo').value){warns.push('Leave To date is empty');warnFields.push('fieldTo')}
   }
@@ -1163,6 +1243,8 @@ function initZoom(){shellNaturalWidth=document.querySelector('.paper-shell').off
 
 /* ====== Keyboard Shortcuts ====== */
 document.addEventListener('keydown',function(e){
+  // Don't intercept when modal is open (modal has its own handler)
+  if(el('modalOverlay').classList.contains('visible'))return;
   const k=e.key.toLowerCase();
   if((e.ctrlKey||e.metaKey)&&k==='s'){e.preventDefault();autoSave();showStatus('Saved')}
   if((e.ctrlKey||e.metaKey)&&k==='p'){e.preventDefault();validateAndPrint()}
@@ -1181,6 +1263,7 @@ function initDefaults(){
 fields.forEach(id=>{
   const elem=el(id);if(!elem)return;
   const handler=()=>{
+    if(id==='diagnosis'){syncDiagnosisToRefBody()}
     if(id==='sickFrom'||id==='sickFromPeriod'){computeToFromDays()}
     else if(id==='sickTo'||id==='sickToPeriod'){computeDaysFromDates()}
     else if(id==='sickDays'){computeToFromDays()}
