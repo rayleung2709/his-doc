@@ -903,8 +903,10 @@ function parseSpaceStyle(raw){
   return{surname:tokens[0].toUpperCase(),given:titleCaseWords(tokens.slice(1).join(' '))};
 }
 function parsePatientLine(){
-  const raw=(el('patientLineInput').value||'').trim();
-  if(!raw){showStatus('Please paste a patient line first.');return}
+  let raw = (el('patientLineInput').value || '').trim();
+  if(!raw){ showStatus('Please paste a patient line first.'); return }
+
+  // ★ 新增：拆開黐住 name 嘅 gender marker（M/xx 或 F/xx）
   raw = raw.replace(/([A-Za-z\u4e00-\u9fff])([MF])\/(\d+)/g, '$1 $2/$3');
   let hkid='';const hm=raw.match(/([A-Z]{1,2}\d{6}\([0-9A]\)|[A-Z]{1,2}\d{6}[0-9A]?|[A-Z]{1,2}\d{6})/i);
   if(hm)hkid=normalizeHkid(hm[1]);
