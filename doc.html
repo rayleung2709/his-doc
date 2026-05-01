@@ -905,6 +905,7 @@ function parseSpaceStyle(raw){
 function parsePatientLine(){
   const raw=(el('patientLineInput').value||'').trim();
   if(!raw){showStatus('Please paste a patient line first.');return}
+  raw = raw.replace(/([A-Za-z\u4e00-\u9fff])([MF])\/(\d+)/g, '$1 $2/$3');
   let hkid='';const hm=raw.match(/([A-Z]{1,2}\d{6}\([0-9A]\)|[A-Z]{1,2}\d{6}[0-9A]?|[A-Z]{1,2}\d{6})/i);
   if(hm)hkid=normalizeHkid(hm[1]);
   let cn='';const cm=raw.match(/([\u4e00-\u9fff]{2,5})/);if(cm)cn=cm[1].trim();
