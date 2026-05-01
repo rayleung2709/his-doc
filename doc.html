@@ -711,7 +711,7 @@ function maskHkid(h){const r=normalizeHkid(h);if(!r)return'';const m=r.match(/^(
 /* ====== Diagnosis → Referral Body Auto-Sync ====== */
 function syncDiagnosisToRefBody(){
   const diag=el('diagnosis').value.trim();
-  const newPrefix=diag?'Diagnosis: '+diag+'\n\n':'';
+  const newPrefix=diag?'Diagnosis: "'+diag+'"\n\n':'';
   const body=el('refBody').value;
 
   if(body===''&&newPrefix){
