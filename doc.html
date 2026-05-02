@@ -20,7 +20,7 @@
 html,body{margin:0;padding:0;height:100%;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font)}
 body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
-.app{display:grid;grid-template-columns:520px 1fr;height:100vh;overflow:hidden;gap:0}
+.app{display:grid;grid-template-columns:minmax(520px, 4fr) 6fr;height:100vh;overflow:hidden;gap:0}
 
 .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(248,250,252,.98) 100%);border-right:1px solid var(--border);padding:18px;overflow-y:auto;height:100%;position:relative;z-index:2;transition:background .35s,border-color .35s}
 .sidebar::-webkit-scrollbar{width:6px}
