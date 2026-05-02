@@ -20,7 +20,7 @@
 html,body{margin:0;padding:0;height:100%;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font)}
 body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
-.app{display:grid;grid-template-columns:minmax(520px, 3fr) 7fr;height:100vh;overflow:hidden;gap:0}
+.app{display:grid;grid-template-columns:minmax(400px,4fr) 6fr;height:100vh;overflow:hidden;gap:0}
 
 .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(248,250,252,.98) 100%);border-right:1px solid var(--border);padding:18px;overflow-y:auto;height:100%;position:relative;z-index:2;transition:background .35s,border-color .35s}
 .sidebar::-webkit-scrollbar{width:6px}
@@ -36,8 +36,9 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
 .dark-toggle:hover{transform:scale(1.08)}
 
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.tab-btn{border:1px solid var(--border-strong);background:#fff;color:var(--text);padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:800;font-size:14px;box-shadow:0 1px 2px rgba(15,23,42,.03);transition:.18s ease}
+/* CHANGED: 3-column tabs */
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.tab-btn{border:1px solid var(--border-strong);background:#fff;color:var(--text);padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:800;font-size:13px;box-shadow:0 1px 2px rgba(15,23,42,.03);transition:.18s ease}
 .tab-btn:hover{transform:translateY(-1px);border-color:#94a3b8;box-shadow:0 6px 18px rgba(15,23,42,.08)}
 .tab-btn.active{background:linear-gradient(135deg,#111827 0%,#1e3a8a 100%);color:#fff;border-color:#1e3a8a;box-shadow:0 10px 24px rgba(30,58,138,.22)}
 
@@ -75,6 +76,7 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .overflow-hint{font-size:11px;color:#dc2626;margin-top:6px;font-weight:700;display:flex;align-items:center;gap:4px}
 
 .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.img-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
 .img-upload-zone{border:2px dashed var(--border-strong);border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:.2s ease;position:relative;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .img-upload-zone:hover{border-color:#60a5fa;background:rgba(96,165,250,.05)}
 .img-upload-zone.drag-over{border-color:#3b82f6;background:rgba(59,130,246,.1)}
@@ -111,6 +113,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .danger{background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);color:#fff;box-shadow:0 10px 20px rgba(185,28,28,.15)}
 .warning-btn{background:linear-gradient(135deg,#d97706 0%,#92400e 100%);color:#fff;box-shadow:0 10px 20px rgba(217,119,6,.15)}
 
+/* ====== Dark Mode ====== */
 .sidebar.dark{background:linear-gradient(180deg,#161926 0%,#111420 100%);border-color:#232840}
 .sidebar.dark::-webkit-scrollbar-thumb{background:#3a4060}
 .sidebar.dark .brand{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
@@ -146,6 +149,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .img-label{color:#6b7a94}
 .sidebar.dark .recent-list::-webkit-scrollbar-thumb{background:#333a55}
 
+/* ====== Preview / Paper ====== */
 .preview{padding:22px;overflow-y:auto;height:100%;position:relative}
 .preview-toolbar{width:fit-content;margin:0 auto 16px;display:flex;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10}
 .toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
@@ -168,6 +172,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .en{font-family:var(--en-font)}.zh{font-family:var(--zh-font)}
 .name-en{font-family:var(--en-font)}.name-zh{font-family:var(--zh-font)}
 
+/* ====== Document Common ====== */
 .doc-header{position:absolute;left:19mm;top:6.5mm;right:18mm;display:flex;justify-content:space-between;align-items:flex-start}
 .logo{width:39mm;height:auto;display:block;object-fit:contain}
 .header-right{width:61mm;text-align:left;font-family:var(--en-font);font-size:3.45mm;line-height:1.06;white-space:pre-line;transform:translateY(-1mm)}
@@ -178,6 +183,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .page-no{margin-bottom:1mm}
 .barcode-img{width:72mm;height:auto;display:block;margin:2mm 0 0 auto;object-fit:contain}
 
+/* ====== Referral ====== */
 .ref-date{margin-top:0;font-size:10.6pt;line-height:1.05;font-weight:400}
 .ref-date .sub{margin-top:.6mm;font-size:9.8pt;line-height:1.03;font-weight:400}
 .ref-block{margin-top:8mm;font-size:10.7pt;line-height:1.24}
@@ -193,6 +199,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .doc-name-cn{font-size:10.6pt;line-height:1.14;font-family:var(--zh-font);margin-top:.7mm}
 .doc-title{font-size:8.8pt;line-height:1.06;white-space:pre-line;font-family:var(--en-font);margin-top:.8mm}
 
+/* ====== Sick Leave ====== */
 .sick-title{text-align:center;margin-top:-2mm;margin-bottom:7.5mm}
 .sick-title .cn{font-size:13.4pt;font-weight:700;line-height:1.05;font-family:var(--zh-font)}
 .sick-title .en{font-size:14.8pt;font-weight:700;line-height:1.05;font-family:var(--en-font);margin-top:.6mm}
@@ -219,6 +226,25 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .remarks-box{margin-top:1mm;min-height:8mm;white-space:pre-wrap;font-family:var(--en-font);line-height:1.18}
 .sick-sig-wrap{margin-top:12.5mm}
 
+/* ====== NEW: Attendance Certificate ====== */
+.attend-title{text-align:center;margin-top:-2mm;margin-bottom:7.5mm}
+.attend-title .cn{font-size:13.4pt;font-weight:700;line-height:1.05;font-family:var(--zh-font)}
+.attend-title .en{font-size:14.8pt;font-weight:700;line-height:1.05;font-family:var(--en-font);margin-top:.6mm}
+.attend-date{margin-top:2mm;font-size:10.6pt;line-height:1.03;font-weight:400}
+.attend-date .sub{margin-top:.5mm;font-size:9.8pt;line-height:1.02;font-weight:400}
+.attend-block{margin-top:15mm;font-size:10.8pt;line-height:1.16}
+.attend-block-tight{margin-top:1.1mm;font-size:10.8pt;line-height:1.16}
+.attend-row{margin-top:9.2mm;font-size:10.8pt;line-height:1.15}
+.attend-row .zh{margin-bottom:1.2mm}
+.attend-inline{display:inline-block;border-bottom:1px solid #111;line-height:1.01;padding:0 1px 1px;vertical-align:baseline;white-space:nowrap}
+.attend-inline-date{min-width:23mm;text-align:center}
+.attend-visit-zh-line{display:flex;align-items:flex-end;justify-content:flex-start;margin-left:0}
+.attend-visit-zh-line .visit-end-word{margin-left:auto;padding-right:12mm}
+.attend-visit-en-line{display:flex;align-items:flex-end;gap:3mm;flex-wrap:nowrap}
+.attend-date-hint{margin-top:1mm;margin-left:40mm;font-size:9pt;line-height:1;font-family:var(--en-font)}
+.attend-sig-wrap{margin-top:12.5mm}
+
+/* ====== Misc ====== */
 .floating-status{position:fixed;right:18px;bottom:18px;background:rgba(15,23,42,.92);color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 28px rgba(15,23,42,.2);font-size:13px;font-weight:700;opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s ease;z-index:50}
 .floating-status.show{opacity:1;transform:translateY(0)}
 
@@ -240,7 +266,8 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 }
 @media(max-width:840px){
   .row-2,.row-3,.img-grid{grid-template-columns:1fr}
-  .tabs{grid-template-columns:1fr 1fr}
+  .img-grid-3{grid-template-columns:1fr}
+  .tabs{grid-template-columns:1fr 1fr 1fr}
   .sidebar{padding:14px}.preview{padding:12px}
   .paper-shell{width:100%;overflow:auto;padding:10px}
   .toolbar-row{flex-direction:column;align-items:flex-start}
@@ -276,9 +303,11 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <p class="brand-subtitle">Heyyy I'm Smarter than HIS!</p>
   </div>
 
+  <!-- CHANGED: 3 tabs -->
   <div class="tabs">
     <button class="tab-btn active" id="tabReferral">Referral</button>
     <button class="tab-btn" id="tabSick">Sick Leave</button>
+    <button class="tab-btn" id="tabAttend">Attendance</button>
   </div>
 
   <div class="section">
@@ -321,7 +350,8 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <div class="field" id="fieldDiagnosis"><label for="diagnosis">Diagnosis</label><input id="diagnosis" placeholder=""></div>
   </div>
 
-  <div class="section">
+  <!-- ====== Referral Section ====== -->
+  <div class="section" id="sectionReferral">
     <h3>Referral</h3>
     <div class="field"><label for="refToAddress">To Address</label><textarea id="refToAddress" style="min-height:60px" placeholder="Recipient address (multiple lines)"></textarea></div>
     <div class="field"><label for="refRecipientCn">Chinese recipient line</label><input id="refRecipientCn" value=""></div>
@@ -333,7 +363,8 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     </div>
   </div>
 
-  <div class="section">
+  <!-- ====== Sick Leave Section ====== -->
+  <div class="section" id="sectionSick">
     <h3>Sick Leave</h3>
     <div class="field"><label for="sickRecipientCn">Chinese recipient line</label><input id="sickRecipientCn" value="致有關人士:"></div>
     <div class="field"><label for="sickRecipientEn">English recipient line</label><input id="sickRecipientEn" value="To Whom It May Concern,"></div>
@@ -359,6 +390,23 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     </div>
     <div class="field"><label for="sickRemarks">Remarks</label><textarea id="sickRemarks"></textarea></div>
     <div class="overflow-hint hidden" id="sickOverflowHint">⚠ Content may overflow the A4 page</div>
+  </div>
+
+  <!-- ====== NEW: Attendance Certificate Section ====== -->
+  <div class="section" id="sectionAttend">
+    <h3>Attendance Certificate</h3>
+    <div class="field"><label for="attendRecipientCn">Chinese recipient line</label><input id="attendRecipientCn" value="致有關人士:"></div>
+    <div class="field"><label for="attendRecipientEn">English recipient line</label><input id="attendRecipientEn" value="To Whom It May Concern,"></div>
+    <div class="row-2">
+      <div class="field">
+        <label for="attendPeriod">Visit Period (auto from clock)</label>
+        <select id="attendPeriod" style="width:100%">
+          <option value="AM">上午 A.M.</option>
+          <option value="PM">下午 P.M.</option>
+        </select>
+      </div>
+      <div class="field">&nbsp;</div>
+    </div>
   </div>
 
   <!-- ====== Collapsible: Doctor ====== -->
@@ -401,6 +449,9 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
             <button class="img-remove-btn" title="Remove">&times;</button>
             <input type="file" accept="image/*" hidden>
           </div>
+        </div>
+        <!-- NEW: 3-column grid for barcodes -->
+        <div class="img-grid-3">
           <div class="img-upload-zone" data-img-key="barcodeRef">
             <img class="img-thumb" id="thumbBarcodeRef" alt="">
             <span class="img-plus">+</span>
@@ -412,6 +463,13 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
             <img class="img-thumb" id="thumbBarcodeSick" alt="">
             <span class="img-plus">+</span>
             <span class="img-label">Sick Barcode</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+          <div class="img-upload-zone" data-img-key="barcodeAttend">
+            <img class="img-thumb" id="thumbBarcodeAttend" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Attend Barcode</span>
             <button class="img-remove-btn" title="Remove">&times;</button>
             <input type="file" accept="image/*" hidden>
           </div>
@@ -474,6 +532,7 @@ Email:general@cuhkmc.hk</textarea>
     <div class="paper-shell">
       <div class="paper">
 
+        <!-- ====== Referral Page ====== -->
         <section class="page" id="referralPage">
           <div class="doc-header">
             <img class="logo" id="logoReferral" alt="CUHKMC logo" src="cuhkmc-logo.png">
@@ -503,6 +562,7 @@ Email:general@cuhkmc.hk</div>
           </div>
         </section>
 
+        <!-- ====== Sick Leave Page ====== -->
         <section class="page hidden" id="sickPage">
           <div class="doc-header">
             <img class="logo" id="logoSick" alt="CUHKMC logo" src="cuhkmc-logo.png">
@@ -542,6 +602,41 @@ Email:general@cuhkmc.hk</div>
           </div>
         </section>
 
+        <!-- ====== NEW: Attendance Certificate Page ====== -->
+        <section class="page hidden" id="attendPage">
+          <div class="doc-header">
+            <img class="logo" id="logoAttend" alt="CUHKMC logo" src="cuhkmc-logo.png">
+            <div class="header-right en" id="headerRightAttend">Emergency Medicine Centre
+CUHK Medical Centre
+9 Chak Cheung Street, Shatin, New Territories, Hong Kong
+Tel: 3946 6888      Fax: /
+Email:general@cuhkmc.hk</div>
+          </div>
+          <div class="content">
+            <div class="attend-title"><div class="cn zh">到診證明信</div><div class="en">ATTENDANCE CERTIFICATE</div></div>
+            <div class="attend-date"><span class="zh">日期:</span><span class="en" id="pvAttendDate"></span><br><div class="sub en">Date (DD-MM-YYYY)</div></div>
+            <div class="attend-block zh" id="pvAttendRecipientCn"></div>
+            <div class="attend-block-tight en" id="pvAttendRecipientEn"></div>
+            <div class="attend-row"><div class="zh">茲證明</div><div class="en">This is to certify that <span class="attend-inline" id="pvAttendPatientName"></span></div></div>
+            <div class="attend-row"><div class="zh">因患</div><div class="en">is suffering from <span class="attend-inline" id="pvAttendDiagnosis"></span></div></div>
+            <div class="attend-row">
+              <div class="zh attend-visit-zh-line"><span class="visit-from-word">已於</span><span class="visit-end-word">在本處診治。</span></div>
+              <div class="en attend-visit-en-line"><span>and has attended here on</span><span id="pvAttendVisitDate"></span><span class="zh" id="pvAttendPeriodCn">下午</span><span class="en" id="pvAttendPeriodEn">P.M.</span></div>
+              <div class="attend-date-hint en">(DD-MM-YYYY)</div>
+            </div>
+            <div class="sig-wrap attend-sig-wrap">
+              <img class="sig-img" id="sigAttend" alt="Signature" src="signature.png">
+              <div class="doc-name en" id="pvDoctorNameEnAttend"></div>
+              <div class="doc-name-cn zh" id="pvDoctorNameCnAttend"></div>
+              <div class="doc-title en" id="pvDoctorTitleAttend"></div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="timestamp en" id="pvTimestampAttend"></div>
+            <div class="footer-right"><div class="page-no en">Page 1 of 1</div><img class="barcode-img" id="barcodeAttend" alt="Barcode" src="attend-barcode.png"></div>
+          </div>
+        </section>
+
       </div>
     </div>
   </div>
@@ -563,11 +658,11 @@ Email:general@cuhkmc.hk</div>
 <div class="floating-status" id="floatingStatus">Saved</div>
 
 <script>
-const STORAGE_KEY='cuhkmc_doc_v43';
-const LAST_PATIENT_KEY='cuhkmc_last_patient_v43';
-const RECENT_KEY='cuhkmc_recent_v43';
-const IMAGES_KEY='cuhkmc_images_v43';
-const DARK_KEY='cuhkmc_dark_v43';
+const STORAGE_KEY='cuhkmc_doc_v44';
+const LAST_PATIENT_KEY='cuhkmc_last_patient_v44';
+const RECENT_KEY='cuhkmc_recent_v44';
+const IMAGES_KEY='cuhkmc_images_v44';
+const DARK_KEY='cuhkmc_dark_v44';
 let activeTab='referral';
 let zoomLevel=1;
 let shellNaturalWidth=0;
@@ -579,22 +674,26 @@ CUHK Medical Centre
 Tel: 3946 6888      Fax: /
 Email:general@cuhkmc.hk`;
 
+/* CHANGED: added logoAttend, sigAttend, barcodeAttend */
 const IMG_MAP={
-  logo:['logoReferral','logoSick'],
-  signature:['sigReferral','sigSick'],
+  logo:['logoReferral','logoSick','logoAttend'],
+  signature:['sigReferral','sigSick','sigAttend'],
   barcodeRef:['barcodeReferral'],
-  barcodeSick:['barcodeSick']
+  barcodeSick:['barcodeSick'],
+  barcodeAttend:['barcodeAttend']
 };
-const IMG_THUMB_MAP={logo:'thumbLogo',signature:'thumbSig',barcodeRef:'thumbBarcodeRef',barcodeSick:'thumbBarcodeSick'};
-const IMG_MAX_W={logo:800,signature:600,barcodeRef:1000,barcodeSick:1000};
+const IMG_THUMB_MAP={logo:'thumbLogo',signature:'thumbSig',barcodeRef:'thumbBarcodeRef',barcodeSick:'thumbBarcodeSick',barcodeAttend:'thumbBarcodeAttend'};
+const IMG_MAX_W={logo:800,signature:600,barcodeRef:1000,barcodeSick:1000,barcodeAttend:1000};
 const TRANSPARENT='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const IMG_DEFAULTS={
   logo:'cuhkmc-logo.png',
   signature:'signature.png',
   barcodeRef:'ref-barcode.png',
-  barcodeSick:'sick-barcode.png'
+  barcodeSick:'sick-barcode.png',
+  barcodeAttend:'attend-barcode.png'
 };
 
+/* CHANGED: added attendance fields */
 const fields=[
   'patientLineInput',
   'docDate','printTimestamp',
@@ -603,6 +702,7 @@ const fields=[
   'refToAddress','refRecipientCn','refRecipientEn','refBody',
   'sickRecipientCn','sickRecipientEn','sickDays',
   'sickFrom','sickFromPeriod','sickTo','sickToPeriod','sickRemarks',
+  'attendRecipientCn','attendRecipientEn','attendPeriod',
   'doctorNameEn','doctorNameCn','doctorTitle',
   'headerText'
 ];
@@ -655,39 +755,17 @@ function showModal(opts){
 
     function cleanup(){
       el('modalOverlay').classList.remove('visible');
-      confirmBtn.onclick=null;
-      cancelBtn.onclick=null;
+      confirmBtn.onclick=null;cancelBtn.onclick=null;
       document.removeEventListener('keydown',keyHandler);
     }
-
     function keyHandler(e){
-      if(e.key==='Enter'){
-        e.preventDefault();
-        // If focus is on cancel, trigger cancel; otherwise trigger confirm
-        if(document.activeElement===cancelBtn){
-          cleanup();resolve(false);
-        }else{
-          cleanup();resolve(true);
-        }
-      }else if(e.key==='Escape'){
-        e.preventDefault();
-        cleanup();resolve(false);
-      }else if(e.key==='Tab'){
-        e.preventDefault();
-        // Trap focus between the two buttons
-        if(document.activeElement===confirmBtn){
-          cancelBtn.focus();
-        }else{
-          confirmBtn.focus();
-        }
-      }
+      if(e.key==='Enter'){e.preventDefault();if(document.activeElement===cancelBtn){cleanup();resolve(false)}else{cleanup();resolve(true)}}
+      else if(e.key==='Escape'){e.preventDefault();cleanup();resolve(false)}
+      else if(e.key==='Tab'){e.preventDefault();if(document.activeElement===confirmBtn)cancelBtn.focus();else confirmBtn.focus()}
     }
-
     document.addEventListener('keydown',keyHandler);
     confirmBtn.onclick=()=>{cleanup();resolve(true)};
     cancelBtn.onclick=()=>{cleanup();resolve(false)};
-
-    // Focus confirm button by default
     setTimeout(()=>confirmBtn.focus(),50);
   });
 }
@@ -708,74 +786,52 @@ function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'
 function normalizeHkid(i){let r=String(i||'').trim().toUpperCase().replace(/\s+/g,'');if(!r)return'';let m=r.match(/^([A-Z]{1,2}\d{6})\(([0-9A])\)$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})([0-9A])$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})$/);if(m)return m[1];return r}
 function maskHkid(h){const r=normalizeHkid(h);if(!r)return'';const m=r.match(/^([A-Z]{1,2})(\d{6})(?:\([0-9A]\))?$/i);if(!m)return r;return m[1]+m[2].slice(0,3)+'***'}
 
+/* ====== NEW: Auto Attendance Period ====== */
+function autoAttendPeriod(){
+  const h=new Date().getHours();
+  el('attendPeriod').value=h<12?'AM':'PM';
+}
+
 /* ====== Diagnosis → Referral Body Auto-Sync ====== */
 function syncDiagnosisToRefBody(){
   const diag=el('diagnosis').value.trim();
   const newPrefix=diag?'Diagnosis: '+diag+'\n\n':'';
   const body=el('refBody').value;
-
-  if(body===''&&newPrefix){
-    // Body is empty, fill with prefix
-    el('refBody').value=newPrefix;
-  }else if(lastDiagAutoPrefix&&body===lastDiagAutoPrefix){
-    // Body is entirely the old auto prefix
-    el('refBody').value=newPrefix;
-  }else if(lastDiagAutoPrefix&&body.startsWith(lastDiagAutoPrefix)){
-    // Body starts with old prefix, user added text after — update prefix only
-    el('refBody').value=newPrefix+body.slice(lastDiagAutoPrefix.length);
-  }
-  // else: user has completely changed the body, don't touch
-
+  if(body===''&&newPrefix){el('refBody').value=newPrefix}
+  else if(lastDiagAutoPrefix&&body===lastDiagAutoPrefix){el('refBody').value=newPrefix}
+  else if(lastDiagAutoPrefix&&body.startsWith(lastDiagAutoPrefix)){el('refBody').value=newPrefix+body.slice(lastDiagAutoPrefix.length)}
   lastDiagAutoPrefix=newPrefix;
 }
 
 /* ====== Sick Leave Bidirectional Calculation ====== */
 function computeToFromDays(){
-  const from=el('sickFrom').value;
-  const days=parseFloat(el('sickDays').value);
+  const from=el('sickFrom').value;const days=parseFloat(el('sickDays').value);
   if(!from||!days||days<0.5)return;
-  let fp=el('sickFromPeriod').value;
-  const isHalf=(days%1!==0);
+  let fp=el('sickFromPeriod').value;const isHalf=(days%1!==0);
   if(fp||isHalf){
     if(!fp&&isHalf){fp='AM';el('sickFromPeriod').value='AM'}
-    const fh=(fp==='PM')?1:0;
-    const totalH=days*2;
-    const toH=fh+totalH-1;
-    const off=Math.floor(toH/2);
-    const tp=(toH%2===0)?'AM':'PM';
+    const fh=(fp==='PM')?1:0;const totalH=days*2;const toH=fh+totalH-1;
+    const off=Math.floor(toH/2);const tp=(toH%2===0)?'AM':'PM';
     const d=new Date(from+'T00:00:00');d.setDate(d.getDate()+off);
-    el('sickTo').value=dateToISO(d);
-    el('sickToPeriod').value=tp;
+    el('sickTo').value=dateToISO(d);el('sickToPeriod').value=tp;
   }else{
     const d=new Date(from+'T00:00:00');d.setDate(d.getDate()+days-1);
-    el('sickTo').value=dateToISO(d);
-    el('sickToPeriod').value='';
+    el('sickTo').value=dateToISO(d);el('sickToPeriod').value='';
   }
 }
-
 function computeDaysFromDates(){
   const from=el('sickFrom').value;const to=el('sickTo').value;
   if(!from||!to)return;
   const fd=new Date(from+'T00:00:00');const td=new Date(to+'T00:00:00');
-  const dd=Math.round((td-fd)/86400000);
-  if(dd<0)return;
+  const dd=Math.round((td-fd)/86400000);if(dd<0)return;
   const fp=el('sickFromPeriod').value;const tp=el('sickToPeriod').value;
-  if(fp||tp){
-    const fh=(fp==='PM')?1:0;
-    const th=(!tp||tp==='PM')?1:0;
-    const totalH=dd*2+(th-fh)+1;
-    if(totalH<1)return;
-    el('sickDays').value=totalH/2;
-  }else{
-    el('sickDays').value=dd+1;
-  }
+  if(fp||tp){const fh=(fp==='PM')?1:0;const th=(!tp||tp==='PM')?1:0;const totalH=dd*2+(th-fh)+1;if(totalH<1)return;el('sickDays').value=totalH/2}
+  else{el('sickDays').value=dd+1}
 }
 
 function patientSegments(){
   const en=formatEnglishName(el('englishSurname').value,el('englishGiven').value);
-  const cn=(el('chineseName').value||'').trim();
-  const pid=maskHkid(el('patientId').value);
-  const a=[];
+  const cn=(el('chineseName').value||'').trim();const pid=maskHkid(el('patientId').value);const a=[];
   if(en)a.push('<span class="ref-re-seg name-en">'+escapeHtml(en)+'</span>');
   if(cn)a.push('<span class="ref-re-seg name-zh">'+escapeHtml(cn)+'</span>');
   if(pid)a.push('<span class="ref-re-seg name-en">'+escapeHtml(pid)+'</span>');
@@ -783,14 +839,14 @@ function patientSegments(){
 }
 function sickPatientNameHtml(){
   const en=formatEnglishName(el('englishSurname').value,el('englishGiven').value);
-  const cn=(el('chineseName').value||'').trim();
-  const p=[];
+  const cn=(el('chineseName').value||'').trim();const p=[];
   if(en)p.push('<span class="name-en">'+escapeHtml(en)+'</span>');
   if(cn)p.push('<span class="name-zh"> '+escapeHtml(cn)+'</span>');
   return p.join('');
 }
 
 function fitUnderline(target,minW,extra){
+  if(!target)return;
   minW=minW||0;extra=extra||6;
   requestAnimationFrame(()=>{
     const html=target.innerHTML||escapeHtml(target.textContent||'');
@@ -807,7 +863,10 @@ function fitUnderline(target,minW,extra){
 /* ====== Overflow Detection ====== */
 function checkOverflow(){
   requestAnimationFrame(()=>{
-    const pageId=activeTab==='referral'?'referralPage':'sickPage';
+    let pageId;
+    if(activeTab==='referral')pageId='referralPage';
+    else if(activeTab==='sick')pageId='sickPage';
+    else pageId='attendPage';
     const content=document.querySelector('#'+pageId+' .content');
     if(!content)return;
     const overflow=content.scrollHeight>content.clientHeight+2;
@@ -824,27 +883,23 @@ function updatePreview(){
   const ht=el('headerText').value;
   el('headerRightRef').textContent=ht;
   el('headerRightSick').textContent=ht;
+  el('headerRightAttend').textContent=ht;
 
+  /* Referral */
   el('pvRefDate').textContent=formatDDMMMYYYY(dd);
-
-  // To Address block — hide if empty
-  const toAddr=el('refToAddress').value.trim();
-  const pvAddr=el('pvRefToAddress');
-  pvAddr.textContent=toAddr;
-  pvAddr.style.display=toAddr?'block':'none';
-  // Adjust Chinese recipient margin when address is present
-  const pvCn=el('pvRefRecipientCn');
-  if(toAddr){
-    pvCn.style.marginTop='1.1mm';
-  }else{
-    pvCn.style.marginTop='8mm';
-  }
-
+  const toAddr=el('refToAddress').value.trim();const pvAddr=el('pvRefToAddress');
+  pvAddr.textContent=toAddr;pvAddr.style.display=toAddr?'block':'none';
+  const pvCn=el('pvRefRecipientCn');pvCn.style.marginTop=toAddr?'1.1mm':'8mm';
   el('pvRefRecipientCn').textContent=el('refRecipientCn').value;
   el('pvRefRecipientEn').textContent=el('refRecipientEn').value;
   el('pvRefPatientLine').innerHTML=patientSegments();
   el('pvRefBody').textContent=el('refBody').value;
   el('pvTimestampRef').textContent=st;
+  el('pvDoctorNameEnRef').textContent=el('doctorNameEn').value;
+  el('pvDoctorNameCnRef').textContent=el('doctorNameCn').value;
+  el('pvDoctorTitleRef').textContent=el('doctorTitle').value;
+
+  /* Sick Leave */
   el('pvSickDate').textContent=formatDDMMYYYY(dd);
   el('pvSickRecipientCn').textContent=el('sickRecipientCn').value;
   el('pvSickRecipientEn').textContent=el('sickRecipientEn').value;
@@ -855,17 +910,34 @@ function updatePreview(){
   el('pvSickTo').textContent=formatDateWithPeriod(el('sickTo').value,el('sickToPeriod').value);
   el('pvSickRemarks').textContent=el('sickRemarks').value;
   el('pvTimestampSick').textContent=st;
-  el('pvDoctorNameEnRef').textContent=el('doctorNameEn').value;
-  el('pvDoctorNameCnRef').textContent=el('doctorNameCn').value;
-  el('pvDoctorTitleRef').textContent=el('doctorTitle').value;
   el('pvDoctorNameEnSick').textContent=el('doctorNameEn').value;
   el('pvDoctorNameCnSick').textContent=el('doctorNameCn').value;
   el('pvDoctorTitleSick').textContent=el('doctorTitle').value;
+
+  /* NEW: Attendance Certificate */
+  el('pvAttendDate').textContent=formatDDMMYYYY(dd);
+  el('pvAttendRecipientCn').textContent=el('attendRecipientCn').value;
+  el('pvAttendRecipientEn').textContent=el('attendRecipientEn').value;
+  el('pvAttendPatientName').innerHTML=sickPatientNameHtml();
+  el('pvAttendDiagnosis').textContent=el('diagnosis').value;
+  el('pvAttendVisitDate').textContent=formatDDMMYYYY(dd);
+  const ap=el('attendPeriod').value;
+  el('pvAttendPeriodCn').textContent=ap==='AM'?'上午':'下午';
+  el('pvAttendPeriodEn').textContent=ap==='AM'?'A.M.':'P.M.';
+  el('pvTimestampAttend').textContent=st;
+  el('pvDoctorNameEnAttend').textContent=el('doctorNameEn').value;
+  el('pvDoctorNameCnAttend').textContent=el('doctorNameCn').value;
+  el('pvDoctorTitleAttend').textContent=el('doctorTitle').value;
+
+  /* Fit underlines */
   fitUnderline(el('pvSickPatientName'),24,4);
   fitUnderline(el('pvSickDiagnosis'),24,4);
   fitUnderline(el('pvSickDays'),14,2);
   fitUnderline(el('pvSickFrom'),84,4);
   fitUnderline(el('pvSickTo'),84,4);
+  fitUnderline(el('pvAttendPatientName'),24,4);
+  fitUnderline(el('pvAttendDiagnosis'),24,4);
+
   checkOverflow();
 }
 
@@ -873,11 +945,7 @@ function updatePreview(){
 function getDraftData(){const d={};fields.forEach(id=>{if(el(id))d[id]=el(id).value});d.activeTab=activeTab;d.lastDiagAutoPrefix=lastDiagAutoPrefix;return d}
 
 function autoSave(){
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(getDraftData()));
-    saveCurrentPatientToRecent();
-    showStatus('Auto-saved');
-  }catch(e){}
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(getDraftData()));saveCurrentPatientToRecent();showStatus('Auto-saved')}catch(e){}
 }
 const autoSaveDebounced=debounce(autoSave,2000);
 
@@ -896,8 +964,7 @@ function clearDraft(){
   showConfirm('Clear all saved data from localStorage? (Images will NOT be deleted)').then(ok=>{
     if(!ok)return;
     try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(LAST_PATIENT_KEY);localStorage.removeItem(RECENT_KEY)}catch(e){}
-    showStatus('Draft data cleared');
-    renderRecentPatients();
+    showStatus('Draft data cleared');renderRecentPatients();
   });
 }
 
@@ -905,13 +972,7 @@ function clearDraft(){
 function getRecentPatients(){try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'[]')}catch(e){return[]}}
 
 function saveCurrentPatientToRecent(){
-  const p={
-    englishSurname:el('englishSurname').value,
-    englishGiven:el('englishGiven').value,
-    chineseName:el('chineseName').value,
-    patientId:el('patientId').value,
-    ts:Date.now()
-  };
+  const p={englishSurname:el('englishSurname').value,englishGiven:el('englishGiven').value,chineseName:el('chineseName').value,patientId:el('patientId').value,ts:Date.now()};
   if(!p.englishSurname&&!p.chineseName&&!p.patientId)return;
   const key=p.patientId||(p.englishSurname+'|'+p.englishGiven+'|'+p.chineseName);
   let list=getRecentPatients();
@@ -922,39 +983,27 @@ function saveCurrentPatientToRecent(){
 }
 
 function loadRecentPatient(idx){
-  const list=getRecentPatients();
-  if(!list[idx])return;
-  const p=list[idx];
-  el('englishSurname').value=p.englishSurname||'';
-  el('englishGiven').value=p.englishGiven||'';
-  el('chineseName').value=p.chineseName||'';
-  el('patientId').value=normalizeHkid(p.patientId||'');
-  updatePreview();autoSaveDebounced();
-  showStatus('Patient loaded');
+  const list=getRecentPatients();if(!list[idx])return;const p=list[idx];
+  el('englishSurname').value=p.englishSurname||'';el('englishGiven').value=p.englishGiven||'';
+  el('chineseName').value=p.chineseName||'';el('patientId').value=normalizeHkid(p.patientId||'');
+  updatePreview();autoSaveDebounced();showStatus('Patient loaded');
 }
 
 function clearRecentPatients(){
   showConfirm('Clear all recent patient records?').then(ok=>{
     if(!ok)return;
     try{localStorage.removeItem(RECENT_KEY)}catch(e){}
-    renderRecentPatients();
-    showStatus('Recent patients cleared');
+    renderRecentPatients();showStatus('Recent patients cleared');
   });
 }
 
 function renderRecentPatients(){
-  const list=getRecentPatients();
-  const container=el('recentPatientsList');
+  const list=getRecentPatients();const container=el('recentPatientsList');
   el('recentCount').textContent='('+list.length+')';
-  if(!list.length){
-    container.innerHTML='<div class="recent-empty">No recent patients yet.</div>';
-    return;
-  }
+  if(!list.length){container.innerHTML='<div class="recent-empty">No recent patients yet.</div>';return}
   let html='';
   list.forEach((p,i)=>{
-    const en=formatEnglishName(p.englishSurname,p.englishGiven);
-    const cn=p.chineseName||'';
-    const pid=p.patientId||'';
+    const en=formatEnglishName(p.englishSurname,p.englishGiven);const cn=p.chineseName||'';const pid=p.patientId||'';
     html+='<button class="recent-item" data-ri="'+i+'">';
     if(en)html+='<strong>'+escapeHtml(en)+'</strong> ';
     if(cn)html+='<span class="ri-cn">'+escapeHtml(cn)+'</span> ';
@@ -970,35 +1019,25 @@ function renderRecentPatients(){
 /* ====== Patient Parsing ====== */
 function parseCommaStyle(raw){
   const m=raw.match(/\b([A-Z][A-Z' -]+?)\s*,\s*([A-Za-z][A-Za-z' -]*?)(?=\s+(?:M|F)(?:\/|\b)|\s*(?:M|F)\/\d+|\s+\d+\b|\s+dob\b|\s+[A-Z]{1,2}\d{6}|\s*$)/i);
-  if(!m)return null;
-  return{surname:normalizeEnglishToken(m[1]).toUpperCase(),given:titleCaseWords(normalizeEnglishToken(m[2]))};
+  if(!m)return null;return{surname:normalizeEnglishToken(m[1]).toUpperCase(),given:titleCaseWords(normalizeEnglishToken(m[2]))};
 }
 function parseSpaceStyle(raw){
   const c=raw.replace(/[，]/g,' ').replace(/([A-Za-z])([MF])\/(\d+)/g,'$1 $2/$3').replace(/\bDOB\b.*$/i,' ').replace(/\b(?:M|F)(?:\/\d+)?\b/gi,' ').replace(/\b[A-Z]{1,2}\d{6}(?:\([0-9A]\)|[0-9A])?\b/gi,' ').replace(/[\u4e00-\u9fff]/g,' ').replace(/\s+/g,' ').trim();
   const m=c.match(/\b([A-Z][A-Z' -]{2,})\b/);if(!m)return null;
   const tokens=m[1].split(/\s+/).map(t=>normalizeEnglishToken(t)).filter(Boolean);
-  if(tokens.length<2)return null;
-  return{surname:tokens[0].toUpperCase(),given:titleCaseWords(tokens.slice(1).join(' '))};
+  if(tokens.length<2)return null;return{surname:tokens[0].toUpperCase(),given:titleCaseWords(tokens.slice(1).join(' '))};
 }
 function parsePatientLine(){
-  let raw = (el('patientLineInput').value || '').trim();
-  if(!raw){ showStatus('Please paste a patient line first.'); return }
-
-  // Pre-process: split gender marker stuck to name
-  raw = raw.replace(/([A-Za-z\u4e00-\u9fff])([MF])\/(\d+)/g, '$1 $2/$3');
-
-  let hkid='';const hm=raw.match(/([A-Z]{1,2}\d{6}\([0-9A]\)|[A-Z]{1,2}\d{6}[0-9A]?|[A-Z]{1,2}\d{6})/i);
-  if(hm)hkid=normalizeHkid(hm[1]);
+  let raw=(el('patientLineInput').value||'').trim();
+  if(!raw){showStatus('Please paste a patient line first.');return}
+  raw=raw.replace(/([A-Za-z\u4e00-\u9fff])([MF])\/(\d+)/g,'$1 $2/$3');
+  let hkid='';const hm=raw.match(/([A-Z]{1,2}\d{6}\([0-9A]\)|[A-Z]{1,2}\d{6}[0-9A]?|[A-Z]{1,2}\d{6})/i);if(hm)hkid=normalizeHkid(hm[1]);
   let cn='';const cm=raw.match(/([\u4e00-\u9fff]{2,5})/);if(cm)cn=cm[1].trim();
   const pe=parseCommaStyle(raw)||parseSpaceStyle(raw);
-  el('englishSurname').value=pe?.surname||'';
-  el('englishGiven').value=pe?.given||'';
-  el('chineseName').value=cn;
-  el('patientId').value=hkid;
+  el('englishSurname').value=pe?.surname||'';el('englishGiven').value=pe?.given||'';
+  el('chineseName').value=cn;el('patientId').value=hkid;
   try{localStorage.setItem(LAST_PATIENT_KEY,JSON.stringify({englishSurname:el('englishSurname').value,englishGiven:el('englishGiven').value,chineseName:cn,patientId:hkid}))}catch(e){}
-  saveCurrentPatientToRecent();
-  updatePreview();autoSaveDebounced();
-  showStatus('Patient parsed');
+  saveCurrentPatientToRecent();updatePreview();autoSaveDebounced();showStatus('Patient parsed');
 }
 
 function duplicateLastPatient(){
@@ -1017,33 +1056,37 @@ function clearPatientFields(){
   updatePreview();autoSaveDebounced();showStatus('Patient fields cleared');
 }
 
-/* ====== Tab Switch ====== */
+/* ====== CHANGED: Tab Switch (3 tabs + sidebar section show/hide) ====== */
 function switchTab(tab){
   activeTab=tab;
-  const isRef=tab==='referral';
-  el('referralPage').classList.toggle('hidden',!isRef);
-  el('sickPage').classList.toggle('hidden',isRef);
-  el('tabReferral').classList.toggle('active',isRef);
-  el('tabSick').classList.toggle('active',!isRef);
+  el('referralPage').classList.toggle('hidden',tab!=='referral');
+  el('sickPage').classList.toggle('hidden',tab!=='sick');
+  el('attendPage').classList.toggle('hidden',tab!=='attend');
+  el('tabReferral').classList.toggle('active',tab==='referral');
+  el('tabSick').classList.toggle('active',tab==='sick');
+  el('tabAttend').classList.toggle('active',tab==='attend');
+  /* Show/hide sidebar doc-specific sections */
+  el('sectionReferral').classList.toggle('hidden',tab!=='referral');
+  el('sectionSick').classList.toggle('hidden',tab!=='sick');
+  el('sectionAttend').classList.toggle('hidden',tab!=='attend');
   checkOverflow();
 }
 
-/* ====== Today / Timestamp ====== */
-function refreshTimestamp(){el('printTimestamp').value=timestampNow()}
+/* ====== CHANGED: Refresh Timestamp + auto attend period ====== */
+function refreshTimestamp(){
+  el('printTimestamp').value=timestampNow();
+  autoAttendPeriod();
+}
+
 function setToday(){
   const t=todayISO();el('docDate').value=t;el('sickFrom').value=t;
   computeToFromDays();refreshTimestamp();updatePreview();autoSaveDebounced();
   showStatus('Today applied');
 }
 
-/* ====== Reset Header ====== */
-function resetHeader(){
-  el('headerText').value=DEFAULT_HEADER_TEXT;
-  updatePreview();autoSaveDebounced();
-  showStatus('Header reset to default');
-}
+function resetHeader(){el('headerText').value=DEFAULT_HEADER_TEXT;updatePreview();autoSaveDebounced();showStatus('Header reset to default')}
 
-/* ====== Clear Form Keep Doctor ====== */
+/* ====== CHANGED: Clear Form — also reset attendance fields ====== */
 function clearFormKeepDoctor(){
   showConfirm('Clear current form but keep doctor & header settings?').then(ok=>{
     if(!ok)return;
@@ -1051,178 +1094,95 @@ function clearFormKeepDoctor(){
     fields.forEach(id=>{if(['doctorNameEn','doctorNameCn','doctorTitle','headerText'].includes(id))return;if(el(id))el(id).value=''});
     el('doctorNameEn').value=de;el('doctorNameCn').value=dc;el('doctorTitle').value=dt;el('headerText').value=ht;
     el('refRecipientEn').value='To Whom It May Concern,';
-    el('sickRecipientCn').value='致有關人士:';
-    el('sickRecipientEn').value='To Whom It May Concern,';
+    el('sickRecipientCn').value='致有關人士:';el('sickRecipientEn').value='To Whom It May Concern,';
     el('sickDays').value='1';el('sickFromPeriod').value='';el('sickToPeriod').value='';
+    el('attendRecipientCn').value='致有關人士:';el('attendRecipientEn').value='To Whom It May Concern,';
     lastDiagAutoPrefix='';
     setToday();updatePreview();autoSaveDebounced();showStatus('Form cleared');
   });
 }
 
-/* ====== Print Validation ====== */
+/* ====== CHANGED: Print Validation — handle attend tab ====== */
 function validateAndPrint(){
-  const warns=[];
-  const warnFields=[];
-  clearFieldWarnings();
-
+  const warns=[];const warnFields=[];clearFieldWarnings();
   if(!el('docDate').value){warns.push('Document Date is empty');warnFields.push('fieldDocDate')}
   const hasName=el('englishSurname').value.trim()||el('chineseName').value.trim();
-  if(!hasName){warns.push('Patient name is empty (no English surname or Chinese name)');warnFields.push('fieldSurname');warnFields.push('fieldCnName')}
+  if(!hasName){warns.push('Patient name is empty');warnFields.push('fieldSurname');warnFields.push('fieldCnName')}
 
   if(activeTab==='referral'){
     if(!el('refBody').value.trim()){warns.push('Referral body is empty');warnFields.push('fieldRefBody')}
-  }else{
+  }else if(activeTab==='sick'){
     if(!el('diagnosis').value.trim()){warns.push('Diagnosis is empty');warnFields.push('fieldDiagnosis')}
     if(!el('sickFrom').value){warns.push('Leave From date is empty');warnFields.push('fieldFrom')}
     if(!el('sickTo').value){warns.push('Leave To date is empty');warnFields.push('fieldTo')}
+  }else if(activeTab==='attend'){
+    if(!el('diagnosis').value.trim()){warns.push('Diagnosis is empty');warnFields.push('fieldDiagnosis')}
   }
 
   if(!warns.length){
     refreshTimestamp();updatePreview();
-    setTimeout(()=>window.print(),120);
-    return;
+    setTimeout(()=>window.print(),120);return;
   }
-
   warnFields.forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('field-warn')});
-
-  showModal({
-    title:'Missing Fields Detected',
-    text:'The following fields are empty:',
-    warnings:warns,
-    confirmText:'Print Anyway',
-    confirmClass:'primary',
-    cancelText:'Go Back'
-  }).then(ok=>{
+  showModal({title:'Missing Fields Detected',text:'The following fields are empty:',warnings:warns,confirmText:'Print Anyway',confirmClass:'primary',cancelText:'Go Back'}).then(ok=>{
     clearFieldWarnings();
-    if(ok){
-      refreshTimestamp();updatePreview();
-      setTimeout(()=>window.print(),120);
-    }
+    if(ok){refreshTimestamp();updatePreview();setTimeout(()=>window.print(),120)}
   });
 }
-
-function clearFieldWarnings(){
-  document.querySelectorAll('.field-warn').forEach(e=>e.classList.remove('field-warn'));
-}
+function clearFieldWarnings(){document.querySelectorAll('.field-warn').forEach(e=>e.classList.remove('field-warn'))}
 
 /* ====== Image Upload ====== */
 function getStoredImages(){try{return JSON.parse(localStorage.getItem(IMAGES_KEY)||'{}')}catch(e){return{}}}
 function saveStoredImages(data){try{localStorage.setItem(IMAGES_KEY,JSON.stringify(data))}catch(e){showStatus('Image too large for localStorage')}}
 
 function processAndStoreImage(key,file){
-  const maxW=IMG_MAX_W[key]||800;
-  const reader=new FileReader();
+  const maxW=IMG_MAX_W[key]||800;const reader=new FileReader();
   reader.onload=function(ev){
-    const img=new Image();
-    img.onload=function(){
+    const img=new Image();img.onload=function(){
       let dataUrl;
-      if(img.width<=maxW){
-        dataUrl=ev.target.result;
-      }else{
-        const canvas=document.createElement('canvas');
-        const ratio=maxW/img.width;
-        canvas.width=maxW;canvas.height=Math.round(img.height*ratio);
-        const ctx=canvas.getContext('2d');
-        ctx.drawImage(img,0,0,canvas.width,canvas.height);
-        dataUrl=canvas.toDataURL('image/png');
-      }
-      const stored=getStoredImages();
-      stored[key]=dataUrl;
-      saveStoredImages(stored);
-      applyImage(key,dataUrl);
-      showStatus('Image uploaded');
-    };
-    img.src=ev.target.result;
-  };
-  reader.readAsDataURL(file);
+      if(img.width<=maxW){dataUrl=ev.target.result}
+      else{const canvas=document.createElement('canvas');const ratio=maxW/img.width;canvas.width=maxW;canvas.height=Math.round(img.height*ratio);const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);dataUrl=canvas.toDataURL('image/png')}
+      const stored=getStoredImages();stored[key]=dataUrl;saveStoredImages(stored);applyImage(key,dataUrl);showStatus('Image uploaded');
+    };img.src=ev.target.result;
+  };reader.readAsDataURL(file);
 }
 
 function applyImage(key,dataUrl){
-  const fallback=IMG_DEFAULTS[key]||TRANSPARENT;
-  const src=dataUrl||fallback;
-  const targets=IMG_MAP[key]||[];
-  targets.forEach(id=>{const img=document.getElementById(id);if(img)img.src=src});
+  const fallback=IMG_DEFAULTS[key]||TRANSPARENT;const src=dataUrl||fallback;
+  const targets=IMG_MAP[key]||[];targets.forEach(id=>{const img=document.getElementById(id);if(img)img.src=src});
   const thumbId=IMG_THUMB_MAP[key];
-  if(thumbId){
-    const thumb=document.getElementById(thumbId);
-    if(thumb){thumb.src=dataUrl||'';thumb.style.display=dataUrl?'block':'none'}
-  }
-  const zone=document.querySelector('[data-img-key="'+key+'"]');
-  if(zone)zone.classList.toggle('has-img',!!dataUrl);
+  if(thumbId){const thumb=document.getElementById(thumbId);if(thumb){thumb.src=dataUrl||'';thumb.style.display=dataUrl?'block':'none'}}
+  const zone=document.querySelector('[data-img-key="'+key+'"]');if(zone)zone.classList.toggle('has-img',!!dataUrl);
 }
 
-function removeImage(key){
-  const stored=getStoredImages();
-  delete stored[key];
-  saveStoredImages(stored);
-  applyImage(key,'');
-  showStatus('Image removed');
-}
+function removeImage(key){const stored=getStoredImages();delete stored[key];saveStoredImages(stored);applyImage(key,'');showStatus('Image removed')}
 
-function loadAllImages(){
-  const stored=getStoredImages();
-  Object.keys(IMG_MAP).forEach(key=>{
-    if(stored[key])applyImage(key,stored[key]);
-  });
-}
+function loadAllImages(){const stored=getStoredImages();Object.keys(IMG_MAP).forEach(key=>{if(stored[key])applyImage(key,stored[key])})}
 
 function clearAllImages(){
   showConfirm('Clear all uploaded document images?').then(ok=>{
     if(!ok)return;
     try{localStorage.removeItem(IMAGES_KEY)}catch(e){}
-    Object.keys(IMG_MAP).forEach(key=>applyImage(key,''));
-    showStatus('All images cleared');
+    Object.keys(IMG_MAP).forEach(key=>applyImage(key,''));showStatus('All images cleared');
   });
 }
 
 function initImageUploadZones(){
   document.querySelectorAll('.img-upload-zone').forEach(zone=>{
-    const key=zone.dataset.imgKey;
-    const fileInput=zone.querySelector('input[type="file"]');
-    const removeBtn=zone.querySelector('.img-remove-btn');
-
-    zone.addEventListener('click',e=>{
-      if(e.target===removeBtn||removeBtn.contains(e.target))return;
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change',()=>{
-      if(fileInput.files&&fileInput.files[0])processAndStoreImage(key,fileInput.files[0]);
-      fileInput.value='';
-    });
-
-    removeBtn.addEventListener('click',e=>{
-      e.stopPropagation();
-      removeImage(key);
-    });
-
+    const key=zone.dataset.imgKey;const fileInput=zone.querySelector('input[type="file"]');const removeBtn=zone.querySelector('.img-remove-btn');
+    zone.addEventListener('click',e=>{if(e.target===removeBtn||removeBtn.contains(e.target))return;fileInput.click()});
+    fileInput.addEventListener('change',()=>{if(fileInput.files&&fileInput.files[0])processAndStoreImage(key,fileInput.files[0]);fileInput.value=''});
+    removeBtn.addEventListener('click',e=>{e.stopPropagation();removeImage(key)});
     zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over')});
     zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
-    zone.addEventListener('drop',e=>{
-      e.preventDefault();zone.classList.remove('drag-over');
-      if(e.dataTransfer.files&&e.dataTransfer.files[0])processAndStoreImage(key,e.dataTransfer.files[0]);
-    });
+    zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files&&e.dataTransfer.files[0])processAndStoreImage(key,e.dataTransfer.files[0])});
   });
 }
 
 /* ====== Dark Mode ====== */
-function loadDarkMode(){
-  try{
-    const v=localStorage.getItem(DARK_KEY);
-    if(v==='true')applyDarkMode(true);
-  }catch(e){}
-}
-function toggleDarkMode(){
-  const sb=el('sidebar');
-  const isDark=sb.classList.contains('dark');
-  applyDarkMode(!isDark);
-}
-function applyDarkMode(on){
-  const sb=el('sidebar');
-  sb.classList.toggle('dark',on);
-  el('darkToggle').textContent=on?'☀️':'🌙';
-  try{localStorage.setItem(DARK_KEY,on?'true':'false')}catch(e){}
-}
+function loadDarkMode(){try{const v=localStorage.getItem(DARK_KEY);if(v==='true')applyDarkMode(true)}catch(e){}}
+function toggleDarkMode(){const sb=el('sidebar');applyDarkMode(!sb.classList.contains('dark'))}
+function applyDarkMode(on){el('sidebar').classList.toggle('dark',on);el('darkToggle').textContent=on?'☀️':'🌙';try{localStorage.setItem(DARK_KEY,on?'true':'false')}catch(e){}}
 
 /* ====== Zoom ====== */
 function setZoom(lv){
@@ -1234,16 +1194,11 @@ function setZoom(lv){
   const hm=(w*(zoomLevel-1))/2;s.style.marginLeft=hm+'px';s.style.marginRight=hm+'px';
   el('zoomLabel').textContent=Math.round(zoomLevel*100)+'%';
 }
-function zoomFit(){
-  if(!shellNaturalWidth)return;
-  const av=document.querySelector('.preview').clientWidth-52;
-  setZoom(Math.min(av/shellNaturalWidth,1.0));
-}
+function zoomFit(){if(!shellNaturalWidth)return;const av=document.querySelector('.preview').clientWidth-52;setZoom(Math.min(av/shellNaturalWidth,1.0))}
 function initZoom(){shellNaturalWidth=document.querySelector('.paper-shell').offsetWidth;zoomFit()}
 
 /* ====== Keyboard Shortcuts ====== */
 document.addEventListener('keydown',function(e){
-  // Don't intercept when modal is open (modal has its own handler)
   if(el('modalOverlay').classList.contains('visible'))return;
   const k=e.key.toLowerCase();
   if((e.ctrlKey||e.metaKey)&&k==='s'){e.preventDefault();autoSave();showStatus('Saved')}
@@ -1257,6 +1212,7 @@ function initDefaults(){
   if(!el('sickDays').value)el('sickDays').value='1';
   computeToFromDays();
   if(!el('printTimestamp').value)refreshTimestamp();
+  autoAttendPeriod();
 }
 
 /* ====== Event Binding ====== */
@@ -1269,21 +1225,19 @@ fields.forEach(id=>{
     else if(id==='sickDays'){computeToFromDays()}
     updatePreview();autoSaveDebounced();
   };
-  elem.addEventListener('input',handler);
-  elem.addEventListener('change',handler);
+  elem.addEventListener('input',handler);elem.addEventListener('change',handler);
 });
 
 el('tabReferral').addEventListener('click',()=>{switchTab('referral');autoSaveDebounced()});
 el('tabSick').addEventListener('click',()=>{switchTab('sick');autoSaveDebounced()});
+el('tabAttend').addEventListener('click',()=>{switchTab('attend');autoSaveDebounced()});
 
-/* Toolbar actions */
 el('toolbarTodayBtn').addEventListener('click',setToday);
 el('toolbarRefreshBtn').addEventListener('click',()=>{refreshTimestamp();updatePreview();autoSaveDebounced();showStatus('Timestamp refreshed')});
 el('toolbarPrintBtn').addEventListener('click',validateAndPrint);
 el('toolbarClearFormBtn').addEventListener('click',clearFormKeepDoctor);
 el('toolbarClearDraftBtn').addEventListener('click',clearDraft);
 
-/* Sidebar contextual actions */
 el('parseBtn').addEventListener('click',parsePatientLine);
 el('duplicateBtn').addEventListener('click',duplicateLastPatient);
 el('clearPatientBtn').addEventListener('click',clearPatientFields);
