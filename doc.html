@@ -238,11 +238,10 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .attend-row .zh{margin-bottom:1.2mm}
 .attend-inline{display:inline-block;border-bottom:1px solid #111;line-height:1.01;padding:0 1px 1px;vertical-align:baseline;white-space:nowrap}
 .attend-inline-date{min-width:23mm;text-align:center}
-.attend-visit-grid{display:grid;grid-template-columns:auto auto auto auto;align-items:baseline;row-gap:1.2mm;column-gap:3mm;font-size:10.8pt;line-height:1.15}
-.attend-visit-grid .avt-prefix{white-space:nowrap}
-.attend-visit-grid .avt-date{min-width:23mm;text-align:center}
-.attend-visit-grid .avt-period{min-width:8mm;text-align:left}
-.attend-visit-grid .avt-hint{border:none;font-size:9pt;padding:0;text-align:center}
+.attend-visit-zh-line{display:flex;align-items:flex-end;justify-content:flex-start;margin-left:0}
+.attend-visit-zh-line .visit-end-word{margin-left:auto;padding-right:32mm}
+.attend-visit-en-line{display:flex;align-items:flex-end;gap:3mm;flex-wrap:nowrap}
+.attend-date-hint{margin-top:1mm;margin-left:40mm;font-size:9pt;line-height:1;font-family:var(--en-font)}
 .attend-sig-wrap{margin-top:12.5mm}
 
 /* ====== Misc ====== */
@@ -621,22 +620,9 @@ Email:general@cuhkmc.hk</div>
             <div class="attend-row"><div class="zh">茲證明</div><div class="en">This is to certify that <span class="attend-inline" id="pvAttendPatientName"></span></div></div>
             <div class="attend-row"><div class="zh">因患</div><div class="en">is suffering from <span class="attend-inline" id="pvAttendDiagnosis"></span></div></div>
             <div class="attend-row">
-              <div class="attend-visit-grid">
-                <span class="zh avt-prefix">已於</span>
-                <span class="attend-inline attend-inline-date avt-date" id="pvAttendVisitDateZh"></span>
-                <span class="zh avt-period" id="pvAttendPeriodCn">上午</span>
-                <span class="zh avt-suffix">在本處診治。</span>
-            
-                <span class="en avt-prefix">and has attended here on</span>
-                <span class="attend-inline attend-inline-date avt-date" id="pvAttendVisitDate"></span>
-                <span class="en avt-period" id="pvAttendPeriodEn">A.M.</span>
-                <span class="avt-suffix"></span>
-            
-                <span class="avt-prefix"></span>
-                <span class="en avt-date avt-hint">(DD-MM-YYYY)</span>
-                <span class="avt-period"></span>
-                <span class="avt-suffix"></span>
-              </div>
+              <div class="zh attend-visit-zh-line"><span class="visit-from-word">已於</span><span class="visit-end-word">在本處診治。</span></div>
+              <div class="en attend-visit-en-line"><span>and has attended here on</span><span id="pvAttendVisitDate"></span><span class="zh" id="pvAttendPeriodCn">下午</span><span class="en" id="pvAttendPeriodEn">P.M.</span></div>
+              <div class="attend-date-hint en">(DD-MM-YYYY)</div>
             </div>
             <div class="sig-wrap attend-sig-wrap">
               <img class="sig-img" id="sigAttend" alt="Signature" src="signature.png">
