@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathology Service - Quotation System</title>
+<style>
+:root{
+  --bg:#eef2f7;--bg-accent:#e4ebf5;--panel:#fff;--panel-2:#f8fafc;
+  --border:#d9e2ec;--border-strong:#c4d0dd;--text:#12202f;--muted:#5b6b7c;
+  --primary:#0f172a;--primary-2:#1d4ed8;--primary-soft:#dbeafe;
+  --danger:#b91c1c;--danger-soft:#fee2e2;--warn:#f59e0b;--warn-soft:#fef3c7;
+  --success:#059669;--success-soft:#d1fae5;
+  --shadow:0 12px 36px rgba(15,23,42,.08);--shadow-soft:0 8px 24px rgba(15,23,42,.06);
+  --ui-font:Inter,Tahoma,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);font-size:15px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{padding:20px}
+.container{max-width:1200px;margin:0 auto}
+
+.header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow-soft);margin-bottom:16px;transition:background .35s,border-color .35s}
+.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header h1{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
+.header h1 span{margin-right:6px}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-2);background:var(--primary-soft);border:1px solid #bfdbfe;padding:7px 12px;border-radius:999px;margin-bottom:10px;transition:background .35s,border-color .35s,color .35s}
+.header-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.search-box{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:12px 16px;border:1px solid var(--border-strong);border-radius:12px;font-size:15px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s,background .25s,color .25s}
+.search-input::placeholder{color:#94a3b8}
+.search-input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
+.dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:8px 12px;font-size:16px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
+.dark-toggle:hover{transform:scale(1.08)}
+
+.info-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
+.chip.count{color:#6c5ce7}
+.chip.total{color:#00b894}
+.chip.items{color:#e17055}
+
+.tabs{display:flex;gap:5px;margin-bottom:0;flex-wrap:wrap}
+.tab{padding:11px 18px;border-radius:12px 12px 0 0;cursor:pointer;font-size:14px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
+.tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
+.tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
+.tab .tab-count{display:inline-flex;align-items:center;justify-content:center;background:var(--primary-soft);color:var(--primary-2);font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:999px;margin-left:6px;padding:0 5px}
+
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:22px;box-shadow:var(--shadow-soft);margin-bottom:16px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
+
+.dtable{width:100%;border-collapse:collapse}
+.dtable th{text-align:left;font-size:12px;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
+.dtable td{padding:10px 12px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:14px}
+.dtable tr{cursor:pointer;transition:background .12s}
+.dtable tr:hover{background:var(--panel-2)}
+.dtable tr.selected{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.dtable tr.selected:hover{background:linear-gradient(135deg,#d1fae5,#a7f3d0)}
+.test-name{font-weight:700;font-size:14px;color:var(--text)}
+.test-price{font-weight:800;color:var(--primary-2);font-size:15px;white-space:nowrap}
+.test-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.test-check.checked{background:linear-gradient(135deg,#10b981,#059669);border-color:#059669}
+.test-check.checked::after{content:'✓';color:#fff;font-size:12px;font-weight:800}
+
+/* Cart */
+.cart-box{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #6ee7b7;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(16,185,129,.12)}
+.cart-title{font-weight:800;font-size:16px;margin-bottom:12px;color:var(--primary);display:flex;align-items:center;justify-content:space-between}
+.cart-items{max-height:300px;overflow-y:auto;margin-bottom:14px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid var(--border);font-size:13px}
+.cart-item-name{font-weight:600;color:var(--text);flex:1;margin-right:10px}
+.cart-item-price{font-weight:800;color:var(--primary-2);white-space:nowrap}
+.cart-item-remove{background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px;font-weight:800;transition:background .15s}
+.cart-item-remove:hover{background:var(--danger-soft);transform:none}
+.cart-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border-radius:12px;border:2px solid #10b981;font-size:16px}
+.cart-total-label{font-weight:800;color:var(--text)}
+.cart-total-val{font-weight:800;color:var(--success);font-size:20px}
+.cart-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+
+button{border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+.btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:14px;padding:10px 16px;transition:background .25s,border-color .25s,color .25s}
+.btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
+.btn-primary{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border:none;box-shadow:0 4px 12px rgba(37,99,235,.25);font-size:14px;padding:10px 20px}
+.btn-primary:hover{box-shadow:0 6px 16px rgba(37,99,235,.35)}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;box-shadow:0 4px 12px rgba(5,150,105,.25);font-size:14px;padding:10px 20px}
+.btn-success:hover{box-shadow:0 6px 16px rgba(5,150,105,.35)}
+.btn-danger{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border:none;box-shadow:0 4px 12px rgba(220,38,38,.2);font-size:14px;padding:10px 16px}
+
+.no-results{text-align:center;padding:40px;color:var(--muted);font-size:15px}
+
+.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
+
+/* Quantity badge on tab */
+.qty-badge{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:999px;margin-left:5px;padding:0 5px}
+
+/* Print styles */
+.print-only{display:none}
+@media print{
+    .print-only{display:block}
+    .no-print{display:none!important}
+    body{background:#fff;padding:10px}
+    .header,.tabs,.panel,.disc{box-shadow:none;border:1px solid #ddd}
+    .dark-toggle,.btn-clear,.btn-primary,.btn-danger,.search-input,.test-check{display:none}
+}
+
+/* ========= DARK MODE ========= */
+body.dark{background:radial-gradient(circle at top left,#161926 0%,#111420 42%,#0d1017 100%)}
+body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
+body.dark .header h1{color:#e8ecf4}
+body.dark .brand-badge{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.3);color:#7cb3f4}
+body.dark .search-input{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .search-input::placeholder{color:#4a5578}
+body.dark .search-input:focus{background:#2a3048;border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:#3a4060;color:#cad3e0}
+body.dark .chip{background:#1c2035;border-color:#2a3050;color:#b0bdd0}
+body.dark .chip.count{color:#a29bfe}body.dark .chip.total{color:#55efc4}body.dark .chip.items{color:#fab1a0}
+body.dark .tab{background:#1c2035;border-color:#2d3450;color:#6b7a94}
+body.dark .tab:hover{border-color:#4a5580;color:#b0bdd0}
+body.dark .tab.active{background:#1c2035;color:#e8ecf4;border-color:#3a4060}
+body.dark .tab .tab-count{background:rgba(59,130,246,.15);color:#7cb3f4}
+body.dark .panel{background:#1c2035;border-color:#2a3050}
+body.dark .dtable th{color:#6b7a94;border-bottom-color:#2a3050}
+body.dark .dtable td{border-bottom-color:#232840}
+body.dark .dtable tr:hover{background:#242940}
+body.dark .dtable tr.selected{background:rgba(16,185,129,.1)}
+body.dark .dtable tr.selected:hover{background:rgba(16,185,129,.16)}
+body.dark .test-name{color:#e8ecf4}
+body.dark .test-price{color:#60a5fa}
+body.dark .test-check{border-color:#4a5580}
+body.dark .cart-box{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(5,150,105,.05));border-color:rgba(16,185,129,.3)}
+body.dark .cart-title{color:#e8ecf4}
+body.dark .cart-item{background:#242940;border-color:#333a55}
+body.dark .cart-item-name{color:#dce3ef}
+body.dark .cart-item-price{color:#60a5fa}
+body.dark .cart-total{background:#242940;border-color:#10b981}
+body.dark .cart-total-label{color:#e8ecf4}
+body.dark .disc{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050;color:#6b7a94}
+body.dark .btn-clear{background:#242940;border-color:#333a55;color:#c4d0e0}
+body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
+body.dark .no-results{color:#6b7a94}
+
+@media(max-width:600px){
+    html,body{font-size:13px}
+    .container{max-width:100%}
+    .header{padding:14px 16px}
+    .header h1{font-size:20px}
+    .header-top{flex-direction:column;align-items:flex-start}
+    .tab{padding:8px 11px;font-size:11px}
+    .dtable td{padding:8px 6px;font-size:12px}
+    .test-name{font-size:12px}
+    .test-price{font-size:13px}
+    .cart-item{font-size:12px}
+    .cart-total{font-size:14px}
+    .cart-total-val{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="brand-badge">Dr. Ray Leung Limited</div>
+    <div class="header-top">
+        <h1><span>🔬</span>Pathology Service Quotation</h1>
+        <div class="header-right">
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+        </div>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search tests (e.g. HbA1c, CBC, Hepatitis B...)">
+        <button class="btn-clear" onclick="clearSearch()">Clear Search</button>
+    </div>
+</div>
+
+<div class="info-bar" id="infoBar"></div>
+
+<div class="tabs" id="tabBar"></div>
+
+<div class="panel" id="mainPanel"></div>
+
+<div class="disc">⚠️ <strong>Disclaimer:</strong> Prices shown are for reference only and subject to change without notice. Actual charges may vary. Please confirm with the laboratory for the most up-to-date pricing. Additional surcharges may apply for urgent requests or special handling.</div>
+</div>
+
+<script>
+// ============ Dark Mode ============
+function loadDarkMode(){try{if(localStorage.getItem('pathQuote_dark')==='true')applyDark(true)}catch(e){}}
+function toggleDark(){const on=document.body.classList.contains('dark');applyDark(!on)}
+function applyDark(on){document.body.classList.toggle('dark',on);document.getElementById('darkToggle').textContent=on?'☀️':'🌙';try{localStorage.setItem('pathQuote_dark',on?'true':'false')}catch(e){}}
+document.getElementById('darkToggle').addEventListener('click',toggleDark);
+loadDarkMode();
+
+// ============ Test Database ============
+const tests = {
+chem: [
+{n:"1,3-Beta-D-Glucan (Fungitell), serum",p:2500},
+{n:"17α-Hydroxyprogesterone (17-OHP), serum",p:705},
+{n:"25 OH-Vitamin D, serum",p:795},
+{n:"5-Hydroxyindoleacetic acid (HIAA), 24 hour urine",p:560},
+{n:"ALEX3 allergy test, serum",p:4800},
+{n:"Acetylcholine Receptor Binding Antibody, Serum",p:885},
+{n:"Acetylcholine Receptor Blocking Antibody, Serum",p:885},
+{n:"Acetylcholine Receptor Modulating Antibody, Serum",p:885},
+{n:"Active B12, serum",p:705},
+{n:"Adenosine Deaminase Test, Fluid",p:1325},
+{n:"Adiponectin, serum",p:2680},
+{n:"Adrenal Mass Panel, 24hr urine",p:17640},
+{n:"Adrenocorticotrophic Hormone (ACTH), plasma",p:705},
+{n:"Alanine Aminotransferase (ALT/SGPT), plasma",p:165},
+{n:"Alanine Aminotransferase (ALT/SGPT), spot fluid",p:285},
+{n:"Albumin (ALB), plasma",p:160},
+{n:"Albumin, spot fluid",p:285},
+{n:"Albumin/Creatinine Ratio, spot urine",p:490},
+{n:"Aldosterone Renin Ratio (ARR), EDTA",p:1915},
+{n:"Aldosterone, 24 hr urine",p:920},
+{n:"Alkaline Phosphatase Isoenzymes (ALP Isoenzymes), serum",p:970},
+{n:"Alkaline Phosphatase, Bone Specific, serum",p:780},
+{n:"Alkaline Phosphatases (ALP), plasma",p:165},
+{n:"Alkaline Phosphatases (ALP), spot fluid",p:285},
+{n:"Alpha Foetal Protein (AFP), serum",p:520},
+{n:"Alpha1-Antitrypsin (A1A/AAT), plasma",p:285},
+{n:"Aluminium, serum",p:620},
+{n:"Amikacin (Post, Dose interval>=24 hrs)",p:905},
+{n:"Amikacin (Post, Multiple daily dose)",p:905},
+{n:"Amikacin (Pre, Dose interval>=24 hrs)",p:905},
+{n:"Amikacin (Pre, Multiple daily dose)",p:905},
+{n:"Amikacin (Random)",p:905},
+{n:"Amino Acids Quantitation, plasma",p:1075},
+{n:"Amino acid (Quantitation), spot urine",p:1080},
+{n:"Ammonia, plasma",p:630},
+{n:"Amoebic Antibody (Anti-Entamoeba histolytica), serum",p:830},
+{n:"Amylase (AMY), plasma",p:215},
+{n:"Amylase (AMY), spot urine",p:305},
+{n:"Amylase, spot fluid",p:285},
+{n:"Androstenedione, serum",p:705},
+{n:"Angiotensin Converting Enzyme (ACE), serum",p:770},
+{n:"Angiotensin ll, EDTA blood",p:2000},
+{n:"Anti-CMV, IgG, serum",p:420},
+{n:"Anti-HAV Total (Hepatitis A total antibody), serum",p:745},
+{n:"Anti-HBc (Hepatitis B Core antibody), serum",p:755},
+{n:"Anti-HBe",p:600},
+{n:"Anti-HBs (Hepatitis B surface antibody), serum",p:520},
+{n:"Anti-HCV (Hepatitis C antibody), serum",p:960},
+{n:"Anti-Mullerian hormone, AMH, serum",p:1345},
+{n:"Anti-cyclic citrullinated peptides IgG (Anti-CCP, IgG), serum",p:875},
+{n:"Anti-thyroglobulin Ab (TgAb/ATG), serum",p:780},
+{n:"Anti-thyroid peroxidase Ab (TPO), serum",p:420},
+{n:"Antistreptolysin O (ASOT) antibody, serum",p:275},
+{n:"Apolipoprotein A1 & B, serum",p:600},
+{n:"Apolipoprotein B, serum",p:350},
+{n:"Aquaporin-4/NMO IgG, serum",p:3855},
+{n:"Arsenic (As), Urine",p:700},
+{n:"Aspartate Aminotransferase (AST), spot fluid",p:285},
+{n:"Aspartate Aminotransferases (AST/SGOT), plasma",p:165},
+{n:"Aspergillus antigen, BAL",p:1160},
+{n:"Aspergillus antigen, serum",p:1160},
+{n:"Aspergillus fumigatus IgE, serum",p:1160},
+{n:"Aspergillus fumigatus IgG, serum",p:1160},
+{n:"Aspergillus fumigatus IgM, serum",p:1160},
+{n:"Axonal Neuropathy, Autoimmune/Paraneoplastic Evaluation x 12 Ab (AlAES), serum",p:6200},
+{n:"Bartonella serology IgG and IgM, serum",p:1620},
+{n:"Bence Jones Protein, urine",p:1545},
+{n:"Beta-2-Microglobulin (B2M), serum",p:525},
+{n:"Beta-Hydroxybutyrate (Ketone), Blood",p:385},
+{n:"Bicarbonate, plasma",p:165},
+{n:"Bile Acid, serum",p:820},
+{n:"Bilirubin (Total, Direct, Indirect), plasma",p:250},
+{n:"Bilirubin direct, plasma",p:165},
+{n:"Bilirubin neonatal, plasma",p:250},
+{n:"Bilirubin total, plasma",p:165},
+{n:"Bilirubin total, spot fluid",p:285},
+{n:"Blood Gases, Arterial Cord Blood",p:465},
+{n:"Blood Gases, Capillary",p:465},
+{n:"Blood Gases, Venous Cord Blood",p:465},
+{n:"Blood Gases, arterial",p:465},
+{n:"Blood Gases, venous",p:465},
+{n:"C-Reactive Protein (CRP), plasma",p:375},
+{n:"C-peptide, serum",p:495},
+{n:"C1 Esterase Inhibitor Protein, serum",p:590},
+{n:"CA125, serum",p:815},
+{n:"CA153 (CA15-3) serum",p:815},
+{n:"CA199 (CA19-9), serum",p:795},
+{n:"CA724 (CA72-4), serum",p:800},
+{n:"CMV DNA (screen), plasma",p:665},
+{n:"CMV DNA PCR (Quantitative), EDTA plasma",p:1730},
+{n:"CMV IgM, serum",p:560},
+{n:"CMV pp65 antigen, blood",p:1400},
+{n:"COVID-19 IgM antibody, serum",p:1010},
+{n:"COVID-19 Nucleocapsid IgG Ab, serum",p:970},
+{n:"COVID-19 Spike IgG Ab, serum",p:770},
+{n:"Cadmium (Cd), blood",p:620},
+{n:"Calcitonin, serum",p:705},
+{n:"Calcium (with albumin-adjusted Calcium), plasma",p:165},
+{n:"Calcium & creatinine, 24hr urine",p:590},
+{n:"Calcium, 24 hour urine",p:265},
+{n:"Calcium, spot fluid",p:285},
+{n:"Calcium/Creatinine Ratio, spot urine",p:275},
+{n:"Carbamazepine (CBZ), plasma",p:420},
+{n:"Carcinoembryonic Antigen (CEA), serum",p:785},
+{n:"Carcinoembryonic Antigen (CEA), spot fluid",p:785},
+{n:"Carnitines patterns, serum",p:1510},
+{n:"Catecholamines, 24 hour urine",p:925},
+{n:"Ceruloplasmin, plasma",p:390},
+{n:"Chikungunya virus PCR, blood",p:1705},
+{n:"Chikungunya virus PCR, blood (DH)",p:300},
+{n:"Chlamydia Pneumonia IgA, serum",p:830},
+{n:"Chlamydia Pneumonia IgG, serum",p:830},
+{n:"Chlamydia Pneumonia IgM, serum",p:830},
+{n:"Chloride (Cl), plasma",p:205},
+{n:"Chloride (Cl), spot fluid",p:285},
+{n:"Chloride (Cl), spot urine",p:205},
+{n:"Chloride, 24 hour urine",p:285},
+{n:"Cholesterol, plasma (Fasting)",p:170},
+{n:"Cholesterol, plasma (Non-fasting)",p:170},
+{n:"Cholesterol, spot fluid",p:285},
+{n:"Chromogranin A, serum",p:1200},
+{n:"Zika virus antibody, clotted blood",p:1345},
+{n:"Co-oximetry, blood",p:615},
+{n:"Cocaine, urine",p:485},
+{n:"Complement 3 (C3), plasma",p:545},
+{n:"Complement 4 (C4), plasma",p:545},
+{n:"Copper (Cu), 24 hour urine",p:465},
+{n:"Copper (Cu), serum",p:465},
+{n:"Cortisol, 24 hr Urine",p:445},
+{n:"Cortisol, Free, LC/MS, Serum",p:1925},
+{n:"Cortisol, Saliva",p:1275},
+{n:"Cortisol, Urine",p:445},
+{n:"Cortisol, evening sample, serum",p:655},
+{n:"Cortisol, morning sample, serum",p:655},
+{n:"Cortisol, overnight dexamethasone",p:655},
+{n:"Cortisol, random sample, serum",p:655},
+{n:"Cortisol/Creat Ratio, Urine",p:550},
+{n:"Creatine Kinase (CK/CPK), plasma",p:265},
+{n:"Creatine Kinase (CK/CPK), spot fluid",p:285},
+{n:"Creatine kinase-MB (CK-MB), plasma",p:585},
+{n:"Creatinine Clearance (CrCl), 24 hour urine",p:370},
+{n:"Creatinine, 24 hour urine",p:335},
+{n:"Creatinine, plasma",p:160},
+{n:"Creatinine, spot fluid",p:285},
+{n:"Creatinine, spot urine",p:310},
+{n:"Cryoglobulins Screen, serum",p:245},
+{n:"Cyclosporin A (2 hr post dose), blood",p:855},
+{n:"Cyclosporin A (trough), blood",p:855},
+{n:"DHEA-S, serum",p:495},
+{n:"DPYD Genotyping for 5-FU Responsiveness, blood",p:4375},
+{n:"Dexamethasone, serum",p:1820},
+{n:"Digoxin, serum",p:465},
+{n:"EBV DNA quantitative, plasma",p:875},
+{n:"EBV DNA quantitative, plasma (PWH UPS)",p:1280},
+{n:"EBV-IgA-EA",p:550},
+{n:"EBV-IgA-VCA",p:685},
+{n:"EBV-IgG-VCA",p:875},
+{n:"EBV-IgM-VCA",p:875},
+{n:"Encephalopathy, Autoimmune Evaluation, CSF",p:14335},
+{n:"Encephalopathy, Autoimmune/Paraneoplastic Evaluation, serum",p:14335},
+{n:"Enhanced Liver Fibrosis (ELF) Score, serum",p:4400},
+{n:"Erythropoietin (EPO), serum",p:665},
+{n:"Estimated GFR, plasma",p:160},
+{n:"Estradiol (E2), serum",p:625},
+{n:"Ethanol, serum",p:475},
+{n:"Female Androgen Profile (Female testosterone, Androstenedione, 17OH progesterone)",p:895},
+{n:"Ferritin, serum",p:685},
+{n:"Folate, serum",p:635},
+{n:"Follicle Stimulating Hormone (FSH), serum",p:625},
+{n:"Free Cortisol, 24 hour urine",p:620},
+{n:"Free Metanephrine, 24 hrs urine",p:1400},
+{n:"Free T3 (FT3), cord blood serum",p:470},
+{n:"Free T3 (fT3), serum",p:470},
+{n:"Free T4 (FT4), cord blood serum",p:470},
+{n:"Free T4 (fT4), serum",p:470},
+{n:"Free cortisol, 24 hr urine (Chan&Hou) (Mayo)",p:700},
+{n:"Free light chain, serum",p:2535},
+{n:"Free light chain, urine",p:2535},
+{n:"Fructosamine, serum",p:505},
+{n:"Gamma Glutamyl Transferases (GGT), plasma",p:185},
+{n:"Ganglioside Antibodies Evaluation, Serum (Mayo ID: GAES)",p:3000},
+{n:"Ganglioside GD1a Antibody (IgG), serum",p:875},
+{n:"Ganglioside GQ1b IgG, serum",p:865},
+{n:"Ganglioside (Asialo-GM1,GM1,GM2,GD1a,GD1b,GQ1b) Ab, serum",p:3400},
+{n:"Gentamicin (Post, Dose interval>=24 hrs)",p:905},
+{n:"Gentamicin (Post, Multiple daily dose)",p:905},
+{n:"Gentamicin (Pre, Dose interval>=24 hrs)",p:905},
+{n:"Gentamicin (Pre, Multiple daily dose)",p:905},
+{n:"Gentamicin (Random)",p:905},
+{n:"Gestational Free T3 (FT3), Serum",p:470},
+{n:"Gestational Free T4 (FT4), Serum",p:470},
+{n:"Gestational TSH, Serum",p:540},
+{n:"Glucose (sugar), CSF",p:285},
+{n:"Glucose fasting, plasma",p:175},
+{n:"Glucose random, plasma",p:175},
+{n:"Glucose, spot fluid",p:285},
+{n:"Glucose-6-Phosphate Dehydrogenase (G6PD) (Quantitative), blood",p:390},
+{n:"Glucose-6-Phosphate Dehydrogenase (G6PD) (Quantitative), cord blood",p:390},
+{n:"Glutamic Acid Decarboxylase (GAD-65) Antibody, serum",p:680},
+{n:"Growth Hormone (GH), serum",p:620},
+{n:"Guanidinoacetate and creatine, Urine and plasma",p:4485},
+{n:"HBeAg",p:600},
+{n:"HBsAg (Hepatitis B surface antigen), Qualitative, serum",p:520},
+{n:"HBsAg (Hepatitis B surface antigen), Quantitative (Send out), serum",p:305},
+{n:"HCC risk score panel, serum (Mayo Clinic)",p:5800},
+{n:"HCG, serum",p:590},
+{n:"HCV RNA, quantitative, blood",p:1500},
+{n:"HDL Cholesterol, plasma (Fasting)",p:310},
+{n:"HDL Cholesterol, plasma (Non-fasting)",p:310},
+{n:"HIV 1/2 Antibody/p24 antigen, serum",p:630},
+{n:"HLA-B27 DNA typing",p:990},
+{n:"HSV 1&2 DNA, plasma",p:665},
+{n:"Haemoglobin A1c (HbA1c), blood",p:465},
+{n:"Haptoglobin (Hp), plasma",p:330},
+{n:"High sensitive C-Reactive Protein (hsCRP), plasma",p:580},
+{n:"Homocysteine, serum",p:810},
+{n:"Human T-cell Lymphotropic Virus (HTLV) Types 1 & 2 Antibody, serum",p:770},
+{n:"IgG anti-HAV, serum",p:495},
+{n:"IgG anti-HSV I, serum",p:725},
+{n:"IgG anti-HSV II, serum",p:685},
+{n:"IgG anti-Measles, serum",p:650},
+{n:"IgG anti-Mumps",p:610},
+{n:"IgG anti-Parvovirus B19",p:1210},
+{n:"IgM Anti-HAV (Hepatitis A IgM antibody), serum",p:755},
+{n:"IgM anti-HBc",p:840},
+{n:"IgM anti-HEV",p:700},
+{n:"IgM anti-Measles",p:970},
+{n:"IgM anti-Mumps",p:970},
+{n:"IgM anti-Parvovirus B19",p:1210},
+{n:"Immunoglobulin G Subclass 4 (IgG4), serum",p:840},
+{n:"Immunoglobulins (IgA+IgG+IgM), serum",p:820},
+{n:"Infliximab Quantitation with Reflex to Antibodies to Infliximab, serum",p:3200},
+{n:"Insulin, serum",p:485},
+{n:"Insulin-like Growth Factor 1",p:685},
+{n:"Interleukin-6 (IL-6), serum",p:1565},
+{n:"Intra-operative Parathyroid Hormone (intact PTH), plasma",p:615},
+{n:"Ionized Calcium, Arterial Blood",p:455},
+{n:"Ionized Calcium, Capillary Blood",p:455},
+{n:"Ionized Calcium, Venous Blood",p:455},
+{n:"Iron (Fe), plasma",p:270},
+{n:"Iron Profile (Fe,TIBC), plasma",p:520},
+{n:"Kleihauer-Betke for fetal cells, blood",p:520},
+{n:"LDL Cholesterol, plasma (Fasting)",p:335},
+{n:"LDL Cholesterol, plasma (Non-fasting)",p:335},
+{n:"Lactate Dehydrogenase (LDH), spot fluid",p:285},
+{n:"Lactate Dehydrogenases (LDH), plasma",p:265},
+{n:"Lactate, plasma",p:400},
+{n:"Lead (Pb), Blood",p:515},
+{n:"Legionella Pneumoniae IgG, serum",p:1160},
+{n:"Legionella Pneumoniae IgM, serum",p:1160},
+{n:"Lipase, serum",p:290},
+{n:"Lipid Profile (CHOL, LDL, HDL, non-HDL, TG), plasma (Fasting)",p:845},
+{n:"Lipid Profile (CHOL, LDL, HDL, non-HDL, TG), plasma (Non-fasting)",p:845},
+{n:"Lipoprotein (a), serum",p:570},
+{n:"Lithium, serum",p:370},
+{n:"Liver Function Test (LFT), plasma",p:635},
+{n:"Low Dose Short Synacthen Test, LDSST (0', 20', 30')",p:1410},
+{n:"Luteinising Hormone (LH), serum",p:625},
+{n:"MOG Antibody with reflex, CSF",p:3090},
+{n:"Magnesium (Mg), plasma",p:355},
+{n:"Magnesium (Mg), spot urine",p:445},
+{n:"Manganese (Mn), blood",p:435},
+{n:"Mercury (Hg), blood",p:620},
+{n:"Metabolic screen, Urine",p:1935},
+{n:"Methotrexate (MTX Level), plasma",p:1420},
+{n:"Movement Disorder, Autoimmune/Paraneoplastic Evaluation, Serum",p:11550},
+{n:"MuSK Antibody, serum",p:9485},
+{n:"Mucopolysaccharides, Urine",p:610},
+{n:"Muscle-Specific Kinase (MuSK) Autoantibody, serum (Chan&Hou)",p:3700},
+{n:"Mycobacterium tuberculosis-Interferon Gamma Release assay (TB-IGRA), blood",p:2500},
+{n:"Mycoplasma Pneumoniae IgG, serum",p:770},
+{n:"Mycoplasma Pneumoniae IgM, serum",p:770},
+{n:"Myelin Oligodendrocyte Glycoprotein (MOG) Antibody with Reflex to Titer, serum",p:3090},
+{n:"Myositis Profile, serum",p:935},
+{n:"NMDA Receptor Antibody, serum",p:2870},
+{n:"NT-proBNP, plasma",p:865},
+{n:"Needle Stick Injury – Source (For injury inside CUHKMC)",p:0},
+{n:"Needle Stick Injury – Source (For injury outside CUHKMC)",p:1785},
+{n:"Needle Stick Injury – Victim (For injury inside CUHKMC)",p:0},
+{n:"Needle Stick Injury – Victim (For injury outside CUHKMC)",p:2200},
+{n:"Neurofilament-Light (NfL), plasma",p:2550},
+{n:"Nicotine, urine",p:340},
+{n:"Oligoclonal Bands, serum & CSF",p:1810},
+{n:"Oral Glucose Tolerance Test (0,1,2 hr)",p:480},
+{n:"Oral Glucose Tolerance Test (0,2 hr)",p:370},
+{n:"Osmolality, serum",p:455},
+{n:"Osmolality, spot urine",p:455},
+{n:"Oxalate, 24 hr urine",p:735},
+{n:"PIVKA II, serum",p:920},
+{n:"PURE Index, for prostate cancer, urine",p:1670},
+{n:"Paracetamol (acetaminophen), serum",p:390},
+{n:"Parathyroid Hormone (intact PTH), plasma",p:615},
+{n:"Parvovirus B19 PCR, plasma",p:1650},
+{n:"Phenytoin level, serum",p:695},
+{n:"Phosphate (PO4), 24 hour urine",p:330},
+{n:"Phosphate (PO4), plasma",p:200},
+{n:"Phosphate, spot fluid",p:285},
+{n:"Porphobilinogen (PBG), spot urine",p:560},
+{n:"Porphyrins, spot urine",p:560},
+{n:"Potassium (K), spot fluid",p:285},
+{n:"Potassium (K), 24 hour urine",p:285},
+{n:"Potassium (K), plasma",p:175},
+{n:"Potassium (K), spot urine",p:285},
+{n:"Procalcitonin, plasma",p:745},
+{n:"Progesterone (PRG), serum",p:645},
+{n:"Prolactin (PRL), serum",p:675},
+{n:"Prostate Specific Antigen (Total PSA), serum",p:745},
+{n:"Prostate Specific Antigen Profile (Total PSA and free PSA), serum",p:1495},
+{n:"Prostate health index (PHI), serum",p:2625},
+{n:"Protein Electrophoresis, serum",p:1335},
+{n:"Protein Immunofixation (include protein electrophoresis and IgG, IgA, IgM) (UPS)",p:1470},
+{n:"Protein Profile (Protein, Albumin, Globulin, A/G ratio), plasma",p:220},
+{n:"Protein Total, spot fluid",p:285},
+{n:"Protein total, 24 hour urine",p:285},
+{n:"Protein total, CSF",p:205},
+{n:"Protein total, plasma",p:175},
+{n:"Protein total, spot urine",p:285},
+{n:"Rapid plasma reagin (RPR), serum",p:205},
+{n:"Renal Function Test (RFT) with eGFR, plasma",p:635},
+{n:"Renal Function Test (RFT), plasma",p:635},
+{n:"Rheumatoid Factor (Quantitative), plasma",p:360},
+{n:"Rickettsia antibody titre, serum",p:1160},
+{n:"Risk of ovarian malignancy (ROMA), Post-Menopause",p:1670},
+{n:"Risk of ovarian malignancy (ROMA), Pre-Menopause",p:1670},
+{n:"Rubella antibody IgG, serum",p:505},
+{n:"Rubella antibody, IgM, serum",p:550},
+{n:"SCC Antigen, serum",p:760},
+{n:"Salicylate (Aspirin), serum",p:350},
+{n:"Screening drugs of abuse in Urine (Comprehensive toxicology)",p:1250},
+{n:"Selenium, blood",p:435},
+{n:"Sirolimus (Rapamycin), blood",p:770},
+{n:"Sodium (Na), 24 hour urine",p:285},
+{n:"Sodium (Na), plasma",p:175},
+{n:"Sodium (Na), spot urine",p:285},
+{n:"Sodium, spot fluid",p:285},
+{n:"Spot Urine Protein/Creatinine ratio",p:615},
+{n:"TPMT *2, *3A/B/C, *C and NUDT15 R139C, blood",p:3540},
+{n:"TSH Receptor IgG Abs, serum",p:1650},
+{n:"TSH, cord blood serum",p:540},
+{n:"TSI (Thyroid Stimulating Immunoglobulin), serum",p:1210},
+{n:"Tacrolimus (FK506), blood",p:895},
+{n:"Testosterone, Free, serum",p:1170},
+{n:"Testosterone, serum",p:665},
+{n:"Theophylline (Theodur), plasma",p:390},
+{n:"Thyroglobulin (Tg) including Anti-Tg Ab, serum",p:780},
+{n:"Thyroid Stimulating Hormone (TSH), serum",p:540},
+{n:"Total Metanephrine, 24hr Urine",p:1870},
+{n:"Toxoplasma gondii IgG Antibody, serum",p:630},
+{n:"Toxoplasma gondii IgM Antibody, serum",p:600},
+{n:"Transferrin Isoform",p:2280},
+{n:"Treponema pallidum antibody (Syphilis), serum",p:435},
+{n:"Triglycerides, plasma (Fasting)",p:265},
+{n:"Triglycerides, plasma (Non-fasting)",p:265},
+{n:"Triglycerides, spot fluid",p:285},
+{n:"Tryptase, serum",p:1630},
+{n:"Urate (Uric Acid/UA), plasma",p:165},
+{n:"Urate (Uric Acid/UA), spot fluid",p:285},
+{n:"Urea, plasma",p:165},
+{n:"Urea, spot fluid",p:285},
+{n:"Urea, spot urine",p:285},
+{n:"Uric Acid, 24 hr urine",p:130},
+{n:"Urine Stone Analysis",p:475},
+{n:"VZV DNA, plasma",p:445},
+{n:"VZV antibody, IgG, serum",p:535},
+{n:"Valproate (Epilim), plasma",p:390},
+{n:"Vancomycin assay (Pre)",p:925},
+{n:"Vancomycin assay (Random)",p:925},
+{n:"Vancomycin, post dose",p:1040},
+{n:"Vanillylmandelic acid (VMA), 24 hour urine",p:645},
+{n:"Varicella-Zoster (VZV) IgM Ab, serum",p:650},
+{n:"Very-long-chain-fatty acid VLCFA, serum",p:1430},
+{n:"Widal Test, serum",p:680},
+{n:"Zinc (Zn), serum",p:465},
+{n:"hs-Troponin T (TnT), plasma",p:745},
+{n:"pH, Arterial Cord Blood",p:335},
+{n:"pH, Venous Cord Blood",p:335},
+{n:"pH, body fluid",p:580},
+{n:"pTau-217, plasma",p:2580},
+],
+haem: [
+{n:"ABO and Rh(D) grouping",p:225},
+{n:"ABO and Rh(D) grouping, cord blood",p:225},
+{n:"ADAMTS13 assay - Activity (UPS)",p:11620},
+{n:"ADAMTS13 assay - Inhibitor & antigen (UPS)",p:10320},
+{n:"APTT",p:235},
+{n:"Anti-Thrombin III (AT)",p:1525},
+{n:"Antibody Identification",p:0},
+{n:"Antibody Screen (HLA class I and II)",p:3940},
+{n:"Antibody Screening",p:665},
+{n:"Apixaban assay, blood",p:4205},
+{n:"Blood film review by Hosp. Haematologist (HKSH)",p:1290},
+{n:"CBC only",p:205},
+{n:"CBC with Differential WBC",p:205},
+{n:"Cold Antibody / Agglutinin Titre",p:275},
+{n:"Cytogenetics & Flow cytometry, Marrow Aspirate",p:13955},
+{n:"Cytogenetics, Marrow Aspirate",p:9125},
+{n:"D-Dimer",p:615},
+{n:"DAT (Direct Coomb's Test)",p:225},
+{n:"ESR",p:125},
+{n:"Factor II Assay",p:1525},
+{n:"Factor IX Assay",p:1525},
+{n:"Factor IX Inhibitor Assay",p:2815},
+{n:"Factor V Assay",p:1525},
+{n:"Factor V Leiden Mutation Screening",p:4760},
+{n:"Factor VII Assay",p:1525},
+{n:"Factor VIII Assay",p:1525},
+{n:"Factor VIII Inhibitor Assay",p:2815},
+{n:"Factor X Assay",p:1525},
+{n:"Factor XI Assay",p:1525},
+{n:"Factor XII Assay",p:1525},
+{n:"Fibrinogen Assay",p:515},
+{n:"Film Comment by Pathologist",p:935},
+{n:"Film Comment by Technologist (Include CBC)",p:260},
+{n:"Flow cytometry, Marrow Aspirate",p:5380},
+{n:"G6PD (Qualitative screen), blood",p:390},
+{n:"HLA-B*15:02",p:2365},
+{n:"HLA-B*58:01",p:2365},
+{n:"HPFH screening",p:5275},
+{n:"Hb Pattern",p:1995},
+{n:"Heparin Platelet Factor 4 Assay Antibody (HIT or PF4-H), blood",p:3190},
+{n:"IAT (Indirect Coomb's Test)",p:700},
+{n:"Immunophenotyping",p:1515},
+{n:"Inhibitor Screening (mixing test, APTT, PT, TT, fibrinogen), blood",p:1040},
+{n:"JAK2 tyrosine kinase gene Val617Phe Mutation Screening, EDTA blood",p:3530},
+{n:"Lupus Anticoagulant (LA)",p:2450},
+{n:"Malarial Parasite (MP)",p:355},
+{n:"Monospot Test",p:310},
+{n:"Non-CSF Body Fluid Cell Count",p:280},
+{n:"Non-CSF Body Fluid Cell Count + D/C",p:510},
+{n:"P2Y12 (Plavix) Assay",p:1080},
+{n:"PT, INR",p:235},
+{n:"PT/INR & APTT",p:410},
+{n:"Platelet Antibody Screen, serum",p:4570},
+{n:"Platelet inhibition Aspirin Assay",p:1455},
+{n:"Protein C",p:2470},
+{n:"Protein S",p:2470},
+{n:"Reticulocyte Count (RET)",p:155},
+{n:"Rh Phenotype",p:490},
+{n:"Thrombophilia Screening Profile",p:2975},
+{n:"aThal 3.7 deletion",p:3950},
+{n:"aThal 4.2 deletion",p:3950},
+{n:"aThal 5 common deletion",p:3950},
+{n:"aThal CS QZ mutation",p:5055},
+{n:"aThal sequencing",p:9095},
+{n:"bThal sequencing",p:9095},
+{n:"von Willebrand Disease (vWD) Screening Profile",p:2745},
+],
+allergy: [
+{n:"Comprehensive Allergy Profile (65 allergens)",p:3410},
+{n:"Food Allergy Profile (36 allergens)",p:2545},
+{n:"Inhalants Allergy Profile (29 allergens)",p:1095},
+{n:"Paediatric Allergy Profile (<2 Years)",p:1040},
+{n:"Total IgE",p:545},
+],
+micro_blood: [
+{n:"Blood, Hepatitis B Virus (HBV) DNA by PCR",p:1500},
+{n:"Blood, Routine culture",p:845},
+{n:"Sputum SARS-CoV-2, RT-PCR (TAT < 3 hours)",p:1340},
+{n:"Sputum, Acid-Fast Bacilli (AFB) Smear",p:205},
+{n:"Sputum, Culture",p:670},
+{n:"Sputum, Fungal smear",p:235},
+{n:"Sputum, Gonococcal (GC) Smear",p:170},
+{n:"Sputum, Gram smear",p:170},
+{n:"Sputum, Legionella Culture",p:1050},
+{n:"Sputum, M. tuberculosis (MTB) complex and rpoB gene rapid PCR",p:1320},
+{n:"Sputum, Mycobacterium Tuberculosis (MTB) / AFB Culture",p:2200},
+{n:"Sputum, Pneumonia Panel PCR (SARS-CoV-2 NOT included)",p:4265},
+{n:"Sputum, Fungal culture",p:540},
+],
+micro_urine: [
+{n:"EMU, Acid-Fast Bacilli (AFB) Smear",p:205},
+{n:"EMU, Mycobacterium Tuberculosis (MTB) / AFB Culture",p:2200},
+{n:"First Stream Urine, CT/NG PCR",p:1360},
+{n:"MSU, Culture",p:600},
+{n:"MSU, Fungal culture",p:540},
+{n:"Pregnancy (POCT) Test, Urine",p:220},
+{n:"Ur(Bag), Culture",p:600},
+{n:"Ur(Bag), Fungal culture",p:540},
+{n:"Ur(Fresh Cath), Culture",p:600},
+{n:"Ur(Fresh Cath), Fungal culture",p:540},
+{n:"Ur(Indwelling cat), Culture",p:600},
+{n:"Ur(Indwelling cat), Fungal culture",p:540},
+{n:"Ur(Lt nephrostomy), Culture",p:600},
+{n:"Ur(Lt nephrostomy), Fungal culture",p:540},
+{n:"Ur(Lt ureter), Culture",p:600},
+{n:"Ur(Lt ureter), Fungal culture",p:540},
+{n:"Ur(Rt nephrostomy), Culture",p:600},
+{n:"Ur(Rt nephrostomy), Fungal culture",p:540},
+{n:"Ur(Rt ureter), Culture",p:600},
+{n:"Ur(Rt ureter), Fungal culture",p:540},
+{n:"Ur(suprapubic), Culture",p:600},
+{n:"Ur(suprapubic), Fungal culture",p:540},
+{n:"Urinalysis (Urine Routine)",p:155},
+{n:"Urine Pregnancy Test, Urine",p:235},
+{n:"Urine, Dysmorphic RBC",p:155},
+{n:"Urine, Acid-Fast Bacilli (AFB) Smear",p:205},
+{n:"Urine, Culture",p:600},
+{n:"Urine, Fungal culture",p:540},
+{n:"Urine, Fungal smear",p:235},
+{n:"Urine, Gram smear",p:170},
+{n:"Urine, Legionella pneumophila Ag",p:720},
+{n:"Urine, S. pneumoniae Ag",p:670},
+{n:"Urine, Chyle",p:465},
+],
+micro_wound: [
+{n:"Wound Swab, Acid-Fast Bacilli (AFB) Smear",p:205},
+{n:"Wound Swab, Fungal smear",p:235},
+{n:"Wound Swab, Gonococcal (GC) Smear",p:170},
+{n:"Wound Swab, culture",p:670},
+{n:"Wound Swab, Fungal culture",p:540},
+{n:"Wound Swab, Gram smear",p:170},
+],
+micro_hvs: [
+{n:"HVS, Culture",p:670},
+{n:"HVS, Fungal smear",p:235},
+{n:"HVS, Gonococcal (GC) Culture",p:615},
+{n:"HVS, Gonococcal (GC) Smear",p:170},
+{n:"HVS, Gram smear",p:170},
+{n:"High vaginal swab (HVS), CT/NG PCR",p:1360},
+],
+micro_nps: [
+{n:"NPS, Bordetella culture",p:1050},
+{n:"NPS, Culture",p:670},
+{n:"NPS, FluA/B, RSV, SARS-CoV-2 rapid PCR",p:1235},
+{n:"NPS, Pneumonia Panel PCR (SARS-CoV-2 NOT included)",p:4265},
+{n:"NPS, Respiratory - 15",p:2500},
+{n:"NPS, Respiratory - 5",p:880},
+{n:"NPS, Respiratory Panel PCR",p:3150},
+{n:"NPS, SARS-CoV-2, RT-PCR (TAT < 2 hours)",p:1340},
+],
+cyto: [
+{n:"HPV (High-risk types) test",p:930},
+{n:"Pap smear",p:710},
+{n:"Pap smear and HPV test",p:1550},
+]
+};
+
+// ============ Tab Definitions ============
+const tabDefs = [
+    {id:'cart',label:'🛒 Quotation',icon:'🛒'},
+    {id:'chem',label:'Chemical Path'},
+    {id:'haem',label:'Haematology'},
+    {id:'allergy',label:'Allergy'},
+    {id:'micro_blood',label:'Blood/Sputum'},
+    {id:'micro_urine',label:'Urine'},
+    {id:'micro_wound',label:'Wound'},
+    {id:'micro_hvs',label:'HVS'},
+    {id:'micro_nps',label:'NPS'},
+    {id:'cyto',label:'Cytology'},
+];
+
+let activeTab = 'chem';
+let cart = []; // {cat, idx, name, price}
+let searchQuery = '';
+
+// ============ Cart Logic ============
+function isInCart(cat, idx){
+    return cart.some(c=>c.cat===cat&&c.idx===idx);
+}
+function toggleCart(cat, idx){
+    const existing = cart.findIndex(c=>c.cat===cat&&c.idx===idx);
+    if(existing>=0){
+        cart.splice(existing,1);
+    } else {
+        const test = tests[cat][idx];
+        cart.push({cat, idx, name:test.n, price:test.p});
+    }
+    saveCart();
+    render();
+}
+function removeFromCart(i){
+    cart.splice(i,1);
+    saveCart();
+    render();
+}
+function clearCart(){
+    if(cart.length===0) return;
+    cart=[];
+    saveCart();
+    render();
+}
+function getTotal(){
+    return cart.reduce((s,c)=>s+c.price,0);
+}
+function saveCart(){
+    try{localStorage.setItem('pathQuote_cart',JSON.stringify(cart))}catch(e){}
+}
+function loadCart(){
+    try{const d=JSON.parse(localStorage.getItem('pathQuote_cart'));if(d&&Array.isArray(d))cart=d;}catch(e){}
+}
+
+// ============ Search ============
+function clearSearch(){
+    document.getElementById('searchInput').value='';
+    searchQuery='';
+    render();
+}
+
+// ============ Render ============
+function render(){
+    renderInfo();
+    renderTabs();
+    renderPanel();
+}
+
+function renderInfo(){
+    const total=getTotal();
+    const count=cart.length;
+    let html='';
+    if(count>0){
+        html+=`<span class="chip items">📋 ${count} test${count>1?'s':''} selected</span>`;
+        html+=`<span class="chip total">💰 Total: $${total.toLocaleString()}</span>`;
+    }
+    document.getElementById('infoBar').innerHTML=html;
+}
+
+function renderTabs(){
+    let html='';
+    tabDefs.forEach(t=>{
+        let badge='';
+        if(t.id==='cart'&&cart.length>0){
+            badge=`<span class="qty-badge">${cart.length}</span>`;
+        }
+        html+=`<button class="tab${t.id===activeTab?' active':''}" onclick="switchTab('${t.id}')">${t.label}${badge}</button>`;
+    });
+    document.getElementById('tabBar').innerHTML=html;
+}
+
+function switchTab(id){activeTab=id;render();}
+
+function renderPanel(){
+    const panel=document.getElementById('mainPanel');
+    if(activeTab==='cart'){renderCart(panel);return;}
+    
+    const list=tests[activeTab];
+    if(!list||!list.length){panel.innerHTML='<p class="no-results">No tests in this category</p>';return;}
+
+    const q=searchQuery.toLowerCase().trim();
+    let filtered=list.map((t,i)=>({...t,origIdx:i}));
+    if(q){
+        filtered=filtered.filter(t=>t.n.toLowerCase().includes(q));
+    }
+
+    if(filtered.length===0){
+        panel.innerHTML=`<p class="no-results">No tests matching "${searchQuery}"</p>`;
+        return;
+    }
+
+    let html=`<table class="dtable"><thead><tr><th style="width:36px"></th><th>Test Name</th><th style="text-align:right">Price (HKD)</th></tr></thead><tbody>`;
+    filtered.forEach(t=>{
+        const inCart=isInCart(activeTab,t.origIdx);
+        const cls=inCart?'selected':'';
+        html+=`<tr class="${cls}" onclick="toggleCart('${activeTab}',${t.origIdx})">
+            <td><div class="test-check${inCart?' checked':''}"></div></td>
+            <td class="test-name">${highlightMatch(t.n,q)}</td>
+            <td class="test-price" style="text-align:right">${t.p===0?'<span style="color:var(--muted)">N/A</span>':'$'+t.p.toLocaleString()}</td>
+        </tr>`;
+    });
+    html+=`</tbody></table>`;
+    html+=`<div style="margin-top:12px;font-size:13px;color:var(--muted)">Showing ${filtered.length} of ${list.length} tests · Click row to add/remove from quotation</div>`;
+    panel.innerHTML=html;
+}
+
+function highlightMatch(text,q){
+    if(!q) return text;
+    const idx=text.toLowerCase().indexOf(q);
+    if(idx<0) return text;
+    return text.substring(0,idx)+'<mark style="background:#fef08a;border-radius:3px;padding:0 2px">'+text.substring(idx,idx+q.length)+'</mark>'+text.substring(idx+q.length);
+}
+
+function renderCart(panel){
+    if(cart.length===0){
+        panel.innerHTML=`<div style="text-align:center;padding:60px 20px">
+            <div style="font-size:48px;margin-bottom:16px">📋</div>
+            <p style="color:var(--muted);font-size:16px;font-weight:600">No tests selected yet</p>
+            <p style="color:var(--muted);font-size:14px;margin-top:8px">Browse categories and click on tests to add them to your quotation</p>
+        </div>`;
+        return;
+    }
+
+    const total=getTotal();
+    let html=`<div class="cart-box">
+        <div class="cart-title"><span>📋 Quotation Summary (${cart.length} item${cart.length>1?'s':''})</span></div>
+        <div class="cart-items">`;
+    
+    cart.forEach((item,i)=>{
+        html+=`<div class="cart-item">
+            <span class="cart-item-name">${item.name}</span>
+            <span class="cart-item-price">${item.price===0?'N/A':'$'+item.price.toLocaleString()}</span>
+            <button class="cart-item-remove" onclick="event.stopPropagation();removeFromCart(${i})" title="Remove">✕</button>
+        </div>`;
+    });
+
+    html+=`</div>
+        <div class="cart-total">
+            <span class="cart-total-label">Total Estimate</span>
+            <span class="cart-total-val">HKD $${total.toLocaleString()}</span>
+        </div>
+        <div class="cart-actions">
+            <button class="btn-primary" onclick="printQuote()">🖨️ Print Quotation</button>
+            <button class="btn-success" onclick="copyQuote()">📋 Copy to Clipboard</button>
+            <button class="btn-danger" onclick="clearCart()">🗑️ Clear All</button>
+        </div>
+    </div>`;
+
+    panel.innerHTML=html;
+}
+
+// ============ Print / Copy ============
+function printQuote(){
+    let text='PATHOLOGY SERVICE QUOTATION\n';
+    text+='Dr. Ray Leung Limited\n';
+    text+='Date: '+new Date().toLocaleDateString('en-GB')+'\n';
+    text+='═══════════════════════════════════════\n\n';
+    cart.forEach((item,i)=>{
+        text+=`${i+1}. ${item.name}\n   $${item.price.toLocaleString()}\n`;
+    });
+    text+='\n═══════════════════════════════════════\n';
+    text+=`TOTAL: HKD $${getTotal().toLocaleString()}\n`;
+    text+='\n※ Prices are for reference only and subject to change.\n';
+
+    const w=window.open('','_blank','width=700,height=800');
+    w.document.write(`<html><head><title>Pathology Quotation</title><style>
+        body{font-family:monospace;padding:40px;font-size:14px;line-height:1.8}
+        h1{font-size:20px;margin-bottom:4px}
+        .brand{color:#666;font-size:14px}
+        .date{color:#666;margin-bottom:20px}
+        table{width:100%;border-collapse:collapse;margin:20px 0}
+        th,td{padding:8px 12px;border-bottom:1px solid #eee;text-align:left}
+        th{background:#f8f9fa;font-size:12px;text-transform:uppercase;letter-spacing:0.05em}
+        td.price{text-align:right;font-weight:bold;white-space:nowrap}
+        .total-row{border-top:3px solid #333;font-size:18px;font-weight:bold}
+        .total-row td{padding:16px 12px}
+        .footer{margin-top:30px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:12px}
+        @media print{body{padding:20px}}
+    </style></head><body>
+        <h1>🔬 Pathology Service Quotation</h1>
+        <div class="brand">Dr. Ray Leung Limited</div>
+        <div class="date">Date: ${new Date().toLocaleDateString('en-GB')}</div>
+        <table>
+            <thead><tr><th>#</th><th>Test</th><th style="text-align:right">Price (HKD)</th></tr></thead>
+            <tbody>`);
+    cart.forEach((item,i)=>{
+        w.document.write(`<tr><td>${i+1}</td><td>${item.name}</td><td class="price">$${item.price.toLocaleString()}</td></tr>`);
+    });
+    w.document.write(`<tr class="total-row"><td colspan="2">TOTAL</td><td class="price">$${getTotal().toLocaleString()}</td></tr>`);
+    w.document.write(`</tbody></table>
+        <div class="footer">※ Prices are for reference only and subject to change without notice.<br>※ Additional surcharges may apply for urgent requests or special handling.</div>
+        <script>setTimeout(()=>window.print(),500)<\/script>
+    </body></html>`);
+    w.document.close();
+}
+
+function copyQuote(){
+    let text='PATHOLOGY SERVICE QUOTATION\n';
+    text+='Dr. Ray Leung Limited\n';
+    text+='Date: '+new Date().toLocaleDateString('en-GB')+'\n';
+    text+='─────────────────────────────\n';
+    cart.forEach((item,i)=>{
+        const priceStr=item.price===0?'N/A':'$'+item.price.toLocaleString();
+        text+=`${i+1}. ${item.name} — ${priceStr}\n`;
+    });
+    text+='─────────────────────────────\n';
+    text+=`TOTAL: HKD $${getTotal().toLocaleString()}\n`;
+
+    navigator.clipboard.writeText(text).then(()=>{
+        const btn=document.querySelector('.btn-success');
+        if(btn){const orig=btn.innerHTML;btn.innerHTML='✓ Copied!';setTimeout(()=>btn.innerHTML=orig,2000);}
+    }).catch(()=>{
+        // Fallback
+        const ta=document.createElement('textarea');
+        ta.value=text;document.body.appendChild(ta);ta.select();
+        document.execCommand('copy');document.body.removeChild(ta);
+    });
+}
+
+// ============ Global Search ============
+function doGlobalSearch(q){
+    if(!q){activeTab=activeTab==='cart'?'cart':'chem';render();return;}
+    // Find which category has the most matches and switch to it, or show 'all' results
+    // For simplicity, search within current tab if it has results, otherwise find first match
+    const currentList=tests[activeTab];
+    if(currentList){
+        const matches=currentList.filter(t=>t.n.toLowerCase().includes(q.toLowerCase()));
+        if(matches.length>0){render();return;}
+    }
+    // Switch to first tab with results
+    for(const td of tabDefs){
+        if(td.id==='cart') continue;
+        const list=tests[td.id];
+        if(list&&list.some(t=>t.n.toLowerCase().includes(q.toLowerCase()))){
+            activeTab=td.id;
+            render();
+            return;
+        }
+    }
+    render();
+}
+
+// ============ Events ============
+document.getElementById('searchInput').addEventListener('input',function(){
+    searchQuery=this.value;
+    if(activeTab==='cart'&&searchQuery) activeTab='chem';
+    doGlobalSearch(searchQuery);
+});
+
+loadCart();
+render();
+</script>
+</body>
+</html>
