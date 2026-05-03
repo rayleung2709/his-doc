@@ -18,7 +18,6 @@ html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle 
 body{padding:20px}
 .container{max-width:1100px;margin:0 auto}
 
-/* Header / Brand */
 .header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow-soft);margin-bottom:16px;transition:background .35s,border-color .35s}
 .header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .header h1{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0;transition:color .35s}
@@ -35,7 +34,6 @@ body{padding:20px}
 .dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:8px 12px;font-size:16px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
 .dark-toggle:hover{transform:scale(1.08)}
 
-/* Info chips */
 .info-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:background .35s,border-color .35s,color .35s}
 .chip.age{color:#6c5ce7}
@@ -43,16 +41,13 @@ body{padding:20px}
 .chip.temp{color:#d63031}
 .chip.wt{color:#00b894}
 
-/* Tabs */
 .tabs{display:flex;gap:5px;margin-bottom:0;flex-wrap:wrap}
 .tab{padding:11px 18px;border-radius:12px 12px 0 0;cursor:pointer;font-size:14px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
 .tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
 .tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
 
-/* Panel */
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:22px;box-shadow:var(--shadow-soft);margin-bottom:16px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
 
-/* Drug table */
 .dtable{width:100%;border-collapse:collapse}
 .dtable th{text-align:left;font-size:12px;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
 .dtable td{padding:12px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:15px}
@@ -67,12 +62,10 @@ body{padding:20px}
 .capped{background:#fef9e7}
 .max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:11px;padding:3px 7px;border-radius:6px;font-weight:700;margin-left:6px}
 
-/* Age warning */
 .age-warn{background:linear-gradient(135deg,#fee2e2,#fef2f2)!important}
 .age-warn:hover{background:linear-gradient(135deg,#fecaca,#fee2e2)!important}
 .age-badge{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:800;margin-left:6px;letter-spacing:.02em;text-transform:uppercase}
 
-/* Paracetamol highlight */
 .pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
 .pcm-title{font-weight:800;font-size:16px;margin-bottom:12px;color:var(--primary)}
 .pcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -85,24 +78,20 @@ body{padding:20px}
 .pcm-form{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .pcm-form label{font-size:14px;font-weight:800;color:#334155}
 
-/* Fluid */
 .fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:15px}
 .fluid-box>div{background:#fff;padding:12px 16px;text-align:center}
 .fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .fluid-box .fl{text-align:left;font-weight:700;font-size:15px;color:var(--text)}
 .fluid-box .fv{font-weight:800;color:var(--primary-2)}
 
-/* Disclaimer */
 .disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
 
-/* Buttons */
 button{border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
 button:hover{transform:translateY(-1px)}
 button:active{transform:translateY(0)}
 .btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:14px;padding:10px 16px;transition:background .25s,border-color .25s,color .25s}
 .btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
 
-/* ========= DARK MODE ========= */
 body.dark{background:radial-gradient(circle at top left,#161926 0%,#111420 42%,#0d1017 100%)}
 body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
 body.dark .header h1{color:#e8ecf4}
@@ -174,7 +163,6 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 <body>
 <div class="container">
 
-<!-- Header -->
 <div class="header">
     <div class="brand-badge">Dr. Ray Leung Limited</div>
     <div class="header-top">
@@ -195,16 +183,13 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
     </div>
 </div>
 
-<!-- Info bar -->
 <div class="info-bar" id="infoBar"></div>
 
-<!-- Tabs -->
 <div class="tabs" id="tabBar"></div>
 
-<!-- Panel -->
 <div class="panel" id="mainPanel"></div>
 
-<div class="disc">⚠️ <strong>Disclaimer:</strong> For clinical reference only. All doses are general recommendations. Adjust per patient condition, renal/hepatic function, drug interactions, and latest BNFc/UpToDate guidelines. Growth percentile based on WHO standards (0–120 months). <span style="color:var(--danger)">Red-highlighted rows</span> indicate potential age restriction — verify before prescribing.</div>
+<div class="disc">⚠️ <strong>Disclaimer:</strong> For clinical reference only. All doses are general recommendations. Adjust per patient condition, renal/hepatic function, drug interactions, and latest BNFc/UpToDate guidelines. Growth percentile based on WHO standards (0–120 months). <span style="color:var(--danger)">Red-highlighted rows</span> indicate potential age restriction — verify before prescribing. <br><strong>Rounding:</strong> Syrup volumes are rounded <u>down</u> to nearest 0.5 mL; displayed mg reflects actual dispensed amount.</div>
 </div>
 
 <script>
@@ -269,9 +254,24 @@ function isBelowMinAge(note, ageMo){
 }
 
 // ============ Utility ============
-function roundHalf(v){return Math.round(v*2)/2}
+// Round DOWN to nearest 0.5 mL
+function floorHalf(v){return Math.floor(v*2)/2}
+// Format number: strip trailing .0
+function fmtNum(v){return v%1===0?v.toString():+(v.toFixed(1))+''}
 function getWt(){return parseFloat(document.getElementById('wt').value)||0}
 function getAgeMo(){const y=parseInt(document.getElementById('dob-y').value),m=parseInt(document.getElementById('dob-m').value),d=parseInt(document.getElementById('dob-d').value);if(!y||!m||!d)return null;const dob=new Date(y,m-1,d),now=new Date();if(dob>now)return null;let mo=(now.getFullYear()-dob.getFullYear())*12+(now.getMonth()-dob.getMonth());if(now.getDate()<dob.getDate())mo--;return Math.max(0,mo)}
+
+// ============ Dispensable Volume/Dose Calc ============
+// For syrups: round DOWN volume to 0.5 mL, back-calculate mg
+function dispenseSyr(rawMg, concPerMl){
+    let rawVol = rawMg / concPerMl;
+    let vol = floorHalf(rawVol);
+    if(vol < 0.5 && rawVol > 0) vol = 0.5;
+    let mg = +(vol * concPerMl).toFixed(2);
+    // Clean up floating point
+    mg = Math.round(mg*10)/10;
+    return {mg, vol};
+}
 
 // ============ Drug Database ============
 const drugs = {
@@ -302,7 +302,7 @@ respiratory: [
     {name:'Acetylcysteine (Fluimucil)',forms:[{l:'Granules 100mg',c:100,t:'sachet'},{l:'Granules 200mg',c:200,t:'sachet'},{l:'Effervescent 600mg',c:600,t:'tab',freqOverride:'DAILY'}],custom:'acetylcysteine',freq:'BD-TDS',note:'≥2y; <2y:100mg BD; 2-6y:200mg BD; >6y:200mg TDS; ≥14y:600mg daily'},
     {name:'Bromhexine',forms:[{l:'Syr 4mg/5ml',c:0.8,t:'syr'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.3,freq:'TDS',maxD:8,note:'≥2y; Mucolytic'},
     {name:'Carbocisteine (Fluifort)',forms:[{l:'Syr 450mg/5ml',c:90,t:'syr'}],custom:'carbocisteine',freq:'BD-TDS',note:'≥2y; 2-5y:2.5ml; 5-12y:5ml; >12y:10ml'},
-    {name:'Guaifenesin (Robitussin)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 600mg MR',c:600,t:'tab',freqOverride:'BD'}],dose:5,freq:'Q4-6H',maxD:400,note:'≥2y; Expectorant'}, 
+    {name:'Guaifenesin (Robitussin)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 600mg MR',c:600,t:'tab',freqOverride:'BD'}],dose:5,freq:'Q4-6H',maxD:400,note:'≥2y; Expectorant'},
     {name:'Actifed (Triprolidine/Pseudo)',forms:[{l:'Syrup',c:6,t:'syr'},{l:'Tab 2.5/60mg',c:0,t:'special'}],custom:'actifed',freq:'TDS',note:'≥2y; Decongestant combo'},
     {name:'Benadryl Expectorant',forms:[{l:'Syrup',c:1,t:'syr'}],dose:0.33,freq:'TDS',maxD:15,note:'≥2y; Dose = 0.33ml/kg',unit:'ml'},
     {name:'Levodropropizine (Bronal)',forms:[{l:'Syr 30mg/5ml',c:6,t:'syr'}],dose:1,freq:'TDS',maxD:60,note:'≥2y; Antitussive'},
@@ -325,8 +325,7 @@ allergy: [
     {name:'Fexofenadine (Telfast)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr',freqOverride:'BD'},{l:'Tab 120mg',c:120,t:'tab'},{l:'Tab 180mg',c:180,t:'tab'}],custom:'fexofenadine',freq:'DAILY',note:'≥2y; 2-11y:30mg BD; ≥12y:120-180mg daily'},
 ],
 gi: [
-      {name:'Hyoscine Butylbromide (Buscopan)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
-
+    {name:'Hyoscine Butylbromide (Buscopan)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
     {name:'Dimenhydrinate',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 50mg',c:50,t:'tab'},{l:'Supp 50mg',c:50,t:'supp'}],dose:1.25,freq:'TDS',maxD:50,note:'≥2y; anti-emetic'},
     {name:'Ondansetron (Zofran)',forms:[{l:'Tab 4mg',c:4,t:'tab'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.15,freq:'BD-TDS',maxD:8,note:'≥6m; Paed usual max 4mg/dose; ≥12y up to 8mg'},
     {name:'Famotidine',forms:[{l:'Tab 20mg',c:20,t:'tab'},{l:'Tab 40mg',c:40,t:'tab'}],dose:0.5,freq:'BD',maxD:20,note:'≥1y; H2 blocker; 1mg/kg/day'},
@@ -336,7 +335,6 @@ gi: [
     {name:'Dimeticone Drops',forms:[{l:'Drops 20mg/mL',c:20,t:'syr'}],dose:1,freq:'QDS (before feeds)',maxD:80,note:'Colic/flatulence'},
     {name:'Lactulose (Duphalac)',forms:[{l:'Syr 10g/15ml',c:0,t:'special'}],custom:'lactulose',freq:'DAILY-BD',note:'<1y:2.5ml; 1-5y:5ml; 5-10y:10ml; >10y:15ml'},
     {name:'Macrogol (Forlax)',forms:[{l:'Sachet 10g',c:10,t:'sachet'}],custom:'macrogol',freq:'DAILY',note:'≥2y; 2-6y:1 sachet; 7-11y:2 sachets; ≥12y:1-2 sachets'},
-
 ]
 };
 
@@ -411,6 +409,9 @@ function calcCustom(key, wt, ageMo, formIdx) {
             let ml=5;
             if(ageMo!==null){ml=ageMo<24?1.25:ageMo<72?2.5:ageMo<144?5:10;}
             else{ml=wt<12?1.25:wt<20?2.5:wt<30?5:10;}
+            // Round down to 0.5 for syrup
+            ml=floorHalf(ml);
+            if(ml<0.5) ml=0.5;
             return {mg:0, display:ml+' ml', noVol:true};
         }
         case 'lactulose': {
@@ -435,7 +436,7 @@ function calcCustom(key, wt, ageMo, formIdx) {
     return null;
 }
 
-// ============ Paracetamol Logic ============
+// ============ Paracetamol Logic (UPDATED: round down) ============
 function calcPCM(wt, formIdx) {
     if(!wt) return null;
     const pcmForms = [
@@ -450,29 +451,47 @@ function calcPCM(wt, formIdx) {
     const dailyMax = Math.min(75*wt, 4000);
     const singleMax = 1000;
 
-    let q4h_per = Math.min(dailyMax/6, singleMax);
-    let q4h_daily = q4h_per * 6;
+    let q4h_raw = Math.min(dailyMax/6, singleMax);
+    let q6h_raw = Math.min(15*wt, dailyMax/4, singleMax);
 
-    let q6h_per = Math.min(15*wt, dailyMax/4, singleMax);
-    let q6h_daily = q6h_per * 4;
-
-    function volFor(mg, f) {
-        if(f.t==='syr') return roundHalf(mg/f.c) + ' ml';
-        if(f.t==='tab') { let n=Math.round(mg/f.c*4)/4; return n + ' tab'+(n!==1?'s':''); }
-        if(f.t==='supp') { let n=Math.round(mg/f.c); if(n<1)n=1; return n+' supp ('+n*f.c+'mg)'; }
-        return '';
+    // Dispense helper: round down to dispensable unit → return actual mg + volume string
+    function dispense(rawMg, f) {
+        if(f.t==='syr') {
+            const d = dispenseSyr(rawMg, f.c);
+            return {mg: d.mg, vol: d.vol+' ml'};
+        }
+        if(f.t==='tab') {
+            // Round down to nearest quarter tab
+            let n = Math.floor(rawMg/f.c*4)/4;
+            if(n<0.25) n=0.25;
+            let actualMg = Math.round(n*f.c*10)/10;
+            return {mg: actualMg, vol: n+' tab'+(n!==1?'s':'')};
+        }
+        if(f.t==='supp') {
+            let n = Math.floor(rawMg/f.c);
+            if(n<1) n=1;
+            let actualMg = n*f.c;
+            return {mg: actualMg, vol: n+' supp ('+actualMg+'mg)'};
+        }
+        return {mg: Math.round(rawMg), vol: ''};
     }
 
+    let q4 = dispense(q4h_raw, form);
+    let q6 = dispense(q6h_raw, form);
+
+    let q4h_daily = q4.mg * 6;
+    let q6h_daily = q6.mg * 4;
+
     return {
-        q4h: {per: Math.round(q4h_per*10)/10, daily: Math.round(q4h_daily), vol: volFor(q4h_per, form)},
-        q6h: {per: Math.round(q6h_per*10)/10, daily: Math.round(q6h_daily), vol: volFor(q6h_per, form)},
+        q4h: {per: q4.mg, daily: Math.round(q4h_daily), vol: q4.vol},
+        q6h: {per: q6.mg, daily: Math.round(q6h_daily), vol: q6.vol},
         winner: q4h_daily >= q6h_daily ? 'q4h' : 'q6h',
         dailyMax: Math.round(dailyMax),
         form, forms: pcmForms
     };
 }
 
-// ============ Normal Drug Calc ============
+// ============ Normal Drug Calc (UPDATED: round down syr, back-calc mg) ============
 function calcDrug(drug, wt, ageMo, formIdx) {
     if(!wt) return {dose:'—',vol:'—',freq:drug.freq,capped:false};
     const form = drug.forms[formIdx] || drug.forms[0];
@@ -484,31 +503,47 @@ function calcDrug(drug, wt, ageMo, formIdx) {
         if(c.noVol) return {dose:c.display||c.mg+'mg',vol:'—',freq:c.freqOverride||freq,capped:false};
         let mg = c.mg;
         let vol = '';
-        if(form.t==='syr'){vol=roundHalf(mg/form.c)+' ml';}
+        if(form.t==='syr'){
+            const d = dispenseSyr(mg, form.c);
+            mg = d.mg;
+            vol = d.vol+' ml';
+        }
         else if(form.t==='tab'||form.t==='cap'){let n=Math.round(mg/form.c*4)/4;vol=n+' tab'+(n!==1?'s':'');}
         else if(form.t==='sachet'){let n=Math.round(mg/form.c);if(n<1)n=1;vol=n+' sachet'+(n>1?'s':'');}
-        return {dose:mg+(drug.unit==='mcg'?' mcg':' mg'),vol,freq:c.freqOverride||freq,capped:false};
+        return {dose:fmtNum(mg)+(drug.unit==='mcg'?' mcg':' mg'),vol,freq:c.freqOverride||freq,capped:false};
     }
 
     let rawMg = drug.dose * wt;
     let capped = rawMg > drug.maxD;
     let mg = Math.min(rawMg, drug.maxD);
-    mg = Math.round(mg*10)/10;
 
     let vol='';
     const u = drug.unit||'mg';
     if(form.t==='syr'){
-        if(u==='ml'){vol=roundHalf(mg)+' ml';}
-        else{vol=roundHalf(mg/form.c)+' ml';}
+        if(u==='ml'){
+            // dose is in ml/kg (e.g. Benadryl 0.33ml/kg)
+            let rawVol = mg;
+            let roundedVol = floorHalf(rawVol);
+            if(roundedVol<0.5 && rawVol>0) roundedVol=0.5;
+            mg = roundedVol;
+            vol = roundedVol+' ml';
+        } else {
+            // dose in mg (or mcg) per kg; c = concentration per mL
+            const d = dispenseSyr(mg, form.c);
+            mg = d.mg;
+            vol = d.vol+' ml';
+        }
     } else if(form.t==='tab'||form.t==='cap'){
-        let n=Math.round(mg/form.c*4)/4; vol=n+' tab'+(n!==1?'s':'');
+        mg = Math.round(mg*10)/10;
+        let n=Math.round(mg/form.c*4)/4;
+        vol=n+' tab'+(n!==1?'s':'');
     } else if(form.t==='supp'){
         let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' supp';capped=mg>drug.maxD;
     } else if(form.t==='sachet'){
         let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' sachet'+(n>1?'s':'');capped=mg>drug.maxD;
     }
 
-    return {dose:mg+' '+u,vol,freq,capped};
+    return {dose:fmtNum(mg)+' '+u,vol,freq,capped};
 }
 
 // ============ Tab Setup ============
@@ -616,20 +651,20 @@ function renderPCM(wt){
             <div class="pcm-option${w==='q4h'?' winner':''}">
                 ${w==='q4h'?'<div class="badge">✓ RECOMMENDED</div>':''}
                 <h4>Q4H (6 doses/day)</h4>
-                <div class="big">${q4.per} mg × 6 = ${q4.daily} mg/day</div>
+                <div class="big">${fmtNum(q4.per)} mg × 6 = ${q4.daily} mg/day</div>
                 <div class="sub">${q4.vol} per dose</div>
             </div>
             <div class="pcm-option${w==='q6h'?' winner':''}">
                 ${w==='q6h'?'<div class="badge">✓ RECOMMENDED</div>':''}
                 <h4>Q6H (4 doses/day)</h4>
-                <div class="big">${q6.per} mg × 4 = ${q6.daily} mg/day</div>
+                <div class="big">${fmtNum(q6.per)} mg × 4 = ${q6.daily} mg/day</div>
                 <div class="sub">${q6.vol} per dose</div>
             </div>
         </div>
         <div class="pcm-form">
             <label>Formulation:</label>
             <select class="form-select" onchange="pcmFormIdx=parseInt(this.value);render()">${formOpts}</select>
-            <span style="font-size:12px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max</span>
+            <span style="font-size:12px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max · Syr volumes rounded ↓ to 0.5ml</span>
         </div>
     </div>`;
 }
@@ -671,7 +706,6 @@ function autoRecommend(){
             if(drug.forms.length<=1)return;
             const key=cat+'_'+di;
 
-            // Special: Tamiflu - pick matching cap
             if(drug.custom==='tamiflu'&&wt){
                 const d=wt<=15?30:wt<=23?45:wt<=40?60:75;
                 if(ageMo!==null&&ageMo>=12){
@@ -682,7 +716,6 @@ function autoRecommend(){
                 formSelections[key]=0;return;
             }
 
-            // Special: Montelukast - pick matching strength
             if(drug.custom==='montelukast'){
                 let d=4;
                 if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
