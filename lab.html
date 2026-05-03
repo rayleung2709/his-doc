@@ -902,7 +902,6 @@ function renderCart(panel){
 // ============ Print / Copy ============
 function printQuote(){
     let text='PATHOLOGY SERVICE QUOTATION\n';
-    text+='Dr. Ray Leung Limited\n';
     text+='Date: '+new Date().toLocaleDateString('en-GB')+'\n';
     text+='═══════════════════════════════════════\n\n';
     cart.forEach((item,i)=>{
@@ -928,7 +927,7 @@ function printQuote(){
         @media print{body{padding:20px}}
     </style></head><body>
         <h1>🔬 Pathology Service Quotation</h1>
-        <div class="brand">Dr. Ray Leung Limited</div>
+        <div class="brand"></div>
         <div class="date">Date: ${new Date().toLocaleDateString('en-GB')}</div>
         <table>
             <thead><tr><th>#</th><th>Test</th><th style="text-align:right">Price (HKD)</th></tr></thead>
@@ -938,7 +937,7 @@ function printQuote(){
     });
     w.document.write(`<tr class="total-row"><td colspan="2">TOTAL</td><td class="price">$${getTotal().toLocaleString()}</td></tr>`);
     w.document.write(`</tbody></table>
-        <div class="footer">※ Prices are for reference only and subject to change without notice.<br>※ Additional surcharges may apply for urgent requests or special handling.</div>
+        <div class="footer">※ Prices are for reference only and subject to change without notice.
         <script>setTimeout(()=>window.print(),500)<\/script>
     </body></html>`);
     w.document.close();
@@ -946,7 +945,6 @@ function printQuote(){
 
 function copyQuote(){
     let text='PATHOLOGY SERVICE QUOTATION\n';
-    text+='Dr. Ray Leung Limited\n';
     text+='Date: '+new Date().toLocaleDateString('en-GB')+'\n';
     text+='─────────────────────────────\n';
     cart.forEach((item,i)=>{
