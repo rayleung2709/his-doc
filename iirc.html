@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiology Service - Quotation System</title>
+<style>
+:root{
+  --bg:#eef2f7;--bg-accent:#e4ebf5;--panel:#fff;--panel-2:#f8fafc;
+  --border:#d9e2ec;--border-strong:#c4d0dd;--text:#12202f;--muted:#5b6b7c;
+  --primary:#0f172a;--primary-2:#1d4ed8;--primary-soft:#dbeafe;
+  --danger:#b91c1c;--danger-soft:#fee2e2;--warn:#f59e0b;--warn-soft:#fef3c7;
+  --success:#059669;--success-soft:#d1fae5;
+  --shadow:0 12px 36px rgba(15,23,42,.08);--shadow-soft:0 8px 24px rgba(15,23,42,.06);
+  --ui-font:Inter,Tahoma,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);font-size:15px;-webkit-font-smoothing:antialiased}
+body{padding:20px}
+.container{max-width:1200px;margin:0 auto}
+
+.header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow-soft);margin-bottom:16px}
+.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header h1{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--primary);margin:0}
+.header h1 span{margin-right:6px}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-2);background:var(--primary-soft);border:1px solid #bfdbfe;padding:7px 12px;border-radius:999px;margin-bottom:10px}
+.header-sub{font-size:13px;color:var(--muted);margin-top:6px}
+
+.search-box{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:12px 16px;border:1px solid var(--border-strong);border-radius:12px;font-size:15px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
+.search-input::placeholder{color:#94a3b8}
+.search-input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
+.dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:8px 12px;font-size:16px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
+.dark-toggle:hover{transform:scale(1.08)}
+
+.info-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.chip.count{color:#6c5ce7}.chip.total{color:#00b894}.chip.items{color:#e17055}
+
+.tabs{display:flex;gap:4px;margin-bottom:0;flex-wrap:wrap}
+.tab{padding:10px 14px;border-radius:12px 12px 0 0;cursor:pointer;font-size:13px;font-weight:800;background:var(--panel-2);color:var(--muted);transition:all .18s;border:1px solid var(--border);border-bottom:none;font-family:var(--ui-font)}
+.tab:hover{transform:translateY(-1px);border-color:#94a3b8;color:var(--text)}
+.tab.active{background:var(--panel);color:var(--text);border-color:var(--border-strong);box-shadow:0 -4px 12px rgba(15,23,42,.04)}
+.qty-badge{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:999px;margin-left:5px;padding:0 5px}
+
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:22px;box-shadow:var(--shadow-soft);margin-bottom:16px;min-height:200px;overflow-x:auto}
+
+.dtable{width:100%;border-collapse:collapse}
+.dtable th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--muted);padding:10px 10px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
+.dtable td{padding:9px 10px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:13px}
+.dtable tr{cursor:pointer;transition:background .12s}
+.dtable tr:hover{background:var(--panel-2)}
+.dtable tr.selected{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.dtable tr.selected:hover{background:linear-gradient(135deg,#d1fae5,#a7f3d0)}
+.dtable tr.section-header{background:#f8fafc;cursor:default}
+.dtable tr.section-header:hover{background:#f8fafc}
+.dtable tr.section-header td{font-weight:800;color:var(--primary-2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:14px 10px 8px}
+.test-name{font-weight:600;font-size:13px;color:var(--text)}
+.test-code{font-size:11px;color:var(--muted);font-family:monospace}
+.test-price{font-weight:800;color:var(--primary-2);font-size:14px;white-space:nowrap}
+.test-price.quote{color:var(--warn);font-size:12px;font-weight:700}
+.test-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.test-check.checked{background:linear-gradient(135deg,#10b981,#059669);border-color:#059669}
+.test-check.checked::after{content:'✓';color:#fff;font-size:12px;font-weight:800}
+
+.cart-box{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #6ee7b7;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(16,185,129,.12)}
+.cart-title{font-weight:800;font-size:16px;margin-bottom:12px;color:var(--primary);display:flex;align-items:center;justify-content:space-between}
+.cart-items{max-height:350px;overflow-y:auto;margin-bottom:14px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid var(--border);font-size:13px}
+.cart-item-name{font-weight:600;color:var(--text);flex:1;margin-right:10px}
+.cart-item-code{font-size:10px;color:var(--muted);font-family:monospace}
+.cart-item-price{font-weight:800;color:var(--primary-2);white-space:nowrap;margin-right:8px}
+.cart-item-remove{background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px;font-weight:800;transition:background .15s}
+.cart-item-remove:hover{background:var(--danger-soft);transform:none}
+.cart-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border-radius:12px;border:2px solid #10b981;font-size:16px}
+.cart-total-label{font-weight:800;color:var(--text)}
+.cart-total-val{font-weight:800;color:var(--success);font-size:20px}
+.cart-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.cart-note{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic}
+
+/* Quantity input for per-view items */
+.qty-input{width:48px;padding:4px 6px;border:1px solid var(--border-strong);border-radius:8px;font-size:13px;text-align:center;font-family:var(--ui-font);outline:none}
+.qty-input:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.15)}
+.qty-label{font-size:11px;color:var(--muted);margin-left:4px}
+
+button{border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+.btn-clear{background:#eef2f7;color:var(--text);border:1px solid var(--border);box-shadow:0 4px 10px rgba(15,23,42,.04);font-size:14px;padding:10px 16px}
+.btn-clear:hover{background:#dfe6e9;border-color:#94a3b8}
+.btn-primary{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border:none;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.btn-primary:hover{box-shadow:0 6px 16px rgba(37,99,235,.35)}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;box-shadow:0 4px 12px rgba(5,150,105,.25)}
+.btn-success:hover{box-shadow:0 6px 16px rgba(5,150,105,.35)}
+.btn-danger{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border:none;box-shadow:0 4px 12px rgba(220,38,38,.2)}
+
+.no-results{text-align:center;padding:40px;color:var(--muted);font-size:15px}
+.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:12px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);line-height:1.6}
+
+/* Dark Mode */
+body.dark{background:radial-gradient(circle at top left,#161926 0%,#111420 42%,#0d1017 100%)}
+body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050}
+body.dark .header h1{color:#e8ecf4}
+body.dark .header-sub{color:#6b7a94}
+body.dark .brand-badge{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.3);color:#7cb3f4}
+body.dark .search-input{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .search-input::placeholder{color:#4a5578}
+body.dark .search-input:focus{background:#2a3048;border-color:#60a5fa}
+body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:#3a4060;color:#cad3e0}
+body.dark .chip{background:#1c2035;border-color:#2a3050;color:#b0bdd0}
+body.dark .chip.count{color:#a29bfe}body.dark .chip.total{color:#55efc4}body.dark .chip.items{color:#fab1a0}
+body.dark .tab{background:#1c2035;border-color:#2d3450;color:#6b7a94}
+body.dark .tab:hover{border-color:#4a5580;color:#b0bdd0}
+body.dark .tab.active{background:#1c2035;color:#e8ecf4;border-color:#3a4060}
+body.dark .panel{background:#1c2035;border-color:#2a3050}
+body.dark .dtable th{color:#6b7a94;border-bottom-color:#2a3050}
+body.dark .dtable td{border-bottom-color:#232840}
+body.dark .dtable tr:hover{background:#242940}
+body.dark .dtable tr.selected{background:rgba(16,185,129,.1)}
+body.dark .dtable tr.selected:hover{background:rgba(16,185,129,.16)}
+body.dark .dtable tr.section-header{background:#242940}
+body.dark .dtable tr.section-header:hover{background:#242940}
+body.dark .dtable tr.section-header td{color:#7cb3f4}
+body.dark .test-name{color:#e8ecf4}
+body.dark .test-code{color:#5b6b7c}
+body.dark .test-price{color:#60a5fa}
+body.dark .test-check{border-color:#4a5580}
+body.dark .cart-box{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(5,150,105,.05));border-color:rgba(16,185,129,.3)}
+body.dark .cart-title{color:#e8ecf4}
+body.dark .cart-item{background:#242940;border-color:#333a55}
+body.dark .cart-item-name{color:#dce3ef}
+body.dark .cart-item-price{color:#60a5fa}
+body.dark .cart-total{background:#242940;border-color:#10b981}
+body.dark .cart-total-label{color:#e8ecf4}
+body.dark .disc{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050;color:#6b7a94}
+body.dark .btn-clear{background:#242940;border-color:#333a55;color:#c4d0e0}
+body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
+body.dark .qty-input{background:#242940;border-color:#333a55;color:#dce3ef}
+
+@media(max-width:600px){
+    html,body{font-size:13px}
+    .container{max-width:100%}
+    .header{padding:14px 16px}
+    .header h1{font-size:18px}
+    .header-top{flex-direction:column;align-items:flex-start}
+    .tab{padding:7px 9px;font-size:10px}
+    .dtable td{padding:7px 5px;font-size:11px}
+    .test-name{font-size:11px}
+    .test-price{font-size:12px}
+    .test-code{font-size:9px}
+    .cart-item{font-size:11px}
+    .cart-total{font-size:13px}
+    .cart-total-val{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="brand-badge">Dr. Ray Leung Limited</div>
+    <div class="header-top">
+        <h1><span>🏥</span>Radiology Service Quotation</h1>
+        <div style="display:flex;gap:10px;align-items:center">
+            <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+        </div>
+    </div>
+    <div class="header-sub"> 1-Nov-2025 version</div>
+    <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search examinations (e.g. MRI Brain, CT Thorax, Mammogram...)">
+        <button class="btn-clear" onclick="clearSearch()">Clear</button>
+    </div>
+</div>
+
+<div class="info-bar" id="infoBar"></div>
+<div class="tabs" id="tabBar"></div>
+<div class="panel" id="mainPanel"></div>
+
+<div class="disc">
+⚠️ <strong>Disclaimer:</strong> Prices shown are for reference only (1-Nov-2025 version). Applicable to 4-bed rooms and out-patients only. Charges are exclusive of medicines and associated materials. Charges are subject to change without prior notice. Charges will be adjusted for urgent care service and services provided during non-office hours. Interventional Radiology (IR) procedures require individual quotation — please contact IIRC nurse at 3946 6533. If there is any inconsistency between the English and Chinese versions, the English version shall prevail.
+</div>
+</div>
+
+<script>
+// Dark Mode
+function loadDark(){try{if(localStorage.getItem('radQuote_dark')==='true')applyDark(true)}catch(e){}}
+function toggleDark(){applyDark(!document.body.classList.contains('dark'))}
+function applyDark(on){document.body.classList.toggle('dark',on);document.getElementById('darkToggle').textContent=on?'☀️':'🌙';try{localStorage.setItem('radQuote_dark',on?'true':'false')}catch(e){}}
+document.getElementById('darkToggle').addEventListener('click',toggleDark);
+loadDark();
+
+// ============ RADIOLOGY DATABASE ============
+const tests = {
+xr: [
+{s:"Head"},
+{n:"Skull (SXR)",c:"IIRDXHN0001",p:285,u:"/View"},
+{n:"Orbits",c:"IIRDXHN0002",p:285,u:"/View"},
+{n:"Paranasal Sinuses",c:"IIRDXHN0003",p:285,u:"/View"},
+{n:"Nasal Bone",c:"IIRDXHN0006",p:285,u:"/View"},
+{n:"Temporomandibular Joints (TMJ)",c:"IIRDXHN0007",p:285,u:"/View"},
+{n:"Facial Bones",c:"IIRDXHN0005",p:285,u:"/View"},
+{n:"Mandible",c:"IIRDXHN0004",p:285,u:"/View"},
+{s:"Neck"},
+{n:"Soft Tissue Neck",c:"IIRDXHN0008",p:285,u:"/View"},
+{n:"Thoracic Inlet",c:"IIRDXHN0009",p:285,u:"/View"},
+{s:"Spine"},
+{n:"Cervical Spine (C Spine)",c:"IIRDXSP0001",p:285,u:"/View"},
+{n:"Thoracic Spine (T Spine)",c:"IIRDXSP0002",p:285,u:"/View"},
+{n:"Thoracolumbar Junction (TL Spine)",c:"IIRDXSP0003",p:285,u:"/View"},
+{n:"Lumbar Spine",c:"IIRDXSP0004",p:285,u:"/View"},
+{n:"Lumbosacral Spine (LS Spine)",c:"IIRDXSP0005",p:285,u:"/View"},
+{n:"Sacral Spine",c:"IIRDXSP0006",p:285,u:"/View"},
+{n:"Sacroiliac Joint(s)",c:"IIRDXTR0008",p:285,u:"/View"},
+{n:"Coccyx",c:"IIRDXSP0007",p:285,u:"/View"},
+{s:"Body"},
+{n:"Chest (CXR)",c:"IIRDXTR0001",p:285,u:"/View"},
+{n:"Sternum",c:"IIRDXTR0002",p:285,u:"/View"},
+{n:"Ribs",c:"IIRDXTR0003",p:285,u:"/View"},
+{n:"Abdomen",c:"IIRDXTR0004",p:285,u:"/View"},
+{n:"Kidney Ureter Bladder View (KUB)",c:"IIRDXTR0005",p:285,u:"/View"},
+{n:"Pelvis (KUB)",c:"IIRDXTR0006",p:285,u:"/View"},
+{s:"Upper Limb"},
+{n:"Shoulder / Scapula",c:"IIRDXUL0001",p:285,u:"/View"},
+{n:"Clavicle",c:"IIRDXUL0002",p:285,u:"/View"},
+{n:"Sternoclavicular Joint(s)",c:"IIRDXUL0003",p:285,u:"/View"},
+{n:"Acromioclavicular Joint(s)",c:"IIRDXUL0004",p:285,u:"/View"},
+{n:"Humerus",c:"IIRDXUL0005",p:285,u:"/View"},
+{n:"Elbow",c:"IIRDXUL0006",p:285,u:"/View"},
+{n:"Forearm",c:"IIRDXUL0007",p:285,u:"/View"},
+{n:"Wrist",c:"IIRDXUL0008",p:285,u:"/View"},
+{n:"Hand",c:"IIRDXUL0009",p:285,u:"/View"},
+{n:"Finger(s)",c:"IIRDXUL0010",p:285,u:"/View"},
+{s:"Lower Limb"},
+{n:"Hip",c:"IIRDXTR0007",p:285,u:"/View"},
+{n:"Femur",c:"IIRDXLL0001",p:285,u:"/View"},
+{n:"Knee",c:"IIRDXLL0002",p:285,u:"/View"},
+{n:"Lower Leg",c:"IIRDXLL0003",p:285,u:"/View"},
+{n:"Ankle",c:"IIRDXLL0004",p:285,u:"/View"},
+{n:"Calcaneum",c:"IIRDXLL0005",p:285,u:"/View"},
+{n:"Foot",c:"IIRDXLL0006",p:285,u:"/View"},
+{n:"Toe(s)",c:"IIRDXLL0007",p:285,u:"/View"},
+{s:"Others"},
+{n:"Hand and Wrist for Bone Age",c:"IIRDXOT0001",p:285,u:"/View"},
+{n:"Scannogram Lower Limb",c:"IIRDXOT0002",p:860},
+{n:"Scannogram Whole Spine",c:"IIRDXOT0003",p:860,u:"/View"},
+],
+eos: [
+{s:"Full Body"},
+{n:"Full Body (PA, Lateral)",c:"IIREOSFB001",p:2360},
+{n:"Full Body (PA, Lateral) - Postural Measurement",c:"IIREOSFB002",p:2700},
+{n:"Full Body (PA, Lateral) - Lower Limb Alignment",c:"IIREOSFB003",p:2700},
+{n:"Full Body (PA, Lateral) - Postural + Lower Limb Alignment",c:"IIREOSFB004",p:3330},
+{n:"Full Body (PA, Lateral) - 3D Spine",c:"IIREOSFB005",p:3890},
+{n:"Full Body (PA, Lateral) - 3D Spine + Lower Limb Alignment",c:"IIREOSFB006",p:4520},
+{s:"Spine"},
+{n:"Full Spine (PA, Lateral)",c:"IIREOSSP001",p:1770},
+{n:"Full Spine (PA, Lateral) - Postural Measurement",c:"IIREOSSP002",p:2380},
+{n:"Full Spine (PA, Lateral) - 3D Spine",c:"IIREOSSP003",p:3330},
+{n:"Full Spine (PA Only)",c:"IIREOSSP004",p:1030},
+{n:"Full Spine (Lateral Only)",c:"IIREOSSP005",p:1030},
+{n:"Thoracic Spine (PA, Lateral)",c:"IIREOSSP006",p:840},
+{n:"Lumbosacral Spine (PA, Lateral)",c:"IIREOSSP007",p:840},
+{n:"Lumbosacral Spine (PA, Lateral) + (Flexion, Extension)",c:"IIREOSSP008",p:1410},
+{s:"Lower Limb"},
+{n:"Lower Limb (AP, Lateral)",c:"IIREOSLL001",p:1410},
+{n:"Lower Limb (AP, Lateral) - with Alignment",c:"IIREOSLL002",p:1770},
+{n:"Lower Limb (AP, Lateral) - 3D Lower Limb with Alignment",c:"IIREOSLL003",p:2380},
+{n:"Bilateral Lower Limb (AP Only)",c:"IIREOSLL004",p:1030},
+{n:"Bilateral Knees (AP, Lateral)",c:"IIREOSLL005",p:840},
+],
+dxa: [
+{n:"Bone Densitometry (Two Regions) (Adult)",c:"IIRBDCO001",p:1600},
+{n:"Bone Densitometry (Two Regions) (Paediatric)",c:"IIRBDCO002",p:1950},
+{n:"Lumbar Spine",c:"IIRBDSP001",p:1080},
+{n:"Hip (Unilateral)",c:"IIRBDLL001",p:1080},
+{n:"Distal Radius",c:"IIRBDFM001",p:1080},
+{n:"Total Body (Excluding Head)",c:"IIRBDWB001",p:2040},
+{n:"Total Body Composition Analysis",c:"IIRBDWB002",p:2040},
+{n:"Vertebral Fracture Assessment",c:"IIRBDSP002",p:2140},
+{n:"(Surcharge) Trabecular Bone Score (TBS)",c:"IIRBDSP003",p:380},
+],
+breast: [
+{s:"Mammogram (MG)"},
+{n:"2D Mammogram (Unilateral)",c:"IIRMGBR001",p:1050},
+{n:"2D Mammogram (Bilateral)",c:"IIRMGBR002",p:1630},
+{n:"2D Mammogram with Implant (Unilateral)",c:"IIRMGBR003",p:1500},
+{n:"2D Mammogram with Implants (Bilateral)",c:"IIRMGBR004",p:2520},
+{n:"3D Mammogram (Unilateral)",c:"IIRMGBR005",p:2490},
+{n:"3D Mammogram (Bilateral)",c:"IIRMGBR006",p:3780},
+{n:"3D Mammogram with Implant (Unilateral)",c:"IIRMGBR007",p:2910},
+{n:"3D Mammogram with Implants (Bilateral)",c:"IIRMGBR008",p:4630},
+{n:"Magnification View",c:"IIRMGBR009",p:740},
+{n:"Breast Specimen Radiograph (Per Region)",c:"IIRMGOT001",p:470},
+{s:"Ultrasound (US)"},
+{n:"Breast Ultrasound (Unilateral)",c:"IIRUSBR001",p:1050},
+{n:"Breasts Ultrasound (Bilateral)",c:"IIRUSBR004",p:1580},
+{n:"Breast Specimen Ultrasound (Per Region)",c:"IIRUSBS001",p:470},
+{s:"Combo Packages"},
+{n:"2D Mammogram + Breast US (Unilateral)",c:"IIRMGCO001",p:1990},
+{n:"2D Mammogram + Breasts US (Bilateral)",c:"IIRMGCO002",p:2590},
+{n:"2D Mammogram with Implants + Breasts US (Bilateral)",c:"IIRMGCO003",p:3410},
+{n:"3D Mammogram + Breast US (Unilateral)",c:"IIRMGCO004",p:2790},
+{n:"3D Mammogram + Breasts US (Bilateral)",c:"IIRMGCO005",p:4190},
+{n:"3D Mammogram with Implants + Breasts US (Bilateral)",c:"IIRMGCO006",p:5030},
+{n:"2D Post-mastectomy Combo",c:"IIRMGCO007",p:2190},
+{n:"3D Post-mastectomy Combo",c:"IIRMGCO008",p:3680},
+{s:"MRI"},
+{n:"Breast Implant Assessment (Plain)",c:"IIRMRBR001",p:6300},
+{n:"Breasts (Full Diagnostic) (Plain + Contrast)",c:"IIRMRBR003",p:9980},
+{n:"Breasts (Full Diagnostic with Implant) (Plain + Contrast)",c:"IIRMRBR004",p:13130},
+{s:"Nuclear Medicine"},
+{n:"Breast Sentinel Lymph Nodes Scintigraphy (Unilateral)",c:"IIRNMOC008",p:6040},
+],
+ct: [
+{s:"Head"},
+{n:"Brain (Plain)",c:"IIRCTHN001",p:2380},
+{n:"Brain (Plain + Contrast)",c:"IIRCTOP001",p:4490},
+{n:"Pituitary Fossa (Plain)",c:"IIRCTHN004",p:3350},
+{n:"Pituitary Fossa (Plain + Contrast)",c:"IIRCTOP002",p:5800},
+{n:"Orbits (Plain)",c:"IIRCTHN007",p:3350},
+{n:"Orbits (Plain + Contrast)",c:"IIRCTOP003",p:5800},
+{n:"Paranasal Sinuses (Plain)",c:"IIRCTHN013",p:3350},
+{n:"Paranasal Sinuses (Plain + Contrast)",c:"IIRCTOP005",p:5800},
+{n:"Temporal Bone (Plain)",c:"IIRCTHN010",p:3350},
+{n:"Temporal Bone (Plain + Contrast)",c:"IIRCTOP004",p:5800},
+{n:"Facial Bones (Plain)",c:"IIRCTHN016",p:3350},
+{n:"Facial Bones (Plain + Contrast)",c:"IIRCTOP006",p:5800},
+{n:"Salivary Glands (Plain)",c:"IIRCTHN022",p:3350},
+{n:"Salivary Glands (Plain + Contrast)",c:"IIRCTOP007",p:5800},
+{n:"Dental (Plain)",c:"IIRCTHN041",p:5750},
+{s:"Neck"},
+{n:"Nasopharynx (Plain)",c:"IIRCTHN025",p:3350},
+{n:"Nasopharynx (Plain + Contrast)",c:"IIRCTOP008",p:5800},
+{n:"Neck (Plain)",c:"IIRCTHN028",p:3350},
+{n:"Neck (Plain + Contrast)",c:"IIRCTOP009",p:5800},
+{s:"Spine"},
+{n:"Cervical Spine (Plain)",c:"IIRCTSP001",p:3670},
+{n:"Cervical Spine (Plain + Contrast)",c:"IIRCTOP011",p:6390},
+{n:"Thoracic Spine (Plain)",c:"IIRCTSP004",p:3670},
+{n:"Thoracic Spine (Plain + Contrast)",c:"IIRCTOP012",p:6390},
+{n:"Lumbar Spine (Plain)",c:"IIRCTSP007",p:3670},
+{n:"Lumbar Spine (Plain + Contrast)",c:"IIRCTOP013",p:6390},
+{n:"Sacrum (Plain)",c:"IIRCTSP010",p:3670},
+{n:"Sacrum (Plain + Contrast)",c:"IIRCTOP014",p:6390},
+{s:"Body"},
+{n:"Thorax Low Dose Screening (LDCT)(Plain)",c:"IIRCTTR001",p:2590},
+{n:"Thorax - HRCT (Plain)",c:"IIRCTTR036",p:4190},
+{n:"Thorax (Plain)",c:"IIRCTTR004",p:4030},
+{n:"Thorax (Plain + Contrast)",c:"IIRCTOP015",p:6990},
+{n:"Upper Abdomen (Plain)",c:"IIRCTTR007",p:3350},
+{n:"Upper Abdomen (Plain + Contrast)",c:"IIRCTOP016",p:6490},
+{n:"Adrenal (Plain)",c:"IIRCTTR045P",p:3570},
+{n:"Adrenal (Plain + Contrast)",c:"IIRCTTR045",p:7020},
+{n:"Upper Abdomen + Pelvis (Plain)",c:"IIRCTCO002",p:5790},
+{n:"Upper Abdomen + Pelvis (Plain + Contrast)",c:"IIRCTCO004",p:9690},
+{n:"Urogram (Plain)",c:"IIRCTTR025",p:4290},
+{n:"Urogram (Plain + Contrast)",c:"IIRCTOP020",p:7590},
+{n:"Enterography (Plain)",c:"IIRCTTR022",p:7530},
+{n:"Enterography (Plain + Contrast)",c:"IIRCTOP019",p:12000},
+{n:"Virtual Colonoscopy (Plain)",c:"IIRCTTR019",p:8430},
+{n:"Virtual Colonoscopy (Plain + Contrast)",c:"IIRCTOP018",p:11900},
+{n:"Pelvis (Plain)",c:"IIRCTTR013",p:3390},
+{n:"Pelvis (Plain + Contrast)",c:"IIRCTOP017",p:6190},
+{s:"Cardiac"},
+{n:"Coronary Calcium Scoring (Plain)",c:"IIRCTTR029",p:3390},
+{n:"Coronary Angiogram (CTCA) With Calcium Scoring",c:"IIRCTTR040",p:8000},
+{n:"Coronary Angiogram (CTCA) Without Calcium Scoring",c:"IIRCTTR028",p:6540},
+{n:"Triple Rule Out Angiogram",c:"IIRCTTR063",p:16740},
+{n:"Pulmonary Venogram",c:"IIRCTTR033",p:8700},
+{s:"Upper Limb"},
+{n:"Shoulder (Plain)",c:"IIRCTMS001",p:3710},
+{n:"Shoulder (Plain + Contrast)",c:"IIRCTOP021",p:6000},
+{n:"Elbow (Plain)",c:"IIRCTMS007",p:3710},
+{n:"Elbow (Plain + Contrast)",c:"IIRCTOP023",p:6000},
+{n:"Wrist (Plain)",c:"IIRCTMS013",p:3710},
+{n:"Wrist (Plain + Contrast)",c:"IIRCTOP025",p:6000},
+{n:"Hand (Plain)",c:"IIRCTMS016",p:3710},
+{n:"Hand (Plain + Contrast)",c:"IIRCTOP026",p:6000},
+{s:"Lower Limb"},
+{n:"Hip (Plain)",c:"IIRCTMS023",p:3710},
+{n:"Hip (Plain + Contrast)",c:"IIRCTOP027",p:6000},
+{n:"Knee (Plain)",c:"IIRCTMS029",p:3710},
+{n:"Knee (Plain + Contrast)",c:"IIRCTOP029",p:6000},
+{n:"Ankle (Plain)",c:"IIRCTMS035",p:3710},
+{n:"Ankle (Plain + Contrast)",c:"IIRCTOP031",p:6000},
+{n:"Foot (Plain)",c:"IIRCTMS041",p:3710},
+{n:"Foot (Plain + Contrast)",c:"IIRCTOP033",p:6000},
+{s:"Angiogram"},
+{n:"Cerebral Angiogram",c:"IIRCTHN039",p:8190},
+{n:"Carotid Angiogram",c:"IIRCTHN038",p:8190},
+{n:"Thoracic Angiogram",c:"IIRCTTR030",p:8190},
+{n:"Thoracic Angiogram + Thorax",c:"IIRCTCO001",p:11830},
+{n:"Pulmonary Angiogram",c:"IIRCTTR031",p:8190},
+{n:"Pre-TAVI Planning",c:"IIRCTTR061",p:16190},
+{n:"Abdominal Angiogram",c:"IIRCTTR032",p:8320},
+{n:"Aortogram (Lung Apex to Aortic Bifurcation)",c:"IIRCTCO005",p:14990},
+{n:"Renal Angiogram",c:"IIRCTTR035",p:8190},
+{n:"Hypertension Combo",c:"IIRCTTR062",p:8130},
+{n:"Pelvic Angiogram",c:"IIRCTTR041",p:7890},
+{n:"Upper Limb Angiogram (Unilateral)",c:"IIRCTMS019",p:8870},
+{n:"Lower Limb Angiogram (Bilateral)",c:"IIRCTMS050",p:17260},
+{s:"Venogram"},
+{n:"Upper Limb Venogram (Unilateral)",c:"IIRCTMS054",p:8190},
+{n:"Lower Limb Venogram (Unilateral)",c:"IIRCTMS055",p:8190},
+{s:"Perfusion"},
+{n:"Brain Perfusion (Plain + Contrast)",c:"IIRCTHN037",p:8430},
+{n:"Brain Perfusion with Diamox (Plain + Contrast)",c:"IIRCTHN040",p:12990},
+{s:"Surcharges"},
+{n:"(Surcharge) 3D Images Reconstruction (Per Region)",c:"IIRCTOT003",p:1640},
+{n:"(Surcharge) Dynamic 4D CT Angiogram (Per Region)",c:"IIRCTHN042",p:3780},
+{n:"(Surcharge) Dual Energy CT for Gout",c:"IIRCTOT004",p:2000},
+{n:"(Surcharge) Liver Volumetry",c:"IIRCTTR039",p:2000},
+{n:"(Surcharge) Pelvimetry",c:"IIRCTTR038",p:1440},
+],
+mri: [
+{s:"Head"},
+{n:"Brain (Plain)",c:"IIRMRHN001",p:6580},
+{n:"Brain (Plain + Contrast)",c:"IIRMROP001",p:10500},
+{n:"Brain Stem (Plain)",c:"IIRMRHN004",p:6580},
+{n:"Brain Stem (Plain + Contrast)",c:"IIRMROP002",p:10500},
+{n:"Skull Base (Plain)",c:"IIRMRHN015",p:6580},
+{n:"Skull Base (Plain + Contrast)",c:"IIRMROP004",p:10500},
+{n:"3D Brain Analysis (Accubrain) (Plain)",c:"IIRMRHN042",p:3280},
+{n:"Pituitary (Plain + Contrast)",c:"IIRMROP003",p:10500},
+{n:"Orbits (Plain)",c:"IIRMRHN021",p:6580},
+{n:"Orbits (Plain + Contrast)",c:"IIRMROP006",p:10500},
+{n:"Paranasal Sinuses (Plain)",c:"IIRMRHN024",p:6580},
+{n:"Paranasal Sinuses (Plain + Contrast)",c:"IIRMROP007",p:10500},
+{n:"Temporal Bone (Plain)",c:"IIRMRHN043",p:6700},
+{n:"Temporal Bone (Plain + Contrast)",c:"IIRMROP054",p:10640},
+{n:"TMJ (Plain)",c:"IIRMRHN039",p:6700},
+{n:"TMJ (Plain + Contrast)",c:"IIRMROP012",p:10640},
+{n:"IAM (Plain)",c:"IIRMRHN018",p:6700},
+{n:"IAM (Plain + Contrast)",c:"IIRMROP005",p:10640},
+{s:"Neck"},
+{n:"Nasopharynx (Plain)",c:"IIRMRHN027",p:6700},
+{n:"Nasopharynx (Plain + Contrast)",c:"IIRMROP008",p:10640},
+{n:"Nasopharynx Incl. Neck (Plain)",c:"IIRMRCO019",p:8250},
+{n:"Nasopharynx Incl. Neck (Plain + Contrast)",c:"IIRMRCO020",p:12200},
+{n:"Neck (Plain)",c:"IIRMRHN036",p:6700},
+{n:"Neck (Plain + Contrast)",c:"IIRMROP011",p:10640},
+{s:"Spine"},
+{n:"Cervical Spine (Plain)",c:"IIRMRSP001",p:6580},
+{n:"Cervical Spine (Plain + Contrast)",c:"IIRMROP013",p:10500},
+{n:"Thoracic Spine (Plain)",c:"IIRMRSP004",p:6580},
+{n:"Thoracic Spine (Plain + Contrast)",c:"IIRMROP014",p:10500},
+{n:"Lumbar Spine (Plain)",c:"IIRMRSP007",p:6580},
+{n:"Lumbar Spine (Plain + Contrast)",c:"IIRMROP015",p:10500},
+{n:"Sacroiliac Joints (Plain)",c:"IIRMRSP030",p:6580},
+{n:"Sacroiliac Joints (Plain + Contrast)",c:"IIRMRSP032",p:10500},
+{n:"Whole Spine (Plain)",c:"IIRMRSP013",p:15880},
+{n:"Whole Spine (Plain + Contrast)",c:"IIRMROP050",p:25550},
+{n:"Spine (Two Regions) (Plain)",c:"IIRMRSP018",p:11290},
+{n:"Spine (Two Regions) (Plain + Contrast)",c:"IIRMROP052",p:18470},
+{n:"Whole Spine Screening (Scoliosis)",c:"IIRMRSP036",p:11290},
+{s:"Body"},
+{n:"Upper Abdomen (Plain)",c:"IIRMRTR013",p:7130},
+{n:"Upper Abdomen (Plain + Contrast)",c:"IIRMROP018",p:11130},
+{n:"Liver Imaging (Plain + Primovist)",c:"IIRMRTR016",p:14530},
+{n:"MRCP (Plain)",c:"IIRMRTR035",p:5840},
+{n:"Kidney (Plain)",c:"IIRMRTR020",p:6810},
+{n:"Kidney (Plain + Contrast)",c:"IIRMROP020",p:10640},
+{n:"Pelvis (Plain)",c:"IIRMRTR023",p:7130},
+{n:"Pelvis (Plain + Contrast)",c:"IIRMROP021",p:11070},
+{n:"Prostate (Plain)",c:"IIRMRTR038",p:7130},
+{n:"Prostate (Plain + Contrast)",c:"IIRMROP025",p:11070},
+{n:"Enterography (Plain + Contrast)",c:"IIRMROP060",p:16200},
+{s:"Cardiac"},
+{n:"Cardiac (Anatomy + Function) (Plain)",c:"IIRMRHR001",p:7130},
+{n:"Cardiac (Anatomy + Function + Viability) (Plain + Contrast)",c:"IIRMRHR002",p:11020},
+{n:"Cardiac (Full Stress Perfusion + Viability) (Plain + Contrast)",c:"IIRMRHR003",p:14550},
+{s:"Upper/Lower Limb"},
+{n:"Shoulder (Plain)",c:"IIRMRMS004",p:6580},
+{n:"Shoulder (Plain + Contrast)",c:"IIRMROP036",p:10500},
+{n:"Elbow (Plain)",c:"IIRMRMS007",p:6580},
+{n:"Elbow (Plain + Contrast)",c:"IIRMROP038",p:10500},
+{n:"Wrist (Plain)",c:"IIRMRMS013",p:6580},
+{n:"Wrist (Plain + Contrast)",c:"IIRMROP041",p:10500},
+{n:"Hip (Plain)",c:"IIRMRMS019",p:6580},
+{n:"Hip (Plain + Contrast)",c:"IIRMROP043",p:10500},
+{n:"Knee (Plain)",c:"IIRMRMS025",p:6580},
+{n:"Knee (Plain + Contrast)",c:"IIRMROP045",p:10500},
+{n:"Ankle (Plain)",c:"IIRMRMS031",p:6580},
+{n:"Ankle (Plain + Contrast)",c:"IIRMROP047",p:10500},
+{s:"Angiogram / Venogram"},
+{n:"Circle of Willis (COW) (Plain)",c:"IIRMRVA001",p:6210},
+{n:"Carotid/Vertebral Arteriogram (Plain)",c:"IIRMRVA004",p:6380},
+{n:"Carotid/Vertebral Arteriogram (Contrast)",c:"IIRMRVA006",p:8000},
+{n:"Brain Perfusion (Plain + Contrast)",c:"IIRMRHN052",p:14850},
+{s:"MR Combo"},
+{n:"Stroke Combo (Brain + MRA COW + MRA Neck) (Plain)",c:"IIRMRCO007",p:12320},
+{n:"Stroke Combo (Brain + MRA COW + MRA Neck) (Plain + Contrast)",c:"IIRMRCO008",p:14040},
+{n:"Brain + IAM (Plain)",c:"IIRMRCO001",p:9180},
+{n:"Brain + MRA COW (Plain)",c:"IIRMRCO005",p:9720},
+{n:"Brain + Neck (Plain)",c:"IIRMRCO013",p:11000},
+{n:"Brain + Neck (Plain + Contrast)",c:"IIRMRCO014",p:17700},
+{n:"Upper Abdomen + MRCP (Plain)",c:"IIRMRCO009",p:9830},
+{n:"Upper Abdomen + MRCP (Plain + Contrast)",c:"IIRMRCO010",p:16640},
+{n:"Upper Abdomen + Pelvis (Plain)",c:"IIRMRCO011",p:13500},
+{n:"Upper Abdomen + Pelvis (Plain + Contrast)",c:"IIRMRCO012",p:20520},
+{n:"Brain Tumour Combo",c:"IIRMRPK001",p:14910},
+{n:"Epilepsy Combo (Plain)",c:"IIRMRPK004",p:10970},
+{n:"Multiple Sclerosis Combo (Plain)",c:"IIRMRPK006",p:18040},
+{n:"Ankylosing Spondylitis Combo (Plain)",c:"IIRMRPK008",p:18040},
+{n:"Rheumatoid Arthritis Combo (Plain)",c:"IIRMRPK011",p:20200},
+{s:"Whole Body Screening"},
+{n:"Whole Body Screening with DWI (Plain)",c:"IIRMRTR030",p:17180},
+{n:"Whole Body Screening without DWI (Plain)",c:"IIRMRTR029",p:12640},
+],
+us: [
+{s:"Neck"},
+{n:"Neck (Lymph Nodes, Thyroid and Salivary Glands)",c:"IIRUSHN004",p:2300},
+{n:"Thyroid",c:"IIRUSHN002",p:1250},
+{n:"Salivary Glands",c:"IIRUSHN003",p:1460},
+{s:"Body"},
+{n:"Upper Abdomen and Pelvis",c:"IIRUSTR003",p:3880},
+{n:"Upper Abdomen and Pelvis (Incl. Appendix)",c:"IIRUSTR030",p:4680},
+{n:"Upper Abdomen (Liver, GB, Pancreas, Spleen, Kidneys)",c:"IIRUSTR001",p:2720},
+{n:"Hepatobiliary System (Liver, GB, Pancreas, Spleen)",c:"IIRUSTR002",p:1670},
+{n:"Liver",c:"IIRUSTR031",p:1100},
+{n:"Urinary System (Kidneys and Bladder)",c:"IIRUSTR004",p:2000},
+{n:"Pelvis (Transabdominal)",c:"IIRUSTR006",p:1460},
+{n:"Pelvis (Transvaginal)",c:"IIRUSTR007",p:2040},
+{n:"Prostate (Transabdominal)",c:"IIRUSTR009",p:1150},
+{n:"Prostate (Transrectal)",c:"IIRUSTR010",p:1880},
+{n:"Scrotum / Testes",c:"IIRUSSM001",p:1670},
+{n:"Penis",c:"IIRUSSM010",p:1670},
+{s:"Musculoskeletal"},
+{n:"Musculoskeletal",c:"IIRUSMS001",p:2200},
+{n:"Lump / Mass",c:"IIRUSSM003",p:1250},
+{n:"Foreign Body Localisation (Per Region)",c:"IIRUSSM013",p:1250},
+{n:"Axilla (Unilateral)",c:"IIRUSBR003",p:1150},
+{n:"Abdominal Wall (Per Region)",c:"IIRUSSM012",p:1250},
+{n:"Groin (Unilateral)",c:"IIRUSSM002",p:1130},
+{n:"Hernia Assessment (Per Region)",c:"IIRUSSM011",p:1290},
+{s:"Vascular"},
+{n:"Carotid Doppler (Including IMT)",c:"IIRUSVA001",p:5770},
+{n:"Intima-media Thickness (IMT)",c:"IIRUSVA020",p:1360},
+{n:"Abdominal Aortic Aneurysm (AAA)",c:"IIRUSVA009",p:2780},
+{n:"Upper Limb Veins DVT (Unilateral)",c:"IIRUSVA002",p:3830},
+{n:"Lower Limb Veins DVT (Unilateral)",c:"IIRUSVA003",p:3830},
+{s:"Paediatrics"},
+{n:"Infant Brain",c:"IIRUSHN001",p:1790},
+{n:"Upper Abdomen and Pelvis (Intussusception)",c:"IIRUSPA002",p:4150},
+{n:"Pylorus",c:"IIRUSPA001",p:1730},
+{n:"Infant Spine",c:"IIRUSSP001",p:2000},
+{n:"Infant Hips",c:"IIRUSMS002",p:2310},
+{s:"Fibroscan / Contrast"},
+{n:"Fibroscan",c:"IIRUSTR005",p:1420},
+{n:"US Contrast Study",c:"IIRUSOT001",p:4780},
+{n:"Contrast Enhanced Voiding Ultrasonography",c:"IIRUSOT004",p:6300},
+],
+nm: [
+{s:"Cardiology"},
+{n:"Stress and Rest Myocardial Perfusion Scintigraphy (Sestamibi)",c:"IIRNMCD005",p:11870},
+{n:"Rest Myocardial Perfusion Scintigraphy (Sestamibi)",c:"IIRNMCD006",p:5220},
+{s:"Endocrinology"},
+{n:"Thyroid Scintigraphy (TCO4-)",c:"IIRNMED001",p:3360},
+{n:"Parathyroid Scintigraphy (Sestamibi)",c:"IIRNMED002",p:5880},
+{n:"Norcholesterol Scintigraphy (NP59)",c:"IIRNMED003",p:32170},
+{n:"MIBG Scintigraphy",c:"IIRNMED004",p:22240},
+{s:"Gastroenterology"},
+{n:"Human Serum Albumin Scintigraphy (HSA)",c:"IIRNMGE011",p:13270},
+{n:"Meckel's Diverticulum Scintigraphy (TCO4-)",c:"IIRNMGE012",p:6190},
+{n:"Liver and Spleen Scintigraphy (Sulfur Colloid)",c:"IIRNMGE014",p:8700},
+{s:"Haematology"},
+{n:"Pyrophosphate Scintigraphy (PYP)",c:"IIRNMHM002",p:10100},
+{s:"Oncology"},
+{n:"Gallium Scintigraphy (Oncology)",c:"IIRNMOC001",p:13820},
+{n:"Iodine-131 Whole Body Scintigraphy",c:"IIRNMOC004",p:8520},
+{n:"Sentinel Lymph Nodes Scintigraphy (Per Region)",c:"IIRNMOC007",p:8640},
+{n:"Radioguided Occult Lesion Localisation (Unilateral)",c:"IIRNMOC009",p:5610},
+{n:"Hepatic Arterial Perfusion Scintigraphy (MAA)",c:"IIRNMOC010",p:9490},
+{n:"Yttrium-90 Bremsstrahlung Imaging",c:"IIRNMOC011",p:4740},
+{n:"Post Lutetium-177-PSMA",c:"IIRNMLU177",p:11870},
+{n:"Post Lutetium-177-DOTATATE",c:"IIRNMLU177D",p:11870},
+{s:"Urology"},
+{n:"DTPA Renal Scintigraphy",c:"IIRNMUR001",p:5750},
+{n:"MAG3 Renal Scintigraphy",c:"IIRNMUR002",p:6150},
+{n:"DMSA Renal Cortical Scintigraphy",c:"IIRNMUR005",p:5820},
+{n:"(Surcharge) Indirect Radionuclide Cystography",c:"IIRNMUR006",p:3010},
+{s:"Others"},
+{n:"Bone Scintigraphy (HDP)",c:"IIRNMMC001",p:6250},
+{n:"Gallium Scintigraphy (Infection)",c:"IIRNMMC004",p:11640},
+{n:"Lymphangioscintigraphy (Sulfur Colloid)",c:"IIRNMLY001",p:10690},
+],
+pet: [
+{s:"FDG PET"},
+{n:"FDG Brain (Plain)",c:"IIRPTFG001",p:11660},
+{n:"FDG (Skull Base to Upper Thigh) (Plain)",c:"IIRPTFG003",p:17170},
+{n:"FDG (Skull Base to Upper Thigh) (Plain + Contrast)",c:"IIRPTFG004",p:19490},
+{n:"FDG (Skull Base to Upper Thigh) + Brain (Plain)",c:"IIRPTFG009",p:18900},
+{n:"FDG (Skull Base to Upper Thigh) + Brain (Plain + Contrast)",c:"IIRPTFG010",p:21410},
+{n:"FDG (Head to Toe) (Plain)",c:"IIRPTFG005",p:25510},
+{n:"FDG (Head to Toe) (Plain + Contrast)",c:"IIRPTFG006",p:27920},
+{n:"FDG Myocardial Viability (Plain)",c:"IIRPTFG007",p:10580},
+{s:"PSMA PET"},
+{n:"PSMA (Head to Upper Thigh) (Plain)",c:"IIRPTPM003",p:20200},
+{n:"PSMA (Head to Upper Thigh) (Plain + Contrast)",c:"IIRPTPM004",p:22680},
+{n:"PSMA (Head to Toe) (Plain)",c:"IIRPTPM005",p:27250},
+{n:"PSMA (Head to Toe) (Plain + Contrast)",c:"IIRPTPM006",p:29660},
+{s:"DOTA PET"},
+{n:"DOTA (Head to Upper Thigh) (Plain)",c:"IIRPTDT001",p:20650},
+{n:"DOTA (Head to Upper Thigh) (Plain + Contrast)",c:"IIRPTDT002",p:22860},
+{n:"DOTA (Head to Toe) (Plain)",c:"IIRPTDT003",p:28620},
+{n:"DOTA (Head to Toe) (Plain + Contrast)",c:"IIRPTDT004",p:31150},
+{s:"C11 Acetate PET"},
+{n:"C11 Acetate (Skull Base to Upper Thigh) (Plain)",c:"IIRPTCA001",p:18540},
+{n:"C11 Acetate (Skull Base to Upper Thigh) (Plain + Contrast)",c:"IIRPTCA002",p:19490},
+{s:"Dual Tracer (FDG + C11 Acetate)"},
+{n:"Dual Tracer (Skull Base to Upper Thigh) (Plain)",c:"IIRPTFC001",p:24840},
+{n:"Dual Tracer (Skull Base to Upper Thigh) (Plain + Contrast)",c:"IIRPTFC002",p:26980},
+{s:"Other"},
+{n:"FMM Brain (Plain)",c:"IIRPTFM001",p:25000},
+{n:"Post-Radioembolisation Yttrium-90 PET",c:"IIRPTYT001",p:4750},
+],
+ir: [
+{s:"Neurointervention"},
+{n:"Cerebral Angiogram",c:"IIRIRNI001",p:0},
+{n:"Brain / Head and Neck Tumour Embolisation",c:"IIRIRNI025",p:0},
+{n:"Spinal Angiogram",c:"IIRIRNI002",p:0},
+{s:"Head & Neck Intervention"},
+{n:"US Guided Thyroid FNAC",c:"IIRIRHI001",p:0},
+{n:"US Guided Thyroid Biopsy",c:"IIRIRHI004",p:0},
+{n:"US Guided Thyroid Alcohol Ablation",c:"IIRIRHI091",p:0},
+{n:"US Guided Thyroid RFA (Excl. Ablation Needle)",c:"IIRIRHI092",p:0},
+{n:"US Guided H&N Soft Tissue FNAC",c:"IIRIRHI002",p:0},
+{n:"US Guided H&N Soft Tissue Biopsy",c:"IIRIRHI003",p:0},
+{s:"Body Intervention"},
+{n:"Bronchial Artery Embolisation",c:"IIRIRDI109",p:0},
+{n:"PTBD Insertion",c:"IIRIRDI065",p:0},
+{n:"Conventional TACE",c:"IIRIRDI110",p:0},
+{n:"Portal Vein Embolisation",c:"IIRIRDI146",p:0},
+{n:"US Guided Liver Biopsy (Mass)",c:"IIRIRDI001",p:0},
+{n:"US Guided Liver RFA (Excl. Needle)",c:"IIRIRDI171",p:0},
+{n:"US Guided Liver Microwave Ablation (Excl. Needle)",c:"IIRIRDI172",p:0},
+{n:"CT Guided Lung Biopsy",c:"IIRIRDI041",p:0},
+{n:"Percutaneous Nephrostomy (PCN) Insertion",c:"IIRIRDI073",p:0},
+{n:"Uterine Fibroid Embolisation",c:"IIRIRDI113",p:0},
+{n:"Prostate Artery Embolisation",c:"IIRIRDI114",p:0},
+{s:"MSK Intervention"},
+{n:"Vertebroplasty (Per Region)",c:"IIRIRMI092",p:0},
+{n:"US Guided Steroid/LA Injection",c:"IIRIRMI005",p:0},
+{n:"US Guided PRP Injection",c:"IIRIRMI009",p:0},
+{n:"CT Guided Bone Biopsy",c:"IIRIRMI035",p:0},
+{s:"Vascular Intervention"},
+{n:"PICC Insertion (Excl. Catheter)",c:"IIRIRDI061",p:0},
+{n:"Tunnelled CVC Insertion (Excl. Catheter)",c:"IIRIRDI063",p:0},
+{n:"Port-A-Cath Insertion (Excl. Port)",c:"IIRIRDI062",p:0},
+{n:"IVC Filter Insertion",c:"IIRIRDI148",p:0},
+{n:"IVC Filter Removal",c:"IIRIRDI144",p:0},
+]
+};
+
+// ============ Tab Definitions ============
+const tabDefs=[
+{id:'cart',label:'🛒 Quote'},
+{id:'xr',label:'X-ray'},
+{id:'eos',label:'EOS'},
+{id:'dxa',label:'DXA'},
+{id:'breast',label:'Breast'},
+{id:'ct',label:'CT'},
+{id:'mri',label:'MRI'},
+{id:'us',label:'US'},
+{id:'nm',label:'Nuclear Med'},
+{id:'pet',label:'PET-CT'},
+{id:'ir',label:'IR'},
+];
+
+let activeTab='ct';
+let cart=[];
+let searchQuery='';
+
+// Cart
+function isInCart(cat,idx){return cart.some(c=>c.cat===cat&&c.idx===idx)}
+function toggleCart(cat,idx){
+    const ex=cart.findIndex(c=>c.cat===cat&&c.idx===idx);
+    if(ex>=0){cart.splice(ex,1);}
+    else{
+        const t=tests[cat][idx];
+        cart.push({cat,idx,name:t.n,code:t.c,price:t.p,unit:t.u||'',qty:t.u?2:1});
+    }
+    saveCart();render();
+}
+function updateQty(cartIdx,val){
+    val=parseInt(val)||1;
+    if(val<1)val=1;if(val>20)val=20;
+    cart[cartIdx].qty=val;
+    saveCart();render();
+}
+function removeFromCart(i){cart.splice(i,1);saveCart();render();}
+function clearCart(){cart=[];saveCart();render();}
+function getTotal(){return cart.reduce((s,c)=>s+(c.price*c.qty),0);}
+function saveCart(){try{localStorage.setItem('radQuote_cart',JSON.stringify(cart))}catch(e){}}
+function loadCart(){try{const d=JSON.parse(localStorage.getItem('radQuote_cart'));if(d&&Array.isArray(d))cart=d;}catch(e){}}
+
+function clearSearch(){document.getElementById('searchInput').value='';searchQuery='';render();}
+function switchTab(id){activeTab=id;render();}
+
+function render(){renderInfo();renderTabs();renderPanel();}
+
+function renderInfo(){
+    const total=getTotal(),count=cart.length;
+    let html='';
+    if(count>0){
+        html+=`<span class="chip items">📋 ${count} item${count>1?'s':''}</span>`;
+        html+=`<span class="chip total">💰 $${total.toLocaleString()}</span>`;
+    }
+    document.getElementById('infoBar').innerHTML=html;
+}
+
+function renderTabs(){
+    let html='';
+    tabDefs.forEach(t=>{
+        let badge='';
+        if(t.id==='cart'&&cart.length>0)badge=`<span class="qty-badge">${cart.length}</span>`;
+        html+=`<button class="tab${t.id===activeTab?' active':''}" onclick="switchTab('${t.id}')">${t.label}${badge}</button>`;
+    });
+    document.getElementById('tabBar').innerHTML=html;
+}
+
+function renderPanel(){
+    const panel=document.getElementById('mainPanel');
+    if(activeTab==='cart'){renderCart(panel);return;}
+    const list=tests[activeTab];
+    if(!list||!list.length){panel.innerHTML='<p class="no-results">No items</p>';return;}
+
+    const q=searchQuery.toLowerCase().trim();
+    let filtered=list.map((t,i)=>({...t,origIdx:i}));
+    if(q) filtered=filtered.filter(t=>t.s||(t.n&&t.n.toLowerCase().includes(q))||(t.c&&t.c.toLowerCase().includes(q)));
+
+    // Remove section headers if no items follow
+    let cleaned=[];
+    for(let i=0;i<filtered.length;i++){
+        if(filtered[i].s){
+            // Check if next non-section item exists
+            let hasItems=false;
+            for(let j=i+1;j<filtered.length;j++){
+                if(filtered[j].s)break;
+                if(filtered[j].n){hasItems=true;break;}
+            }
+            if(hasItems)cleaned.push(filtered[i]);
+        } else cleaned.push(filtered[i]);
+    }
+
+    if(cleaned.filter(t=>t.n).length===0){
+        panel.innerHTML=`<p class="no-results">No results for "${searchQuery}"</p>`;return;
+    }
+
+    const isIR=activeTab==='ir';
+    let html=`<table class="dtable"><thead><tr><th style="width:30px"></th><th>Code</th><th>Examination</th><th style="text-align:right">${isIR?'':'Price (HKD)'}</th></tr></thead><tbody>`;
+
+    cleaned.forEach(t=>{
+        if(t.s){
+            html+=`<tr class="section-header"><td></td><td colspan="3">► ${t.s}</td></tr>`;
+            return;
+        }
+        const inCart=isInCart(activeTab,t.origIdx);
+        const cls=inCart?'selected':'';
+        let priceHtml;
+        if(t.p===0) priceHtml=`<span class="test-price quote">Quote Required</span>`;
+        else priceHtml=`<span class="test-price">$${t.p.toLocaleString()}${t.u||''}</span>`;
+
+        html+=`<tr class="${cls}" onclick="toggleCart('${activeTab}',${t.origIdx})">
+            <td><div class="test-check${inCart?' checked':''}"></div></td>
+            <td class="test-code">${t.c||''}</td>
+            <td class="test-name">${highlightMatch(t.n,q)}</td>
+            <td style="text-align:right">${priceHtml}</td>
+        </tr>`;
+    });
+    html+=`</tbody></table>`;
+    html+=`<div style="margin-top:10px;font-size:12px;color:var(--muted)">Showing ${cleaned.filter(t=>t.n).length} items · Click to add/remove</div>`;
+    panel.innerHTML=html;
+}
+
+function highlightMatch(text,q){
+    if(!q)return text;
+    const idx=text.toLowerCase().indexOf(q);
+    if(idx<0)return text;
+    return text.substring(0,idx)+'<mark style="background:#fef08a;border-radius:3px;padding:0 2px">'+text.substring(idx,idx+q.length)+'</mark>'+text.substring(idx+q.length);
+}
+
+function renderCart(panel){
+    if(cart.length===0){
+        panel.innerHTML=`<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:16px">📋</div><p style="color:var(--muted);font-size:16px;font-weight:600">No items selected</p><p style="color:var(--muted);font-size:14px;margin-top:8px">Browse categories and click on examinations to build your quotation</p></div>`;
+        return;
+    }
+    const total=getTotal();
+    const hasPerView=cart.some(c=>c.unit);
+    let html=`<div class="cart-box"><div class="cart-title"><span>📋 Quotation (${cart.length} item${cart.length>1?'s':''})</span></div><div class="cart-items">`;
+
+    cart.forEach((item,i)=>{
+        const subtotal=item.price*item.qty;
+        let qtyHtml='';
+        if(item.unit){
+            qtyHtml=`<input type="number" class="qty-input" value="${item.qty}" min="1" max="20" onclick="event.stopPropagation()" onchange="updateQty(${i},this.value)"><span class="qty-label">views</span>`;
+        } else if(item.price>0){
+            qtyHtml=`<span style="font-size:11px;color:var(--muted)">×1</span>`;
+        }
+        html+=`<div class="cart-item">
+            <div style="flex:1"><div class="cart-item-name">${item.name}</div><div class="cart-item-code">${item.code}</div></div>
+            <div style="display:flex;align-items:center;gap:8px">${qtyHtml}
+            <span class="cart-item-price">${item.price===0?'TBC':'$'+subtotal.toLocaleString()}</span>
+            <button class="cart-item-remove" onclick="event.stopPropagation();removeFromCart(${i})">✕</button></div>
+        </div>`;
+    });
+
+    const hasQuoteItems=cart.some(c=>c.price===0);
+    html+=`</div><div class="cart-total"><span class="cart-total-label">Total Estimate</span><span class="cart-total-val">HKD $${total.toLocaleString()}${hasQuoteItems?' *':''}</span></div>`;
+    if(hasQuoteItems) html+=`<div class="cart-note">* Some items require individual quotation from IIRC. Total shown excludes these items.</div>`;
+    if(hasPerView) html+=`<div class="cart-note">💡 Per-view items: adjust the number of views as needed.</div>`;
+    html+=`<div class="cart-actions"><button class="btn-primary" onclick="printQuote()">🖨️ Print</button><button class="btn-success" onclick="copyQuote()">📋 Copy</button><button class="btn-danger" onclick="clearCart()">🗑️ Clear</button></div></div>`;
+    panel.innerHTML=html;
+}
+
+function printQuote(){
+    const total=getTotal();
+    const w=window.open('','_blank','width=750,height=900');
+    w.document.write(`<html><head><title>Radiology Quotation</title><style>body{font-family:Arial,sans-serif;padding:40px;font-size:13px;line-height:1.6}h1{font-size:18px;margin-bottom:2px}
+    .brand{color:#666;font-size:13px;margin-bottom:4px}.date{color:#666;margin-bottom:20px}
+    table{width:100%;border-collapse:collapse;margin:20px 0}th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left}
+    th{background:#f8f9fa;font-size:11px;text-transform:uppercase}td.price{text-align:right;font-weight:bold;white-space:nowrap}
+    .total-row{border-top:3px solid #333;font-size:16px;font-weight:bold}.total-row td{padding:14px 10px}
+    .footer{margin-top:30px;font-size:11px;color:#666;border-top:1px solid #ddd;padding-top:12px}</style></head><body>
+    <h1>🏥 Radiology Service Quotation</h1>
+    <div class="brand">CUHK Medical Centre · Imaging & Interventional Radiology Centre</div>
+    <div class="date">Date: ${new Date().toLocaleDateString('en-GB')} · Tel: 3946 6533</div>
+    <table><thead><tr><th>#</th><th>Code</th><th>Examination</th><th>Qty</th><th style="text-align:right">Price (HKD)</th></tr></thead><tbody>`);
+    cart.forEach((item,i)=>{
+        const sub=item.price*item.qty;
+        w.document.write(`<tr><td>${i+1}</td><td style="font-family:monospace;font-size:11px">${item.code}</td><td>${item.name}</td><td>${item.qty}${item.unit?' views':''}</td><td class="price">${item.price===0?'TBC':'$'+sub.toLocaleString()}</td></tr>`);
+    });
+    w.document.write(`<tr class="total-row"><td colspan="4">TOTAL</td><td class="price">$${total.toLocaleString()}</td></tr></tbody></table>
+    <div class="footer">※ 1-Nov-2025 version. Prices for reference only, subject to change.<br>※ Applicable to 4-bed rooms and out-patients. Excludes medicines and materials.<br>※ IR procedures marked 'TBC' require individual quotation — contact IIRC at 3946 6533.</div>
+    <script>setTimeout(()=>window.print(),500)<\/script></body></html>`);
+    w.document.close();
+}
+
+function copyQuote(){
+    let text='RADIOLOGY SERVICE QUOTATION\nCUHK Medical Centre · IIRC\nDate: '+new Date().toLocaleDateString('en-GB')+'\nTel: 3946 6533\n────────────────────────────────\n';
+    cart.forEach((item,i)=>{
+        const sub=item.price*item.qty;
+        const p=item.price===0?'TBC':'$'+sub.toLocaleString();
+        text+=`${i+1}. [${item.code}] ${item.name}${item.unit?' ×'+item.qty+' views':''} — ${p}\n`;
+    });
+    text+='────────────────────────────────\n';
+    text+=`TOTAL: HKD $${getTotal().toLocaleString()}\n`;
+    navigator.clipboard.writeText(text).then(()=>{
+        const btn=document.querySelector('.btn-success');
+        if(btn){const o=btn.innerHTML;btn.innerHTML='✓ Copied!';setTimeout(()=>btn.innerHTML=o,2000);}
+    }).catch(()=>{});
+}
+
+// Search
+document.getElementById('searchInput').addEventListener('input',function(){
+    searchQuery=this.value;
+    if(activeTab==='cart'&&searchQuery)activeTab='ct';
+    if(searchQuery){
+        // Find first tab with results
+        const q=searchQuery.toLowerCase();
+        if(activeTab!=='cart'){
+            const cur=tests[activeTab];
+            if(cur&&cur.some(t=>t.n&&t.n.toLowerCase().includes(q))){render();return;}
+        }
+        for(const td of tabDefs){
+            if(td.id==='cart')continue;
+            const list=tests[td.id];
+            if(list&&list.some(t=>t.n&&t.n.toLowerCase().includes(q))){activeTab=td.id;break;}
+        }
+    }
+    render();
+});
+
+loadCart();
+render();
+</script>
+</body>
+</html>
