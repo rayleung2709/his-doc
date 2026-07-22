@@ -10,13 +10,14 @@
   --border:#d9e2ec;--border-strong:#c4d0dd;--text:#12202f;--muted:#5b6b7c;
   --primary:#0f172a;--primary-2:#1d4ed8;--primary-soft:#dbeafe;
   --danger:#b91c1c;--danger-soft:#fee2e2;--warn:#f59e0b;--warn-soft:#fef3c7;
+  --ok:#059669;--ok-soft:#d1fae5;
   --shadow:0 12px 36px rgba(15,23,42,.08);--shadow-soft:0 8px 24px rgba(15,23,42,.06);
   --ui-font:Inter,Tahoma,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{margin:0;padding:0;min-height:100vh;background:radial-gradient(circle at top left,#f8fbff 0%,var(--bg) 42%,var(--bg-accent) 100%);color:var(--text);font-family:var(--ui-font);font-size:15px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{padding:20px}
-.container{max-width:1100px;margin:0 auto}
+.container{max-width:1180px;margin:0 auto}
 
 .header{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow-soft);margin-bottom:16px;transition:background .35s,border-color .35s}
 .header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
@@ -48,23 +49,37 @@ body{padding:20px}
 
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:0 18px 18px 18px;padding:22px;box-shadow:var(--shadow-soft);margin-bottom:16px;min-height:200px;transition:background .35s,border-color .35s;overflow-x:auto}
 
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.search-input{min-width:220px;flex:1;padding:11px 14px;border:1px solid var(--border-strong);border-radius:12px;font-size:15px;font-family:var(--ui-font);background:#fff;color:var(--text);outline:none}
+.search-input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
+.toolbar-note{font-size:12px;color:var(--muted);font-weight:700}
+
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--border);background:var(--panel-2);color:var(--text);
+  border-radius:12px;padding:10px 13px;font-size:14px;font-weight:900;
+}
+.icon-btn.active{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border-color:#2563eb}
+
 .dtable{width:100%;border-collapse:collapse}
 .dtable th{text-align:left;font-size:12px;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--bg);letter-spacing:.06em;font-weight:800}
-.dtable td{padding:12px;border-bottom:1px solid var(--bg);vertical-align:middle;font-size:15px}
+.dtable td{padding:12px;border-bottom:1px solid var(--bg);vertical-align:top;font-size:15px}
 .dtable tr:hover{background:var(--panel-2)}
 .drug-name{font-weight:800;font-size:15px;color:var(--text)}
-.drug-note{color:var(--muted);font-size:12px;margin-top:3px}
-.form-select{padding:8px 12px;border:1px solid var(--border-strong);border-radius:10px;font-size:14px;font-family:var(--ui-font);background:#fff;cursor:pointer;max-width:200px;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
+.drug-note{color:var(--muted);font-size:12px;margin-top:3px;line-height:1.35}
+.form-select{padding:8px 12px;border:1px solid var(--border-strong);border-radius:10px;font-size:14px;font-family:var(--ui-font);background:#fff;cursor:pointer;max-width:260px;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
 .form-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.16)}
 .dose-val{font-weight:800;color:var(--primary-2);font-size:15px;white-space:nowrap}
 .vol-val{font-weight:800;color:#d63031;font-size:15px;white-space:nowrap}
 .freq-val{color:var(--muted);font-size:14px;white-space:nowrap;font-weight:600}
 .capped{background:#fef9e7}
 .max-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:11px;padding:3px 7px;border-radius:6px;font-weight:700;margin-left:6px}
-
 .age-warn{background:linear-gradient(135deg,#fee2e2,#fef2f2)!important}
 .age-warn:hover{background:linear-gradient(135deg,#fecaca,#fee2e2)!important}
 .age-badge{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:800;margin-left:6px;letter-spacing:.02em;text-transform:uppercase}
+.warn-line{color:var(--danger);font-weight:900;font-size:12px;margin-top:4px;white-space:normal;line-height:1.35}
+.ok-line{color:var(--ok);font-weight:900;font-size:12px;margin-top:4px;white-space:normal;line-height:1.35}
+.range-line{color:var(--primary-2);font-weight:900;font-size:12px;margin-top:4px;white-space:normal;line-height:1.35}
 
 .pcm-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fbbf24;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 12px rgba(251,191,36,.12)}
 .pcm-title{font-weight:800;font-size:16px;margin-bottom:12px;color:var(--primary)}
@@ -78,13 +93,21 @@ body{padding:20px}
 .pcm-form{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .pcm-form label{font-size:14px;font-weight:800;color:#334155}
 
-.fluid-box{display:grid;grid-template-columns:auto repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;font-size:15px}
-.fluid-box>div{background:#fff;padding:12px 16px;text-align:center}
-.fluid-box .fh{background:var(--panel-2);font-weight:800;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.fluid-box .fl{text-align:left;font-weight:700;font-size:15px;color:var(--text)}
-.fluid-box .fv{font-weight:800;color:var(--primary-2)}
+.chart-wrap{display:grid;grid-template-columns:1fr;gap:14px}
+.chart-card{background:var(--panel-2);border:1px solid var(--border);border-radius:16px;padding:16px}
+.chart-box{width:100%;height:440px;position:relative}
+.chart-box svg{width:100%;height:100%;display:block}
+.chart-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--muted)}
+.legend-line{width:18px;height:3px;border-radius:999px}
+.result-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;color:var(--text);line-height:1.5}
 
-.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s}
+.date-kind-box{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--panel-2);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:14px}
+.date-kind-box .hint{color:var(--muted);font-size:13px;font-weight:700}
+.result-big{font-size:22px;font-weight:900;color:var(--primary-2);margin:6px 0}
+.result-small{font-size:13px;color:var(--muted);font-weight:700;line-height:1.6}
+
+.disc{background:linear-gradient(135deg,#fff 0%,#f6f9fc 100%);border:1px solid var(--border);border-radius:14px;padding:16px 20px;font-size:13px;color:var(--muted);margin-top:16px;box-shadow:var(--shadow-soft);transition:background .35s,border-color .35s,color .35s;line-height:1.5}
 
 button{border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--ui-font);transition:transform .16s,box-shadow .16s,opacity .16s,background .16s}
 button:hover{transform:translateY(-1px)}
@@ -97,11 +120,8 @@ body.dark .header{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);bor
 body.dark .header h1{color:#e8ecf4}
 body.dark .brand-badge{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.3);color:#7cb3f4}
 body.dark .hdr-label{color:#8899b2}
-body.dark .hdr-input{background:#242940;border-color:#333a55;color:#dce3ef}
-body.dark .hdr-input::placeholder{color:#4a5578}
-body.dark .hdr-input:focus{background:#2a3048;border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
-body.dark .hdr-select{background:#242940;border-color:#333a55;color:#dce3ef}
-body.dark .hdr-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
+body.dark .hdr-input,body.dark .hdr-select,body.dark .search-input{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .hdr-input::placeholder,body.dark .search-input::placeholder{color:#4a5578}
 body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:#3a4060;color:#cad3e0}
 body.dark .chip{background:#1c2035;border-color:#2a3050;color:#b0bdd0}
 body.dark .chip.age{color:#a29bfe}body.dark .chip.pct{color:#fab1a0}body.dark .chip.temp{color:#ff7675}body.dark .chip.wt{color:#55efc4}
@@ -113,34 +133,31 @@ body.dark .dtable th{color:#6b7a94;border-bottom-color:#2a3050}
 body.dark .dtable td{border-bottom-color:#232840}
 body.dark .dtable tr:hover{background:#242940}
 body.dark .drug-name{color:#e8ecf4}
-body.dark .drug-note{color:#5b6b7c}
+body.dark .drug-note{color:#8b98ad}
 body.dark .form-select{background:#242940;border-color:#333a55;color:#dce3ef}
-body.dark .form-select:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.18)}
 body.dark .dose-val{color:#60a5fa}
 body.dark .vol-val{color:#ff7675}
-body.dark .freq-val{color:#6b7a94}
+body.dark .freq-val{color:#8b98ad}
 body.dark .capped{background:rgba(251,191,36,.08)}
 body.dark .age-warn{background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.06))!important}
-body.dark .age-warn:hover{background:linear-gradient(135deg,rgba(239,68,68,.18),rgba(239,68,68,.1))!important}
 body.dark .pcm-box{background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(245,158,11,.06));border-color:rgba(251,191,36,.3)}
 body.dark .pcm-title{color:#e8ecf4}
 body.dark .pcm-option{background:#242940;border-color:#333a55}
 body.dark .pcm-option.winner{border-color:#10b981;background:rgba(16,185,129,.08)}
-body.dark .pcm-option h4{color:#6b7a94}
+body.dark .pcm-option h4,body.dark .pcm-option .sub,body.dark .toolbar-note{color:#8b98ad}
 body.dark .pcm-option .big{color:#e8ecf4}
-body.dark .pcm-option .sub{color:#6b7a94}
 body.dark .pcm-form label{color:#8899b2}
-body.dark .fluid-box{background:#333a55}
-body.dark .fluid-box>div{background:#1c2035}
-body.dark .fluid-box .fh{background:#242940;color:#6b7a94}
-body.dark .fluid-box .fl{color:#e8ecf4}
-body.dark .fluid-box .fv{color:#60a5fa}
-body.dark .disc{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050;color:#6b7a94}
+body.dark .disc{background:linear-gradient(135deg,#1c2035 0%,#181c2e 100%);border-color:#2a3050;color:#8b98ad}
 body.dark .btn-clear{background:#242940;border-color:#333a55;color:#c4d0e0}
 body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
+body.dark .chart-card,body.dark .date-kind-box{background:#242940;border-color:#333a55}
+body.dark .result-card{background:#1c2035;border-color:#333a55;color:#e8ecf4}
+body.dark .icon-btn{background:#242940;border-color:#333a55;color:#dce3ef}
+body.dark .icon-btn.active{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff}
 
-@media(max-width:600px){
+@media(max-width:760px){
     html,body{font-size:13px}
+    body{padding:12px}
     .container{max-width:100%}
     .header{padding:14px 16px}
     .header h1{font-size:20px}
@@ -151,12 +168,11 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
     .drug-name{font-size:13px}
     .dose-val,.vol-val{font-size:13px}
     .freq-val{font-size:12px}
-    .form-select{max-width:140px;font-size:12px}
-    .fluid-box{font-size:12px}
-    .fluid-box>div{padding:8px 10px}
+    .form-select{max-width:180px;font-size:12px}
     .hdr-input{font-size:13px;padding:8px 8px;width:64px}
     .hdr-select{font-size:13px;padding:8px 8px}
     .pcm-option .big{font-size:14px}
+    .chart-box{height:360px}
 }
 </style>
 </head>
@@ -172,8 +188,8 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
         </div>
     </div>
     <div class="header-right" style="margin-top:12px">
-        <span class="hdr-label">Wt</span><input type="number" id="wt" class="hdr-input" placeholder="kg" step="0.1" min="0.5" max="100">
-        <span class="hdr-label">DOB</span>
+        <span class="hdr-label">Wt</span><input type="number" id="wt" class="hdr-input" placeholder="kg" step="0.1" min="0.5" max="150">
+        <span class="hdr-label">DOB / Date</span>
         <input type="number" id="dob-y" class="hdr-input" placeholder="YYYY" style="width:120px">
         <input type="number" id="dob-m" class="hdr-input" placeholder="MM" style="width:60px">
         <input type="number" id="dob-d" class="hdr-input" placeholder="DD" style="width:60px">
@@ -184,12 +200,12 @@ body.dark .btn-clear:hover{background:#2d3450;border-color:#4a5580}
 </div>
 
 <div class="info-bar" id="infoBar"></div>
-
 <div class="tabs" id="tabBar"></div>
-
 <div class="panel" id="mainPanel"></div>
 
-<div class="disc">⚠️ <strong>Disclaimer:</strong> For clinical reference only. All doses are general recommendations. Adjust per patient condition, renal/hepatic function, drug interactions, and latest BNFc/UpToDate guidelines. Growth percentile based on WHO standards (0–120 months). <span style="color:var(--danger)">Red-highlighted rows</span> indicate potential age restriction — verify before prescribing. <br><strong>Rounding:</strong> Syrup volumes are rounded <u>down</u> to nearest 0.5 mL; displayed mg reflects actual dispensed amount.</div>
+<div class="disc">
+⚠️ <strong>Disclaimer:</strong> For clinical reference only. Doses are general references. Adjust for indication, severity, renal/hepatic function, allergy, interactions, local formulary, and latest paediatric guidance.
+</div>
 </div>
 
 <script>
@@ -227,15 +243,41 @@ function parseDOB(str){
     });
 });
 
-// ============ Growth Data (WHO LMS Weight-for-Age) ============
-const growthData={M:[[0,.3487,3.3464,.14602],[1,.2297,4.4709,.13395],[2,.197,5.5675,.12385],[3,.1738,6.3762,.11727],[4,.1553,7.0023,.11316],[5,.1395,7.5105,.1108],[6,.1257,7.934,.10958],[9,.0956,8.964,.10714],[12,.0693,9.6479,.10591],[15,.0437,10.306,.10523],[18,.019,10.917,.10499],[21,-.005,11.487,.10513],[24,-.028,12.022,.10559],[30,-.073,13.014,.10715],[36,-.113,13.929,.10923],[42,-.148,14.808,.11158],[48,-.178,15.672,.11406],[54,-.202,16.547,.1167],[60,-.221,17.447,.11949],[72,-.246,19.365,.12581],[84,-.254,21.518,.13371],[96,-.247,24.009,.14391],[108,-.224,27.018,.15535],[120,-.186,30.643,.1669]],F:[[0,.3809,3.2322,.14171],[1,.1714,4.1873,.13724],[2,.0962,5.1282,.13],[3,.0402,5.8458,.12619],[4,-.005,6.4237,.12402],[5,-.043,6.8985,.12274],[6,-.068,7.297,.12204],[9,-.101,8.2,.12088],[12,-.11,8.948,.12055],[15,-.107,9.617,.12066],[18,-.098,10.245,.12108],[21,-.085,10.849,.12177],[24,-.069,11.438,.12269],[30,-.034,12.577,.12509],[36,-.001,13.679,.12801],[42,.031,14.777,.13129],[48,.059,15.878,.13483],[54,.084,16.982,.13866],[60,.106,18.112,.14299],[72,.138,20.515,.15317],[84,.155,23.244,.16545],[96,.158,26.454,.17958],[108,.149,30.313,.1935],[120,.131,34.715,.20684]]};
+// ============ Utility ============
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function floorHalf(v){return Math.floor(v*2)/2}
+function roundHalf(v){return Math.round(v*2)/2}
+function ceilHalf(v){return Math.ceil(v*2)/2}
+function fmtNum(v){
+    if(v===null||v===undefined||isNaN(v))return '—';
+    return Math.abs(v%1)<0.001?v.toFixed(0):(+v.toFixed(1)).toString();
+}
+function fmtRange(a,b,unit){
+    if(a===null||b===null||isNaN(a)||isNaN(b))return '—';
+    if(Math.abs(a-b)<0.001)return `${fmtNum(a)}${unit?` ${unit}`:''}`;
+    return `${fmtNum(a)}–${fmtNum(b)}${unit?` ${unit}`:''}`;
+}
+function getWt(){return parseFloat(document.getElementById('wt').value)||0}
+function getAgeMo(){
+    const y=parseInt(document.getElementById('dob-y').value),m=parseInt(document.getElementById('dob-m').value),d=parseInt(document.getElementById('dob-d').value);
+    if(!y||!m||!d)return null;
+    const dob=new Date(y,m-1,d),now=new Date();
+    if(dob>now)return null;
+    let mo=(now.getFullYear()-dob.getFullYear())*12+(now.getMonth()-dob.getMonth());
+    if(now.getDate()<dob.getDate())mo--;
+    return Math.max(0,mo);
+}
+function getHeaderDate(){
+    const y=parseInt(document.getElementById('dob-y').value),m=parseInt(document.getElementById('dob-m').value),d=parseInt(document.getElementById('dob-d').value);
+    if(!y||!m||!d)return null;
+    const dt=new Date(y,m-1,d);
+    if(isNaN(dt.getTime()))return null;
+    return dt;
+}
+function daysBetween(a,b){return Math.round((b-a)/86400000)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function fmtDate(d){if(!d||isNaN(d.getTime()))return '—';return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
 
-function interpLMS(data,age){if(age<=data[0][0])return{L:data[0][1],M:data[0][2],S:data[0][3]};if(age>=data[data.length-1][0])return{L:data[data.length-1][1],M:data[data.length-1][2],S:data[data.length-1][3]};for(let i=0;i<data.length-1;i++){if(age>=data[i][0]&&age<=data[i+1][0]){const t=(age-data[i][0])/(data[i+1][0]-data[i][0]);return{L:data[i][1]+t*(data[i+1][1]-data[i][1]),M:data[i][2]+t*(data[i+1][2]-data[i][2]),S:data[i][3]+t*(data[i+1][3]-data[i][3])}}}}
-function zScore(v,L,M,S){return L!==0?(Math.pow(v/M,L)-1)/(L*S):Math.log(v/M)/S}
-function normCDF(z){const a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911;const s=z<0?-1:1;const x=Math.abs(z)/Math.sqrt(2);const t=1/(1+p*x);const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);return .5*(1+s*y)}
-function getPercentile(wt,ageMo,gender){if(ageMo<0||ageMo>120)return null;const lms=interpLMS(growthData[gender],ageMo);const z=zScore(wt,lms.L,lms.M,lms.S);return{pct:Math.round(normCDF(z)*1000)/10,z:Math.round(z*100)/100}}
-
-// ============ Age Restriction Parser ============
 function parseMinAgeMo(note){
     if(!note) return 0;
     const m=note.match(/≥(\d+)(w|m|y)/);
@@ -253,327 +295,499 @@ function isBelowMinAge(note, ageMo){
     return ageMo < min;
 }
 
-// ============ Utility ============
-// Round DOWN to nearest 0.5 mL
-function floorHalf(v){return Math.floor(v*2)/2}
-// Format number: strip trailing .0
-function fmtNum(v){return v%1===0?v.toString():+(v.toFixed(1))+''}
-function getWt(){return parseFloat(document.getElementById('wt').value)||0}
-function getAgeMo(){const y=parseInt(document.getElementById('dob-y').value),m=parseInt(document.getElementById('dob-m').value),d=parseInt(document.getElementById('dob-d').value);if(!y||!m||!d)return null;const dob=new Date(y,m-1,d),now=new Date();if(dob>now)return null;let mo=(now.getFullYear()-dob.getFullYear())*12+(now.getMonth()-dob.getMonth());if(now.getDate()<dob.getDate())mo--;return Math.max(0,mo)}
+// ============ Growth Chart Data ============
+const GROWTH_PCTS=[2,9,25,50,75,91,98];
+const GROWTH_ROWS=[
+[0,[2.52,2.70,2.89,3.10,3.31,3.54,3.78],[2.47,2.65,2.84,3.04,3.25,3.47,3.70],[2.56,2.74,2.94,3.15,3.37,3.60,3.85]],
+[1,[3.37,3.61,3.87,4.15,4.43,4.74,5.07],[3.25,3.49,3.74,4.01,4.28,4.58,4.89],[3.48,3.73,3.99,4.28,4.58,4.90,5.25]],
+[2,[4.26,4.57,4.90,5.25,5.62,6.01,6.43],[4.07,4.37,4.68,5.01,5.36,5.73,6.12],[4.45,4.77,5.11,5.48,5.87,6.29,6.73]],
+[3,[4.91,5.27,5.65,6.06,6.48,6.94,7.43],[4.68,5.03,5.39,5.78,6.18,6.61,7.06],[5.14,5.51,5.91,6.33,6.78,7.27,7.79]],
+[4,[5.42,5.81,6.23,6.68,7.16,7.66,8.20],[5.18,5.56,5.96,6.39,6.84,7.32,7.82],[5.66,6.06,6.50,6.97,7.47,8.00,8.58]],
+[5,[5.82,6.24,6.69,7.17,7.68,8.22,8.81],[5.58,5.99,6.42,6.88,7.37,7.88,8.43],[6.05,6.48,6.95,7.45,7.99,8.56,9.19]],
+[6,[6.16,6.60,7.09,7.60,8.14,8.73,9.35],[5.93,6.36,6.83,7.32,7.84,8.39,8.98],[6.39,6.84,7.34,7.87,8.44,9.06,9.72]],
+[7,[6.45,6.92,7.42,7.96,8.53,9.15,9.81],[6.23,6.69,7.17,7.69,8.24,8.82,9.45],[6.67,7.15,7.66,8.22,8.82,9.47,10.17]],
+[8,[6.71,7.20,7.72,8.28,8.88,9.53,10.22],[6.50,6.98,7.49,8.03,8.60,9.22,9.87],[6.92,7.42,7.95,8.53,9.16,9.84,10.57]],
+[9,[6.93,7.44,7.98,8.56,9.19,9.86,10.58],[6.73,7.23,7.75,8.31,8.92,9.56,10.24],[7.13,7.65,8.20,8.80,9.45,10.15,10.92]],
+[10,[7.13,7.65,8.21,8.80,9.45,10.15,10.90],[6.94,7.44,7.99,8.57,9.19,9.86,10.57],[7.32,7.85,8.42,9.03,9.70,10.43,11.23]],
+[11,[7.31,7.84,8.41,9.03,9.69,10.41,11.19],[7.12,7.65,8.20,8.80,9.44,10.13,10.87],[7.49,8.03,8.62,9.25,9.94,10.69,11.51]],
+[12,[7.47,8.01,8.60,9.23,9.92,10.66,11.46],[7.29,7.82,8.40,9.01,9.67,10.38,11.14],[7.65,8.20,8.80,9.45,10.16,10.93,11.78]],
+[13,[7.63,8.18,8.78,9.43,10.13,10.89,11.72],[7.45,7.99,8.58,9.21,9.88,10.61,11.40],[7.81,8.37,8.98,9.65,10.38,11.17,12.04]],
+[14,[7.78,8.35,8.96,9.62,10.34,11.12,11.97],[7.59,8.15,8.75,9.39,10.08,10.83,11.63],[7.97,8.54,9.16,9.84,10.59,11.41,12.31]],
+[15,[7.94,8.51,9.13,9.81,10.55,11.36,12.23],[7.74,8.30,8.91,9.57,10.28,11.05,11.87],[8.13,8.72,9.35,10.05,10.82,11.66,12.59]],
+[16,[8.09,8.68,9.31,10.00,10.76,11.59,12.49],[7.87,8.45,9.07,9.74,10.47,11.25,12.10],[8.30,8.90,9.55,10.26,11.05,11.92,12.87]],
+[17,[8.24,8.84,9.49,10.20,10.98,11.82,12.75],[8.01,8.60,9.23,9.92,10.66,11.46,12.33],[8.47,9.08,9.75,10.48,11.29,12.18,13.16]],
+[18,[8.40,9.02,9.68,10.41,11.20,12.07,13.02],[8.15,8.75,9.40,10.10,10.86,11.68,12.57],[8.65,9.28,9.96,10.71,11.54,12.45,13.47]],
+[19,[8.57,9.18,9.86,10.60,11.41,12.31,13.29],[8.30,8.90,9.56,10.28,11.05,11.90,12.81],[8.83,9.46,10.16,10.92,11.77,12.72,13.77]],
+[20,[8.73,9.36,10.05,10.81,11.64,12.56,13.57],[8.45,9.07,9.74,10.47,11.26,12.13,13.07],[9.00,9.65,10.36,11.14,12.01,12.98,14.06]],
+[21,[8.88,9.53,10.23,11.01,11.86,12.80,13.83],[8.60,9.23,9.91,10.66,11.47,12.36,13.32],[9.16,9.82,10.54,11.35,12.24,13.23,14.34]],
+[22,[9.04,9.70,10.41,11.21,12.08,13.04,14.11],[8.76,9.41,10.10,10.87,11.70,12.61,13.60],[9.32,9.99,10.72,11.54,12.45,13.47,14.61]],
+[23,[9.20,9.86,10.59,11.40,12.29,13.27,14.37],[8.93,9.58,10.29,11.07,11.92,12.85,13.87],[9.46,10.14,10.89,11.72,12.65,13.69,14.86]],
+[24,[9.34,10.02,10.77,11.59,12.50,13.51,14.63],[9.09,9.76,10.49,11.28,12.15,13.11,14.15],[9.59,10.28,11.04,11.89,12.84,13.90,15.10]],
+[25,[9.49,10.18,10.94,11.78,12.71,13.74,14.89],[9.26,9.94,10.69,11.50,12.39,13.37,14.44],[9.72,10.42,11.19,12.05,13.02,14.11,15.33]],
+[26,[9.64,10.34,11.11,11.96,12.91,13.96,15.14],[9.43,10.12,10.88,11.71,12.62,13.62,14.72],[9.85,10.55,11.34,12.21,13.20,14.30,15.56]],
+[27,[9.78,10.50,11.28,12.15,13.12,14.20,15.40],[9.59,10.30,11.07,11.92,12.85,13.88,15.01],[9.97,10.69,11.48,12.37,13.38,14.51,15.79]],
+[28,[9.93,10.65,11.44,12.33,13.31,14.42,15.65],[9.75,10.47,11.25,12.12,13.07,14.12,15.28],[10.10,10.82,11.63,12.53,13.55,14.71,16.02]],
+[29,[10.07,10.81,11.62,12.51,13.52,14.64,15.91],[9.90,10.64,11.44,12.32,13.29,14.36,15.55],[10.23,10.97,11.79,12.70,13.74,14.92,16.26]],
+[30,[10.21,10.95,11.78,12.70,13.72,14.86,16.16],[10.05,10.79,11.61,12.51,13.50,14.59,15.80],[10.37,11.11,11.94,12.88,13.93,15.13,16.51]],
+[31,[10.36,11.11,11.95,12.88,13.92,15.10,16.42],[10.20,10.95,11.78,12.69,13.70,14.82,16.06],[10.51,11.27,12.11,13.07,14.14,15.37,16.77]],
+[32,[10.50,11.27,12.12,13.06,14.13,15.32,16.67],[10.33,11.10,11.94,12.87,13.90,15.04,16.30],[10.66,11.43,12.29,13.25,14.35,15.60,17.04]],
+[33,[10.64,11.42,12.28,13.25,14.33,15.55,16.93],[10.46,11.24,12.10,13.04,14.09,15.25,16.54],[10.81,11.59,12.46,13.45,14.57,15.85,17.32]],
+[34,[10.79,11.58,12.46,13.44,14.54,15.78,17.20],[10.60,11.39,12.26,13.22,14.28,15.46,16.78],[10.97,11.76,12.65,13.65,14.79,16.10,17.61]],
+[35,[10.93,11.73,12.62,13.62,14.74,16.01,17.45],[10.73,11.52,12.41,13.38,14.46,15.67,17.01],[11.13,11.93,12.83,13.85,15.01,16.35,17.89]],
+[36,[11.07,11.89,12.79,13.80,14.95,16.24,17.71],[10.85,11.67,12.56,13.55,14.65,15.88,17.24],[11.29,12.10,13.02,14.05,15.24,16.60,18.18]],
+[42,[11.84,12.72,13.70,14.81,16.07,17.51,19.16],[11.57,12.45,13.42,14.50,15.71,17.06,18.58],[12.10,12.98,13.98,15.12,16.43,17.95,19.73]],
+[48,[12.48,13.42,14.48,15.68,17.06,18.63,20.45],[12.22,13.16,14.21,15.38,16.70,18.17,19.85],[12.74,13.68,14.75,15.98,17.41,19.08,21.05]],
+[54,[13.15,14.16,15.30,16.59,18.09,19.81,21.82],[12.87,13.88,15.01,16.27,17.70,19.31,21.15],[13.43,14.43,15.58,16.91,18.47,20.30,22.49]],
+[60,[13.87,14.95,16.18,17.58,19.21,21.10,23.33],[13.56,14.65,15.86,17.23,18.78,20.54,22.56],[14.17,15.25,16.49,17.93,19.63,21.65,24.09]],
+[72,[15.36,16.60,18.03,19.68,21.60,23.89,26.62],[15.10,16.35,17.77,19.38,21.22,23.35,25.81],[15.61,16.85,18.28,19.97,21.98,24.42,27.42]],
+[84,[17.10,18.53,20.19,22.14,24.44,27.20,30.59],[16.80,18.24,19.88,21.78,23.96,26.52,29.54],[17.39,18.82,20.50,22.50,24.91,27.88,31.64]],
+[96,[18.99,20.63,22.56,24.83,27.56,30.90,35.07],[18.58,20.22,22.11,24.31,26.89,29.94,33.59],[19.39,21.04,23.00,25.35,28.23,31.86,36.55]],
+[108,[21.07,22.95,25.15,27.79,31.01,35.00,40.09],[20.73,22.61,24.78,27.34,30.37,34.01,38.44],[21.41,23.28,25.52,28.24,31.64,35.98,41.73]],
+[120,[23.62,25.76,28.30,31.36,35.13,39.89,46.10],[23.62,25.79,28.33,31.33,34.94,39.32,44.76],[23.61,25.72,28.26,31.38,35.32,40.45,47.43]],
+[132,[26.75,29.19,32.11,35.66,40.08,45.74,53.26],[27.11,29.61,32.56,36.08,40.34,45.59,52.20],[26.38,28.76,31.65,35.24,39.82,45.88,54.32]],
+[144,[30.12,32.87,36.18,40.23,45.32,51.92,60.85],[30.31,33.10,36.41,40.38,45.22,51.26,58.95],[29.93,32.64,35.95,40.08,45.41,52.58,62.75]],
+[156,[33.33,36.35,40.00,44.49,50.19,57.65,67.92],[32.67,35.65,39.19,43.46,48.71,55.30,63.80],[33.98,37.04,40.80,45.52,51.66,59.99,72.03]],
+[168,[36.11,39.34,43.25,48.10,54.26,62.40,73.77],[34.73,37.84,41.55,46.04,51.58,58.57,67.70],[37.49,40.84,44.95,50.15,56.93,66.22,79.84]],
+[180,[38.43,41.81,45.90,50.98,57.47,66.10,78.27],[36.58,39.79,43.61,48.25,53.99,61.28,70.85],[40.28,43.83,48.19,53.71,60.94,70.91,85.68]],
+[192,[40.41,43.88,48.09,53.33,60.02,68.97,81.67],[38.06,41.31,45.18,49.89,55.72,63.15,72.95],[42.76,46.45,51.00,56.76,64.32,74.78,90.39]],
+[204,[41.83,45.33,49.58,54.86,61.63,70.68,83.59],[39.18,42.43,46.30,51.00,56.84,64.28,74.12],[44.47,48.23,52.85,58.71,66.41,77.08,93.06]],
+[216,[42.55,46.02,50.22,55.43,62.11,71.05,83.82],[40.02,43.23,47.06,51.70,57.45,64.80,74.53],[45.08,48.80,53.37,59.16,66.76,77.29,93.10]]
+];
 
-// ============ Dispensable Volume/Dose Calc ============
-// For syrups: round DOWN volume to 0.5 mL, back-calculate mg
-function dispenseSyr(rawMg, concPerMl){
-    let rawVol = rawMg / concPerMl;
-    let vol = floorHalf(rawVol);
-    if(vol < 0.5 && rawVol > 0) vol = 0.5;
-    let mg = +(vol * concPerMl).toFixed(2);
-    // Clean up floating point
-    mg = Math.round(mg*10)/10;
-    return {mg, vol};
+function interpGrowth(ageMo, gender){
+    const idx=gender==='F'?2:gender==='M'?3:1;
+    if(ageMo<=GROWTH_ROWS[0][0]) return GROWTH_ROWS[0][idx];
+    if(ageMo>=GROWTH_ROWS[GROWTH_ROWS.length-1][0]) return GROWTH_ROWS[GROWTH_ROWS.length-1][idx];
+    for(let i=0;i<GROWTH_ROWS.length-1;i++){
+        const a=GROWTH_ROWS[i],b=GROWTH_ROWS[i+1];
+        if(ageMo>=a[0]&&ageMo<=b[0]){
+            const t=(ageMo-a[0])/(b[0]-a[0]);
+            return a[idx].map((v,j)=>v+t*(b[idx][j]-v));
+        }
+    }
+    return null;
 }
-
-// ============ Drug Database ============
-const drugs = {
-analgesics: [
-    {name:'Ibuprofen (Brufen)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'}],dose:10,freq:'TDS',maxD:400,note:'≥3m; Max 40mg/kg/day; avoid if dehydrated'},
-    {name:'Diclofenac (Voltaren)',forms:[{l:'Supp 12.5mg',c:12.5,t:'supp'},{l:'Supp 25mg',c:25,t:'supp'},{l:'Tab 25mg',c:25,t:'tab'}],dose:1,freq:'TDS',maxD:50,note:'≥1y; Max 3mg/kg/day'},
-    {name:'Mefenamic Acid (Ponstan)',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:6.5,freq:'TDS',maxD:500,note:'≥6m'},
-],
-antibiotics: [
-    {name:'Amoxicillin',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],dose:15,freq:'TDS',maxD:500,note:'Standard: 25-50mg/kg/day ÷ TDS'},
-    {name:'Amoxicillin (High-dose)',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],dose:30,freq:'TDS',maxD:1000,note:'80-90mg/kg/day; AOM/sinusitis'},
-    {name:'Augmentin',forms:[{l:'Syr 156(125/31)/5ml',c:25,t:'syr'},{l:'Syr 457(400/57)/5ml BD',c:80,t:'syr',freqOverride:'BD'},{l:'Tab 375mg',c:250,t:'tab'},{l:'Tab 625(500/125)',c:500,t:'tab'},{l:'Tab 1g(875/125) BD',c:875,t:'tab',freqOverride:'BD'}],dose:15,freq:'TDS',maxD:500,note:'Dose based on amoxicillin component'},
-    {name:'Azithromycin',forms:[{l:'Syr 200mg/5ml',c:40,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:10,freq:'DAILY',maxD:500,note:'≥6m; Day1: 10mg/kg; Day2-5: 5mg/kg'},
-    {name:'Clarithromycin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:7.5,freq:'BD',maxD:500,note:'≥6m'},
-    {name:'Cefuroxime (Zinnat)',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'},{l:'Tab 500mg',c:500,t:'tab'}],dose:15,freq:'BD',maxD:500,note:'≥3m'},
-    {name:'Cephalexin',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:12.5,freq:'QID',maxD:500,note:'25-50mg/kg/day'},
-    {name:'Co-trimoxazole (Septrin)',forms:[{l:'Tab 480mg',c:480,t:'tab'}],dose:24,freq:'BD',maxD:960,note:'≥6w; Dose = total TMP+SMX'},
-    {name:'Doxycycline',forms:[{l:'Susp 25mg/5ml',c:5,t:'syr'},{l:'Cap 100mg',c:100,t:'cap'}],dose:2,freq:'BD',maxD:100,note:'≥8y only'},
-    {name:'Metronidazole',forms:[{l:'Tab 200mg',c:200,t:'tab'}],dose:7.5,freq:'TDS',maxD:400,note:''},
-],
-antivirals: [
-    {name:'Oseltamivir (Tamiflu)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr'},{l:'Cap 30mg',c:30,t:'cap'},{l:'Cap 45mg',c:45,t:'cap'},{l:'Cap 75mg',c:75,t:'cap'}],custom:'tamiflu',freq:'BD × 5 days',note:'Tx dose; Prophylaxis = half dose OD'},
-    {name:'Baloxavir (Xofluza)',forms:[{l:'Tab 40mg',c:40,t:'tab'}],custom:'xofluza',freq:'ONCE',note:'≥12y; <80kg→40mg; ≥80kg→80mg'},
-    {name:'Acyclovir',forms:[{l:'Susp 200mg/5ml',c:40,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'},{l:'Tab 400mg',c:400,t:'tab'}],dose:20,freq:'5×/day (Q4H awake)',maxD:800,note:'Chickenpox 5-7 days'},
-    {name:'Valaciclovir',forms:[{l:'Tab 500mg',c:500,t:'tab'}],dose:20,freq:'TDS',maxD:1000,note:'≥12y preferred'},
-],
-respiratory: [
-    {name:'Acetylcysteine (Fluimucil)',forms:[{l:'Granules 100mg',c:100,t:'sachet'},{l:'Granules 200mg',c:200,t:'sachet'},{l:'Effervescent 600mg',c:600,t:'tab',freqOverride:'DAILY'}],custom:'acetylcysteine',freq:'BD-TDS',note:'≥2y; <2y:100mg BD; 2-6y:200mg BD; >6y:200mg TDS; ≥14y:600mg daily'},
-    {name:'Bromhexine',forms:[{l:'Syr 4mg/5ml',c:0.8,t:'syr'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.3,freq:'TDS',maxD:8,note:'≥2y; Mucolytic'},
-    {name:'Carbocisteine (Fluifort)',forms:[{l:'Syr 450mg/5ml',c:90,t:'syr'}],custom:'carbocisteine',freq:'BD-TDS',note:'≥2y; 2-5y:2.5ml; 5-12y:5ml; >12y:10ml'},
-    {name:'Guaifenesin (Robitussin)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 600mg MR',c:600,t:'tab',freqOverride:'BD'}],dose:5,freq:'Q4-6H',maxD:400,note:'≥2y; Expectorant'},
-    {name:'Actifed (Triprolidine/Pseudo)',forms:[{l:'Syrup',c:6,t:'syr'},{l:'Tab 2.5/60mg',c:0,t:'special'}],custom:'actifed',freq:'TDS',note:'≥2y; Decongestant combo'},
-    {name:'Benadryl Expectorant',forms:[{l:'Syrup',c:1,t:'syr'}],dose:0.33,freq:'TDS',maxD:15,note:'≥2y; Dose = 0.33ml/kg',unit:'ml'},
-    {name:'Levodropropizine (Bronal)',forms:[{l:'Syr 30mg/5ml',c:6,t:'syr'}],dose:1,freq:'TDS',maxD:60,note:'≥2y; Antitussive'},
-    {name:'Dextromethorphan',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 15mg',c:15,t:'tab'}],dose:0.5,freq:'TDS',maxD:30,note:'≥2y; Antitussive'},
-    {name:'Prednisolone',forms:[{l:'Oral Liq 25mg/5ml',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],dose:1,freq:'DAILY (3-5d)',maxD:60,note:'Croup/Wheeze: 1-2mg/kg/day'},
-    {name:'Dexamethasone',forms:[{l:'Tab 0.5mg',c:0.5,t:'tab'},{l:'Tab 4mg',c:4,t:'tab'}],dose:0.3,freq:'STAT (single)',maxD:12,note:'Croup 0.15-0.6mg/kg; anti-emetic 0.15mg/kg'},
-    {name:'Salbutamol',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'}],dose:0.15,freq:'TDS-QID',maxD:4,note:'≥2y (oral)'},
-    {name:'Procaterol (Meptin)',forms:[{l:'Syr 25mcg/5ml',c:5,t:'syr'},{l:'Tab 25mcg',c:25,t:'tab'}],dose:1.25,freq:'BD',maxD:50,note:'≥6m; mcg/kg dose',unit:'mcg'},
-    {name:'Montelukast (Singulair)',forms:[{l:'Chew 4mg',c:4,t:'tab'},{l:'Chew 5mg',c:5,t:'tab'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'montelukast',freq:'NOCTE',note:'≥2y; 2-5y:4mg; 6-14y:5mg; ≥15y:10mg'},
-],
-allergy: [
-    {name:'Bilastine (Labixten)',forms:[{l:'Orodispersible 10mg',c:10,t:'tab'},{l:'Tab 20mg',c:20,t:'tab'}],custom:'bilastine',freq:'DAILY',note:'≥6y & ≥20kg:10mg; ≥12y:20mg'},
-    {name:'Chlorpheniramine (Piriton)',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'},{l:'Tab 4mg',c:4,t:'tab'},{l:'Inj 10mg/ml IM',c:10,t:'syr',freqOverride:'STAT IM'}],dose:0.1,freq:'TDS',maxD:4,note:'≥1y; Sedating; IM: 0.2mg/kg STAT'},
-    {name:'Cetirizine',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'cetirizine',freq:'DAILY',note:'≥2y; 2-5y:2.5-5mg; ≥6y:10mg'},
-    {name:'Levocetirizine (Xyzal)',forms:[{l:'Oral Drops 5mg/mL',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'levocetirizine',freq:'DAILY',note:'≥2y; 2-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
-    {name:'Loratadine (Clarityne)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'loratadine',freq:'DAILY',note:'≥2y; 2-5y:5mg; ≥6y:10mg'},
-    {name:'Desloratadine (Aerius)',forms:[{l:'Syr 2.5mg/5ml',c:0.5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'desloratadine',freq:'DAILY',note:'≥1y; 1-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
-    {name:'Hydroxyzine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'≥1y; Sedating; 1mg/kg/day'},
-    {name:'Promethazine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'≥2y; Sedating; also anti-emetic'},
-    {name:'Fexofenadine (Telfast)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr',freqOverride:'BD'},{l:'Tab 120mg',c:120,t:'tab'},{l:'Tab 180mg',c:180,t:'tab'}],custom:'fexofenadine',freq:'DAILY',note:'≥2y; 2-11y:30mg BD; ≥12y:120-180mg daily'},
-],
-gi: [
-    {name:'Hyoscine Butylbromide (Buscopan)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
-    {name:'Dimenhydrinate',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 50mg',c:50,t:'tab'},{l:'Supp 50mg',c:50,t:'supp'}],dose:1.25,freq:'TDS',maxD:50,note:'≥2y; anti-emetic'},
-    {name:'Ondansetron (Zofran)',forms:[{l:'Tab 4mg',c:4,t:'tab'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.15,freq:'BD-TDS',maxD:8,note:'≥6m; Paed usual max 4mg/dose; ≥12y up to 8mg'},
-    {name:'Famotidine',forms:[{l:'Tab 20mg',c:20,t:'tab'},{l:'Tab 40mg',c:40,t:'tab'}],dose:0.5,freq:'BD',maxD:20,note:'≥1y; H2 blocker; 1mg/kg/day'},
-    {name:'Smecta (Diosmectite)',forms:[{l:'Sachet 3g',c:3,t:'sachet'}],custom:'smecta',freq:'Divided doses',note:'<1y:1/day; 1-2y:1-2/day; >2y:2-3/day'},
-    {name:'Racecadotril (Hidrasec)',forms:[{l:'Infant 10mg sachet',c:10,t:'sachet'},{l:'Children 30mg sachet',c:30,t:'sachet'},{l:'Cap 100mg',c:100,t:'cap'}],dose:1.5,freq:'TDS',maxD:100,note:'≥3m; Anti-secretory; max 7 days'},
-    {name:'Domperidone',forms:[{l:'Tab 10mg',c:10,t:'tab'}],dose:0.25,freq:'TDS ac',maxD:10,note:'Max 0.75mg/kg/day; short-term'},
-    {name:'Dimeticone Drops',forms:[{l:'Drops 20mg/mL',c:20,t:'syr'}],dose:1,freq:'QDS (before feeds)',maxD:80,note:'Colic/flatulence'},
-    {name:'Lactulose (Duphalac)',forms:[{l:'Syr 10g/15ml',c:0,t:'special'}],custom:'lactulose',freq:'DAILY-BD',note:'<1y:2.5ml; 1-5y:5ml; 5-10y:10ml; >10y:15ml'},
-    {name:'Macrogol (Forlax)',forms:[{l:'Sachet 10g',c:10,t:'sachet'}],custom:'macrogol',freq:'DAILY',note:'≥2y; 2-6y:1 sachet; 7-11y:2 sachets; ≥12y:1-2 sachets'},
-]
-};
-
-// ============ Custom Drug Logic ============
-function calcCustom(key, wt, ageMo, formIdx) {
-    switch(key) {
-        case 'tamiflu': {
-            let d = wt<=15?30:wt<=23?45:wt<=40?60:75;
-            return {mg:d};
-        }
-        case 'xofluza': {
-            let d = wt<80?40:80;
-            return {mg:d, display:d+'mg ('+Math.round(d/40)+' tab)', noVol:true};
-        }
-        case 'montelukast': {
-            let d=4;
-            if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
-            else{d=wt<20?4:wt<40?5:10;}
-            return {mg:d, display:d+'mg chew/tab', noVol:true};
-        }
-        case 'cetirizine': {
-            let d=10;
-            if(ageMo!==null){d=ageMo<24?2.5:ageMo<72?5:10;}
-            else{d=wt<12?2.5:wt<20?5:10;}
-            return {mg:d};
-        }
-        case 'loratadine': {
-            let d=10;
-            if(ageMo!==null){d=ageMo<72?5:10;}
-            else{d=wt<30?5:10;}
-            return {mg:d};
-        }
-        case 'fexofenadine': {
-            if(formIdx===0) return {mg:30};
-            if(formIdx===2) return {mg:180};
-            return {mg:120};
-        }
-        case 'levocetirizine': {
-            let d=5;
-            if(ageMo!==null){d=ageMo<72?1.25:ageMo<144?2.5:5;}
-            else{d=wt<20?1.25:wt<30?2.5:5;}
-            return {mg:d};
-        }
-        case 'bilastine': {
-            let d=(ageMo!==null&&ageMo>=144)?20:10;
-            return {mg:d, display:d+'mg tab', noVol:true};
-        }
-        case 'desloratadine': {
-            let d=5;
-            if(ageMo!==null){d=ageMo<=72?1.25:ageMo<=144?2.5:5;}
-            else{d=wt<=15?1.25:wt<=30?2.5:5;}
-            return {mg:d};
-        }
-        case 'acetylcysteine': {
-            if(formIdx===2) return {mg:600};
-            let d=200;
-            if(ageMo!==null){d=ageMo<24?100:200;}
-            else{d=wt<12?100:200;}
-            return {mg:d};
-        }
-        case 'carbocisteine': {
-            let ml=10;
-            if(ageMo!==null){ml=ageMo<60?2.5:ageMo<144?5:10;}
-            else{ml=wt<18?2.5:wt<30?5:10;}
-            return {mg:0, display:ml+' ml', noVol:true};
-        }
-        case 'actifed': {
-            if(formIdx===1){
-                let tabs=((ageMo!==null&&ageMo>=144)||wt>=30)?1:0.5;
-                return {mg:0, display:tabs+' tab'+(tabs>1?'s':''), noVol:true};
-            }
-            let ml=5;
-            if(ageMo!==null){ml=ageMo<24?1.25:ageMo<72?2.5:ageMo<144?5:10;}
-            else{ml=wt<12?1.25:wt<20?2.5:wt<30?5:10;}
-            // Round down to 0.5 for syrup
-            ml=floorHalf(ml);
-            if(ml<0.5) ml=0.5;
-            return {mg:0, display:ml+' ml', noVol:true};
-        }
-        case 'lactulose': {
-            let d=15;
-            if(ageMo!==null){d=ageMo<12?2.5:ageMo<60?5:ageMo<120?10:15;}
-            else{d=wt<10?2.5:wt<18?5:wt<30?10:15;}
-            return {mg:0, display:d+' ml', noVol:true};
-        }
-        case 'macrogol': {
-            let s=2;
-            if(ageMo!==null){s=ageMo<72?1:ageMo<144?2:2;}
-            else{s=wt<20?1:2;}
-            return {mg:0, display:s+' sachet'+(s>1?'s':'')+'/day', noVol:true};
-        }
-        case 'smecta': {
-            let s=3;
-            if(ageMo!==null){s=ageMo<12?1:ageMo<24?1.5:3;}
-            else{s=wt<10?1:wt<12?1.5:3;}
-            return {mg:0, display:s+' sachet'+(s>1?'s':'')+'/day', noVol:true};
+function estimatePctFromTable(wt,ageMo,gender){
+    const vals=interpGrowth(ageMo,gender);
+    if(!vals||!wt)return null;
+    if(wt<=vals[0])return '<2';
+    if(wt>=vals[vals.length-1])return '>98';
+    for(let i=0;i<vals.length-1;i++){
+        if(wt>=vals[i]&&wt<=vals[i+1]){
+            const t=(wt-vals[i])/(vals[i+1]-vals[i]);
+            return Math.round((GROWTH_PCTS[i]+t*(GROWTH_PCTS[i+1]-GROWTH_PCTS[i]))*10)/10;
         }
     }
     return null;
 }
 
-// ============ Paracetamol Logic (UPDATED: round down) ============
-function calcPCM(wt, formIdx) {
-    if(!wt) return null;
-    const pcmForms = [
-        {l:'Syr 125mg/5ml',c:25,t:'syr'},
-        {l:'Syr 250mg/5ml',c:50,t:'syr'},
-        {l:'Chew Tab 120mg',c:120,t:'tab'},
-        {l:'Tab 500mg',c:500,t:'tab'},
-        {l:'Supp 125mg',c:125,t:'supp'},
-        {l:'Supp 250mg',c:250,t:'supp'},
-    ];
-    const form = pcmForms[formIdx] || pcmForms[0];
-    const dailyMax = Math.min(75*wt, 4000);
-    const singleMax = 1000;
-
-    let q4h_raw = Math.min(dailyMax/6, singleMax);
-    let q6h_raw = Math.min(15*wt, dailyMax/4, singleMax);
-
-    // Dispense helper: round down to dispensable unit → return actual mg + volume string
-    function dispense(rawMg, f) {
-        if(f.t==='syr') {
-            const d = dispenseSyr(rawMg, f.c);
-            return {mg: d.mg, vol: d.vol+' ml'};
-        }
-        if(f.t==='tab') {
-            // Round down to nearest quarter tab
-            let n = Math.floor(rawMg/f.c*4)/4;
-            if(n<0.25) n=0.25;
-            let actualMg = Math.round(n*f.c*10)/10;
-            return {mg: actualMg, vol: n+' tab'+(n!==1?'s':'')};
-        }
-        if(f.t==='supp') {
-            let n = Math.floor(rawMg/f.c);
-            if(n<1) n=1;
-            let actualMg = n*f.c;
-            return {mg: actualMg, vol: n+' supp ('+actualMg+'mg)'};
-        }
-        return {mg: Math.round(rawMg), vol: ''};
+// ============ Rounding ============
+function dispenseSyrRange(targetMg,concPerMl,minMg,maxMg){
+    const rawVol=targetMg/concPerMl;
+    const candidates=[roundHalf(rawVol),floorHalf(rawVol),ceilHalf(rawVol),roundHalf(rawVol)-0.5,roundHalf(rawVol)+0.5]
+        .filter(v=>v>=0.5)
+        .filter((v,i,a)=>a.indexOf(v)===i)
+        .sort((a,b)=>Math.abs(a-rawVol)-Math.abs(b-rawVol));
+    for(const vol of candidates){
+        const mg=Math.round(vol*concPerMl*10)/10;
+        if(mg>=minMg-0.01&&mg<=maxMg+0.01)return{mg,vol,ok:true};
     }
-
-    let q4 = dispense(q4h_raw, form);
-    let q6 = dispense(q6h_raw, form);
-
-    let q4h_daily = q4.mg * 6;
-    let q6h_daily = q6.mg * 4;
-
-    return {
-        q4h: {per: q4.mg, daily: Math.round(q4h_daily), vol: q4.vol},
-        q6h: {per: q6.mg, daily: Math.round(q6h_daily), vol: q6.vol},
-        winner: q4h_daily >= q6h_daily ? 'q4h' : 'q6h',
-        dailyMax: Math.round(dailyMax),
-        form, forms: pcmForms
-    };
+    const vol=Math.max(0.5,floorHalf(rawVol));
+    const mg=Math.round(vol*concPerMl*10)/10;
+    return{mg,vol,ok:false};
+}
+function roundUnit(rawMg,strength,allowedFractions){
+    let best=null;
+    allowedFractions.forEach(fr=>{
+        for(let n=fr;n<=20;n+=fr){
+            const actual=n*strength;
+            const diff=Math.abs(actual-rawMg);
+            if(!best||diff<best.diff)best={n,mg:actual,diff};
+        }
+    });
+    if(!best)return{n:0,mg:0,ok:false};
+    return{n:best.n,mg:Math.round(best.mg*10)/10,ok:true};
+}
+function unitLabel(n,type){
+    const noun=type==='cap'?'cap':type==='supp'?'supp':type==='sachet'?'sachet':'tab';
+    return fmtNum(n)+' '+noun+(n!==1?'s':'');
 }
 
-// ============ Normal Drug Calc (UPDATED: round down syr, back-calc mg) ============
-function calcDrug(drug, wt, ageMo, formIdx) {
-    if(!wt) return {dose:'—',vol:'—',freq:drug.freq,capped:false};
-    const form = drug.forms[formIdx] || drug.forms[0];
-    const freq = form.freqOverride || drug.freq;
+// ============ Drugs ============
+const DRUGS=[
+{cat:'Analgesics',name:'Ibuprofen (Brufen)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'}],dose:10,freq:'TDS',maxD:400,note:'≥3m; Max 40mg/kg/day; avoid if dehydrated'},
+{cat:'Analgesics',name:'Diclofenac (Voltaren)',forms:[{l:'Supp 12.5mg',c:12.5,t:'supp'},{l:'Supp 25mg',c:25,t:'supp'},{l:'Tab 25mg',c:25,t:'tab'}],dose:1,freq:'TDS',maxD:50,note:'≥1y; Max 3mg/kg/day'},
+{cat:'Analgesics',name:'Mefenamic Acid (Ponstan)',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:6.5,freq:'TDS',maxD:500,note:'≥6m'},
 
-    if(drug.custom) {
-        const c = calcCustom(drug.custom, wt, ageMo, formIdx);
-        if(!c) return {dose:'—',vol:'—',freq,capped:false};
-        if(c.noVol) return {dose:c.display||c.mg+'mg',vol:'—',freq:c.freqOverride||freq,capped:false};
-        let mg = c.mg;
-        let vol = '';
-        if(form.t==='syr'){
-            const d = dispenseSyr(mg, form.c);
-            mg = d.mg;
-            vol = d.vol+' ml';
-        }
-        else if(form.t==='tab'||form.t==='cap'){let n=Math.round(mg/form.c*4)/4;vol=n+' tab'+(n!==1?'s':'');}
-        else if(form.t==='sachet'){let n=Math.round(mg/form.c);if(n<1)n=1;vol=n+' sachet'+(n>1?'s':'');}
-        return {dose:fmtNum(mg)+(drug.unit==='mcg'?' mcg':' mg'),vol,freq:c.freqOverride||freq,capped:false};
-    }
+{cat:'Antibiotics',name:'Amoxicillin',custom:'amoxicillinRange',forms:[{l:'Syr 250mg/5ml',c:50,t:'syr'},{l:'Cap 500mg',c:500,t:'cap'}],freq:'TDS',maxD:1000,note:'45–90mg/kg/day ÷ TDS'},
 
-    let rawMg = drug.dose * wt;
-    let capped = rawMg > drug.maxD;
-    let mg = Math.min(rawMg, drug.maxD);
+{cat:'Antibiotics',name:'Augmentin',custom:'augmentin',forms:[
+    {l:'Syrup 125 mg/5 mL BD',amox5:125,clav5:31.25,t:'syr',freqOverride:'BD'},
+    {l:'Syrup 400 mg/5 mL BD',amox5:400,clav5:57,t:'syr',freqOverride:'BD'},
+    {l:'Tab 500/125 (625) BD',amox:500,clav:125,t:'tab',freqOverride:'BD'},
+    {l:'Tab 250/125 (375) TDS',amox:250,clav:125,t:'tab',freqOverride:'TDS'},
+    {l:'Tab 875/125 (1000) BD',amox:875,clav:125,t:'tab',freqOverride:'BD'}
+],freq:'BD/TDS',note:'45–90mg/kg/day; clav ≤10mg/kg/day'},
 
-    let vol='';
-    const u = drug.unit||'mg';
-    if(form.t==='syr'){
-        if(u==='ml'){
-            // dose is in ml/kg (e.g. Benadryl 0.33ml/kg)
-            let rawVol = mg;
-            let roundedVol = floorHalf(rawVol);
-            if(roundedVol<0.5 && rawVol>0) roundedVol=0.5;
-            mg = roundedVol;
-            vol = roundedVol+' ml';
-        } else {
-            // dose in mg (or mcg) per kg; c = concentration per mL
-            const d = dispenseSyr(mg, form.c);
-            mg = d.mg;
-            vol = d.vol+' ml';
-        }
-    } else if(form.t==='tab'||form.t==='cap'){
-        mg = Math.round(mg*10)/10;
-        let n=Math.round(mg/form.c*4)/4;
-        vol=n+' tab'+(n!==1?'s':'');
-    } else if(form.t==='supp'){
-        let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' supp';capped=mg>drug.maxD;
-    } else if(form.t==='sachet'){
-        let n=Math.round(mg/form.c);if(n<1)n=1;mg=n*form.c;vol=n+' sachet'+(n>1?'s':'');capped=mg>drug.maxD;
-    }
+{cat:'Antibiotics',name:'Azithromycin',forms:[{l:'Syr 200mg/5ml',c:40,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:10,freq:'DAILY',maxD:500,note:'≥6m; Day1: 10mg/kg; Day2-5: 5mg/kg'},
+{cat:'Antibiotics',name:'Clarithromycin',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'}],dose:7.5,freq:'BD',maxD:500,note:'≥6m'},
+{cat:'Antibiotics',name:'Cefuroxime (Zinnat)',forms:[{l:'Syr 125mg/5ml',c:25,t:'syr'},{l:'Tab 250mg',c:250,t:'tab'},{l:'Tab 500mg',c:500,t:'tab'}],dose:15,freq:'BD',maxD:500,note:'≥3m'},
+{cat:'Antibiotics',name:'Cephalexin',forms:[{l:'Cap 250mg',c:250,t:'cap'}],dose:12.5,freq:'QID',maxD:500,note:'25-50mg/kg/day'},
+{cat:'Antibiotics',name:'Co-trimoxazole (Septrin)',forms:[{l:'Tab 480mg',c:480,t:'tab'}],dose:24,freq:'BD',maxD:960,note:'≥6w; Dose = total TMP+SMX'},
+{cat:'Antibiotics',name:'Doxycycline',forms:[{l:'Susp 25mg/5ml',c:5,t:'syr'},{l:'Cap 100mg',c:100,t:'cap'}],dose:2,freq:'BD',maxD:100,note:'≥8y only'},
+{cat:'Antibiotics',name:'Metronidazole',forms:[{l:'Tab 200mg',c:200,t:'tab'}],dose:7.5,freq:'TDS',maxD:400,note:''},
 
-    return {dose:fmtNum(mg)+' '+u,vol,freq,capped};
-}
+{cat:'Antivirals',name:'Oseltamivir (Tamiflu)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr'},{l:'Cap 30mg',c:30,t:'cap'},{l:'Cap 45mg',c:45,t:'cap'},{l:'Cap 75mg',c:75,t:'cap'}],custom:'tamiflu',freq:'BD × 5 days',note:'Tx dose; Prophylaxis = half dose OD'},
+{cat:'Antivirals',name:'Baloxavir (Xofluza)',forms:[{l:'Tab 40mg',c:40,t:'tab'}],custom:'xofluza',freq:'ONCE',note:'≥12y; <80kg→40mg; ≥80kg→80mg'},
+{cat:'Antivirals',name:'Acyclovir',forms:[{l:'Susp 200mg/5ml',c:40,t:'syr'},{l:'Tab 200mg',c:200,t:'tab'},{l:'Tab 400mg',c:400,t:'tab'}],dose:20,freq:'5×/day (Q4H awake)',maxD:800,note:'Chickenpox 5-7 days'},
+{cat:'Antivirals',name:'Valaciclovir',forms:[{l:'Tab 500mg',c:500,t:'tab'}],dose:20,freq:'TDS',maxD:1000,note:'≥12y preferred'},
 
-// ============ Tab Setup ============
-const tabDefs = [
-    {id:'analgesics',label:'Analgesics'},
-    {id:'antibiotics',label:'Antibiotics'},
-    {id:'antivirals',label:'Antivirals'},
-    {id:'respiratory',label:'Respiratory'},
-    {id:'allergy',label:'Allergy'},
-    {id:'gi',label:'GI'},
-    {id:'fluids',label:'Fluids'}
+{cat:'Respiratory',name:'Acetylcysteine (Fluimucil)',forms:[{l:'Granules 100mg',c:100,t:'sachet'},{l:'Granules 200mg',c:200,t:'sachet'},{l:'Effervescent 600mg',c:600,t:'tab',freqOverride:'DAILY'}],custom:'acetylcysteine',freq:'BD-TDS',note:'≥2y; <2y:100mg BD; 2-6y:200mg BD; >6y:200mg TDS; ≥14y:600mg daily'},
+{cat:'Respiratory',name:'Bromhexine',forms:[{l:'Syr 4mg/5ml',c:0.8,t:'syr'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.3,freq:'TDS',maxD:8,note:'≥2y; Mucolytic'},
+{cat:'Respiratory',name:'Carbocisteine (Fluifort)',forms:[{l:'Syr 450mg/5ml',c:90,t:'syr'}],custom:'carbocisteine',freq:'BD-TDS',note:'≥2y; 2-5y:2.5ml; 5-12y:5ml; >12y:10ml'},
+{cat:'Respiratory',name:'Guaifenesin (Robitussin)',forms:[{l:'Syr 100mg/5ml',c:20,t:'syr'},{l:'Tab 600mg MR',c:600,t:'tab',freqOverride:'BD'}],dose:5,freq:'Q4-6H',maxD:400,note:'≥2y; Expectorant'},
+{cat:'Respiratory',name:'Actifed (Triprolidine/Pseudo)',forms:[{l:'Syrup',c:6,t:'syr'},{l:'Tab 2.5/60mg',c:0,t:'special'}],custom:'actifed',freq:'TDS',note:'≥2y; Decongestant combo'},
+{cat:'Respiratory',name:'Benadryl Expectorant',forms:[{l:'Syrup',c:1,t:'syr'}],dose:0.33,freq:'TDS',maxD:15,note:'≥2y; Dose = 0.33ml/kg',unit:'ml'},
+{cat:'Respiratory',name:'Levodropropizine (Bronal)',forms:[{l:'Syr 30mg/5ml',c:6,t:'syr'}],dose:1,freq:'TDS',maxD:60,note:'≥2y; Antitussive'},
+{cat:'Respiratory',name:'Dextromethorphan',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 15mg',c:15,t:'tab'}],dose:0.5,freq:'TDS',maxD:30,note:'≥2y; Antitussive'},
+{cat:'Respiratory',name:'Prednisolone',forms:[{l:'Oral Liq 25mg/5ml',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],dose:1,freq:'DAILY (3-5d)',maxD:60,note:'Croup/Wheeze: 1-2mg/kg/day'},
+{cat:'Respiratory',name:'Dexamethasone',forms:[{l:'Tab 0.5mg',c:0.5,t:'tab'},{l:'Tab 4mg',c:4,t:'tab'}],dose:0.3,freq:'STAT (single)',maxD:12,note:'Croup 0.15-0.6mg/kg; anti-emetic 0.15mg/kg'},
+{cat:'Respiratory',name:'Salbutamol',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'}],dose:0.15,freq:'TDS-QID',maxD:4,note:'≥2y (oral)'},
+{cat:'Respiratory',name:'Procaterol (Meptin)',forms:[{l:'Syr 25mcg/5ml',c:5,t:'syr'},{l:'Tab 25mcg',c:25,t:'tab'}],dose:1.25,freq:'BD',maxD:50,note:'≥6m; mcg/kg dose',unit:'mcg'},
+{cat:'Respiratory',name:'Montelukast (Singulair)',forms:[{l:'Chew 4mg',c:4,t:'tab'},{l:'Chew 5mg',c:5,t:'tab'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'montelukast',freq:'NOCTE',note:'≥2y; 2-5y:4mg; 6-14y:5mg; ≥15y:10mg'},
+
+{cat:'Allergy',name:'Bilastine (Labixten)',forms:[{l:'Orodispersible 10mg',c:10,t:'tab'},{l:'Tab 20mg',c:20,t:'tab'}],custom:'bilastine',freq:'DAILY',note:'≥6y & ≥20kg:10mg; ≥12y:20mg'},
+{cat:'Allergy',name:'Chlorpheniramine (Piriton)',forms:[{l:'Syr 2mg/5ml',c:0.4,t:'syr'},{l:'Tab 4mg',c:4,t:'tab'},{l:'Inj 10mg/ml IM',c:10,t:'syr',freqOverride:'STAT IM'}],dose:0.1,freq:'TDS',maxD:4,note:'≥1y; Sedating; IM: 0.2mg/kg STAT'},
+{cat:'Allergy',name:'Cetirizine',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'cetirizine',freq:'DAILY',note:'≥2y; 2-5y:2.5-5mg; ≥6y:10mg'},
+{cat:'Allergy',name:'Levocetirizine (Xyzal)',forms:[{l:'Oral Drops 5mg/mL',c:5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'levocetirizine',freq:'DAILY',note:'≥2y; 2-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
+{cat:'Allergy',name:'Loratadine (Clarityne)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'}],custom:'loratadine',freq:'DAILY',note:'≥2y; 2-5y:5mg; ≥6y:10mg'},
+{cat:'Allergy',name:'Desloratadine (Aerius)',forms:[{l:'Syr 2.5mg/5ml',c:0.5,t:'syr'},{l:'Tab 5mg',c:5,t:'tab'}],custom:'desloratadine',freq:'DAILY',note:'≥1y; 1-5y:1.25mg; 6-11y:2.5mg; ≥12y:5mg'},
+{cat:'Allergy',name:'Hydroxyzine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'≥1y; Sedating; 1mg/kg/day'},
+{cat:'Allergy',name:'Promethazine',forms:[{l:'Tab 10mg',c:10,t:'tab'},{l:'Tab 25mg',c:25,t:'tab'}],dose:0.5,freq:'BD-TDS',maxD:25,note:'≥2y; Sedating; also anti-emetic'},
+{cat:'Allergy',name:'Fexofenadine (Telfast)',forms:[{l:'Susp 30mg/5ml',c:6,t:'syr',freqOverride:'BD'},{l:'Tab 120mg',c:120,t:'tab'},{l:'Tab 180mg',c:180,t:'tab'}],custom:'fexofenadine',freq:'DAILY',note:'≥2y; 2-11y:30mg BD; ≥12y:120-180mg daily'},
+
+{cat:'GI',name:'Hyoscine Butylbromide (Buscopan)',forms:[{l:'Syr 5mg/5ml',c:1,t:'syr'},{l:'Tab 10mg',c:10,t:'tab'},{l:'Inj 20mg/ml IM',c:20,t:'syr',freqOverride:'STAT IM'}],dose:0.3,freq:'TDS',maxD:20,note:'≥6y'},
+{cat:'GI',name:'Dimenhydrinate',forms:[{l:'Syr 15mg/5ml',c:3,t:'syr'},{l:'Tab 50mg',c:50,t:'tab'},{l:'Supp 50mg',c:50,t:'supp'}],dose:1.25,freq:'TDS',maxD:50,note:'≥2y; anti-emetic'},
+{cat:'GI',name:'Ondansetron (Zofran)',forms:[{l:'Tab 4mg',c:4,t:'tab'},{l:'Tab 8mg',c:8,t:'tab'}],dose:0.15,freq:'BD-TDS',maxD:8,note:'≥6m; Paed usual max 4mg/dose; ≥12y up to 8mg'},
+{cat:'GI',name:'Famotidine',forms:[{l:'Tab 20mg',c:20,t:'tab'},{l:'Tab 40mg',c:40,t:'tab'}],dose:0.5,freq:'BD',maxD:20,note:'≥1y; H2 blocker; 1mg/kg/day'},
+{cat:'GI',name:'Smecta (Diosmectite)',forms:[{l:'Sachet 3g',c:3,t:'sachet'}],custom:'smecta',freq:'Divided doses',note:'<1y:1/day; 1-2y:1-2/day; >2y:2-3/day'},
+{cat:'GI',name:'Racecadotril (Hidrasec)',forms:[{l:'Infant 10mg sachet',c:10,t:'sachet'},{l:'Children 30mg sachet',c:30,t:'sachet'},{l:'Cap 100mg',c:100,t:'cap'}],dose:1.5,freq:'TDS',maxD:100,note:'≥3m; Anti-secretory; max 7 days'},
+{cat:'GI',name:'Domperidone',forms:[{l:'Tab 10mg',c:10,t:'tab'}],dose:0.25,freq:'TDS ac',maxD:10,note:'Max 0.75mg/kg/day; short-term'},
+{cat:'GI',name:'Dimeticone Drops',forms:[{l:'Drops 20mg/mL',c:20,t:'syr'}],dose:1,freq:'QDS (before feeds)',maxD:80,note:'Colic/flatulence'},
+{cat:'GI',name:'Lactulose (Duphalac)',forms:[{l:'Syr 10g/15ml',c:0,t:'special'}],custom:'lactulose',freq:'DAILY-BD',note:'<1y:2.5ml; 1-5y:5ml; 5-10y:10ml; >10y:15ml'},
+{cat:'GI',name:'Macrogol (Forlax)',forms:[{l:'Sachet 10g',c:10,t:'sachet'}],custom:'macrogol',freq:'DAILY',note:'≥2y; 2-6y:1 sachet; 7-11y:2 sachets; ≥12y:1-2 sachets'}
 ];
 
-let activeTab = 'analgesics';
-let formSelections = {};
-let pcmFormIdx = 1;
+// ============ Custom Logic ============
+function calcCustom(key,wt,ageMo,formIdx,drug){
+    switch(key){
+        case 'amoxicillinRange':return calcAmoxicillinRange(drug,wt,formIdx);
+        case 'tamiflu':{let d=wt<=15?30:wt<=23?45:wt<=40?60:75;return{mg:d};}
+        case 'xofluza':{let d=wt<80?40:80;return{mg:d,display:d+' mg ('+Math.round(d/40)+' tab)',noVol:true};}
+        case 'montelukast':{let d=4;if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}else{d=wt<20?4:wt<40?5:10;}return{mg:d,display:d+' mg chew/tab',noVol:true};}
+        case 'cetirizine':{let d=10;if(ageMo!==null){d=ageMo<24?2.5:ageMo<72?5:10;}else{d=wt<12?2.5:wt<20?5:10;}return{mg:d};}
+        case 'loratadine':{let d=10;if(ageMo!==null){d=ageMo<72?5:10;}else{d=wt<30?5:10;}return{mg:d};}
+        case 'fexofenadine':{if(formIdx===0)return{mg:30};if(formIdx===2)return{mg:180};return{mg:120};}
+        case 'levocetirizine':{let d=5;if(ageMo!==null){d=ageMo<72?1.25:ageMo<144?2.5:5;}else{d=wt<20?1.25:wt<30?2.5:5;}return{mg:d};}
+        case 'bilastine':{let d=(ageMo!==null&&ageMo>=144)?20:10;return{mg:d,display:d+' mg tab',noVol:true};}
+        case 'desloratadine':{let d=5;if(ageMo!==null){d=ageMo<=72?1.25:ageMo<=144?2.5:5;}else{d=wt<=15?1.25:wt<=30?2.5:5;}return{mg:d};}
+        case 'acetylcysteine':{if(formIdx===2)return{mg:600};let d=200;if(ageMo!==null){d=ageMo<24?100:200;}else{d=wt<12?100:200;}return{mg:d};}
+        case 'carbocisteine':{let ml=10;if(ageMo!==null){ml=ageMo<60?2.5:ageMo<144?5:10;}else{ml=wt<18?2.5:wt<30?5:10;}return{mg:0,display:ml+' ml',noVol:true};}
+        case 'actifed':{
+            if(formIdx===1){let tabs=((ageMo!==null&&ageMo>=144)||wt>=30)?1:0.5;return{mg:0,display:tabs+' tab'+(tabs>1?'s':''),noVol:true};}
+            let ml=5;if(ageMo!==null){ml=ageMo<24?1.25:ageMo<72?2.5:ageMo<144?5:10;}else{ml=wt<12?1.25:wt<20?2.5:wt<30?5:10;}
+            ml=roundHalf(ml);if(ml<0.5)ml=0.5;return{mg:0,display:ml+' ml',noVol:true};
+        }
+        case 'lactulose':{let d=15;if(ageMo!==null){d=ageMo<12?2.5:ageMo<60?5:ageMo<120?10:15;}else{d=wt<10?2.5:wt<18?5:wt<30?10:15;}return{mg:0,display:d+' ml',noVol:true};}
+        case 'macrogol':{let s=2;if(ageMo!==null){s=ageMo<72?1:ageMo<144?2:2;}else{s=wt<20?1:2;}return{mg:0,display:s+' sachet'+(s>1?'s':'')+'/day',noVol:true};}
+        case 'smecta':{let s=3;if(ageMo!==null){s=ageMo<12?1:ageMo<24?1.5:3;}else{s=wt<10?1:wt<12?1.5:3;}return{mg:0,display:s+' sachet'+(s>1?'s':'')+'/day',noVol:true};}
+        case 'augmentin':return calcAugmentin(drug,wt,formIdx);
+    }
+    return null;
+}
+
+// ============ Paracetamol ============
+let pcmFormIdx=1;
+const PCM_FORMS=[
+    {l:'Syr 125mg/5ml',c:25,t:'syr'},
+    {l:'Syr 250mg/5ml',c:50,t:'syr'},
+    {l:'Chew Tab 120mg',c:120,t:'tab'},
+    {l:'Tab 500mg',c:500,t:'tab'},
+    {l:'Supp 125mg',c:125,t:'supp'},
+    {l:'Supp 250mg',c:250,t:'supp'}
+];
+
+function calcPCM(wt){
+    if(!wt)return null;
+    const form=PCM_FORMS[pcmFormIdx]||PCM_FORMS[0];
+    const minPer=10*wt,targetPer=15*wt,maxPer=15*wt,dailyMax=Math.min(75*wt,4000),adultSingleMax=1000;
+    const finalMaxPer=Math.min(maxPer,adultSingleMax,dailyMax/4);
+    const finalTarget=Math.min(targetPer,finalMaxPer);
+    function dispensePCM(f){
+        if(f.t==='syr'){const d=dispenseSyrRange(finalTarget,f.c,minPer,finalMaxPer);return{mg:d.mg,vol:d.vol+' ml',ok:d.ok};}
+        if(f.t==='tab'){const r=roundUnit(finalTarget,f.c,[0.5,1]);const ok=r.mg>=minPer-0.01&&r.mg<=finalMaxPer+0.01;return{mg:r.mg,vol:unitLabel(r.n,'tab'),ok};}
+        if(f.t==='supp'){const n=Math.max(1,Math.round(finalTarget/f.c));const mg=n*f.c;const ok=mg>=minPer-0.01&&mg<=finalMaxPer+0.01;return{mg,vol:unitLabel(n,'supp'),ok};}
+        return{mg:finalTarget,vol:'',ok:true};
+    }
+    const d=dispensePCM(form);
+    const maxDoses=Math.floor(dailyMax/d.mg);
+    const safeFreq='Q4H PRN';
+    return{minPer,maxPer:finalMaxPer,target:finalTarget,dailyMax,dose:d.mg,vol:d.vol,ok:d.ok,safeFreq,maxDoses,form};
+}
+
+// ============ Amoxicillin / Augmentin Range Logic ============
+function augmentinTargetRange(){
+    return{min:45,max:90,label:'45–90 mg/kg/day'};
+}
+
+function freqDosesPerDay(freq){
+    if((freq||'').includes('BD'))return 2;
+    if((freq||'').includes('TDS'))return 3;
+    if((freq||'').includes('QID'))return 4;
+    if((freq||'').includes('DAILY'))return 1;
+    return 1;
+}
+
+function calcAmoxicillinRange(drug,wt,formIdx){
+    const form=drug.forms[formIdx]||drug.forms[0];
+    const freq=form.freqOverride||drug.freq||'TDS';
+
+    if(!wt)return{dose:'—',vol:'—',freq,capped:false,extra:''};
+
+    const doses=freqDosesPerDay(freq);
+    const minPerDose=(45*wt)/doses;
+    const rawMaxPerDose=(90*wt)/doses;
+    const maxPerDose=Math.min(rawMaxPerDose,drug.maxD||1000);
+    const capped=rawMaxPerDose>(drug.maxD||1000);
+    const practicalMin=Math.min(minPerDose,maxPerDose);
+
+    if(form.t==='syr'){
+        let volMin=ceilHalf(practicalMin/form.c);
+        let volMax=floorHalf(maxPerDose/form.c);
+
+        if(volMin<0.5)volMin=0.5;
+
+        if(volMax<volMin){
+            let vol=floorHalf(maxPerDose/form.c);
+            if(vol<0.5)vol=0.5;
+            const mg=vol*form.c;
+            return{
+                dose:fmtNum(mg)+' mg',
+                vol:fmtNum(vol)+' ml',
+                freq,
+                capped:true,
+                extra:''
+            };
+        }
+
+        const mgMin=volMin*form.c;
+        const mgMax=volMax*form.c;
+
+        return{
+            dose:fmtRange(mgMin,mgMax,'mg'),
+            vol:fmtRange(volMin,volMax,'ml'),
+            freq,
+            capped,
+            extra:''
+        };
+    }
+
+    if(form.t==='tab'||form.t==='cap'){
+        let unitMin=Math.ceil((practicalMin/form.c)*2)/2;
+        let unitMax=Math.floor((maxPerDose/form.c)*2)/2;
+
+        if(unitMin<0.5)unitMin=0.5;
+
+        if(unitMax<unitMin){
+            const r=roundUnit(maxPerDose,form.c,[0.5,1]);
+            const n=Math.max(0.5,r.n);
+            return{
+                dose:fmtNum(n*form.c)+' mg',
+                vol:unitLabel(n,form.t),
+                freq,
+                capped:true,
+                extra:''
+            };
+        }
+
+        const mgMin=unitMin*form.c;
+        const mgMax=unitMax*form.c;
+        const unitText=unitMin===unitMax
+            ? unitLabel(unitMin,form.t)
+            : `${fmtNum(unitMin)}–${fmtNum(unitMax)} ${form.t==='cap'?'caps':'tabs'}`;
+
+        return{
+            dose:fmtRange(mgMin,mgMax,'mg'),
+            vol:unitText,
+            freq,
+            capped,
+            extra:''
+        };
+    }
+
+    return{dose:'—',vol:'—',freq,capped:false,extra:''};
+}
+
+function calcAugmentin(drug,wt,formIdx){
+    if(!wt)return{dose:'—',vol:'—',freq:'—',capped:false,extra:''};
+
+    const form=drug.forms[formIdx]||drug.forms[0];
+    const freq=form.freqOverride||drug.freq||'BD';
+    const doses=freqDosesPerDay(freq);
+    const target=augmentinTargetRange();
+
+    const clavLimitKgDay=10;
+    const amoxTargetMinDay=target.min*wt;
+    const amoxTargetMaxDay=target.max*wt;
+
+    if(form.t==='syr'){
+        const amoxPerMl=form.amox5/5;
+        const clavPerMl=form.clav5/5;
+
+        const volByAmoxMin=amoxTargetMinDay/(amoxPerMl*doses);
+        const volByAmoxMax=amoxTargetMaxDay/(amoxPerMl*doses);
+        const volByClavMax=(clavLimitKgDay*wt)/(clavPerMl*doses);
+
+        let volMin=ceilHalf(volByAmoxMin);
+        let volMax=floorHalf(Math.min(volByAmoxMax,volByClavMax));
+
+        if(volMin<0.5)volMin=0.5;
+
+        const hasRange=volMax>=volMin && volMax>=0.5;
+
+        if(!hasRange){
+            return{
+                dose:'No safe range',
+                vol:'—',
+                freq,
+                capped:true,
+                extra:''
+            };
+        }
+
+        const amoxMin=volMin*amoxPerMl;
+        const amoxMax=volMax*amoxPerMl;
+
+        return{
+            dose:fmtRange(amoxMin,amoxMax,'mg'),
+            vol:fmtRange(volMin,volMax,'ml'),
+            freq,
+            capped:false,
+            extra:''
+        };
+    }
+
+    if(form.t==='tab'){
+        const amoxPerTab=form.amox;
+        const clavPerTab=form.clav;
+
+        const tabByAmoxMin=amoxTargetMinDay/(amoxPerTab*doses);
+        const tabByAmoxMax=amoxTargetMaxDay/(amoxPerTab*doses);
+        const tabByClavMax=(clavLimitKgDay*wt)/(clavPerTab*doses);
+
+        let tabMin=Math.ceil(tabByAmoxMin*2)/2;
+        let tabMax=Math.floor(Math.min(tabByAmoxMax,tabByClavMax)*2)/2;
+
+        if(tabMin<0.5)tabMin=0.5;
+
+        const hasRange=tabMax>=tabMin && tabMax>=0.5;
+
+        if(!hasRange){
+            return{
+                dose:'No safe range',
+                vol:'—',
+                freq,
+                capped:true,
+                extra:''
+            };
+        }
+
+        const amoxMin=tabMin*amoxPerTab;
+        const amoxMax=tabMax*amoxPerTab;
+        const tabText=tabMin===tabMax?unitLabel(tabMin,'tab'):`${fmtNum(tabMin)}–${fmtNum(tabMax)} tabs`;
+
+        return{
+            dose:fmtRange(amoxMin,amoxMax,'mg'),
+            vol:tabText,
+            freq,
+            capped:false,
+            extra:''
+        };
+    }
+
+    return{dose:'—',vol:'—',freq,capped:false,extra:''};
+}
+
+// ============ Normal Drug Calc ============
+function calcDrug(drug,wt,ageMo,formIdx){
+    if(!wt)return{dose:'—',vol:'—',freq:drug.freq||'—',capped:false,extra:''};
+    const form=drug.forms[formIdx]||drug.forms[0];
+    const freq=form.freqOverride||drug.freq;
+
+    if(drug.custom){
+        const c=calcCustom(drug.custom,wt,ageMo,formIdx,drug);
+        if(!c)return{dose:'—',vol:'—',freq,capped:false,extra:''};
+        if(c.dose)return c;
+        if(c.noVol)return{dose:c.display||c.mg+' mg',vol:'—',freq:c.freqOverride||freq,capped:false,extra:''};
+        let mg=c.mg,vol='';
+        if(form.t==='syr'){const d=dispenseSyrRange(mg,form.c,mg*0.85,mg*1.15);mg=d.mg;vol=d.vol+' ml';}
+        else if(form.t==='tab'||form.t==='cap'){const r=roundUnit(mg,form.c,[0.5,1]);mg=r.mg;vol=unitLabel(r.n,form.t);}
+        else if(form.t==='sachet'){const r=roundUnit(mg,form.c,[1]);mg=r.mg;vol=unitLabel(r.n,'sachet');}
+        return{dose:fmtNum(mg)+(drug.unit==='mcg'?' mcg':' mg'),vol,freq,capped:false,extra:''};
+    }
+
+    let rawMg=drug.dose*wt;
+    let capped=rawMg>drug.maxD;
+    let mg=Math.min(rawMg,drug.maxD);
+    let vol='';
+    const u=drug.unit||'mg';
+
+    if(form.t==='syr'){
+        if(u==='ml'){
+            let rawVol=mg;
+            let roundedVol=roundHalf(rawVol);
+            if(roundedVol<0.5&&rawVol>0)roundedVol=0.5;
+            mg=roundedVol;vol=roundedVol+' ml';
+        }else{
+            const d=dispenseSyrRange(mg,form.c,mg*0.85,mg*1.15);
+            mg=d.mg;vol=d.vol+' ml';
+        }
+    }else if(form.t==='tab'||form.t==='cap'){
+        const r=roundUnit(mg,form.c,[0.5,1]);
+        mg=r.mg;vol=unitLabel(r.n,form.t);
+    }else if(form.t==='supp'){
+        const r=roundUnit(mg,form.c,[1]);
+        mg=r.mg;vol=unitLabel(r.n,'supp');capped=mg>drug.maxD;
+    }else if(form.t==='sachet'){
+        const r=roundUnit(mg,form.c,[1]);
+        mg=r.mg;vol=unitLabel(r.n,'sachet');capped=mg>drug.maxD;
+    }
+
+    return{dose:fmtNum(mg)+' '+u,vol,freq,capped,extra:''};
+}
+
+// ============ Tabs / State ============
+const tabDefs=[
+    {id:'drugs',label:'Drugs'},
+    {id:'growth',label:'Growth Chart'},
+    {id:'pregwheel',label:'Pregnancy Wheel'}
+];
+let activeTab='drugs';
+let selectedCat='All';
+let drugSearch='';
+let formSelections={};
+let growthZoom='all';
+let pregnancyDateKind='DOB';
+let scanGAWeeks='';
+let scanGADays='';
 
 function switchTab(id){activeTab=id;render()}
 
 // ============ Render ============
-function render() {
-    renderInfo();
-    renderTabs();
-    renderPanel();
-}
-
+function render(){renderInfo();renderTabs();renderPanel();}
 function renderTabs(){
     document.getElementById('tabBar').innerHTML=tabDefs.map(t=>`<button class="tab${t.id===activeTab?' active':''}" onclick="switchTab('${t.id}')">${t.label}</button>`).join('');
 }
-
 function renderInfo(){
     const wt=getWt(),ageMo=getAgeMo(),gender=document.getElementById('gender').value;
     const tempF=parseFloat(document.getElementById('temp-f').value);
@@ -582,9 +796,9 @@ function renderInfo(){
     if(ageMo!==null){
         const y=Math.floor(ageMo/12),m=Math.round(ageMo%12);
         html+=`<span class="chip age">📅 ${y}y${m}m</span>`;
-        if(wt&&ageMo<=120){
-            const p=getPercentile(wt,ageMo,gender);
-            if(p)html+=`<span class="chip pct">📊 P${p.pct} (Z=${p.z})</span>`;
+        if(wt&&ageMo<=216){
+            const p=estimatePctFromTable(wt,ageMo,gender);
+            if(p!==null)html+=`<span class="chip pct">📊 Weight P${p}</span>`;
         }
     }
     if(!isNaN(tempF)&&document.getElementById('temp-f').value!==''){
@@ -594,39 +808,59 @@ function renderInfo(){
     }
     document.getElementById('infoBar').innerHTML=html;
 }
-
 function renderPanel(){
     const panel=document.getElementById('mainPanel');
-    if(activeTab==='fluids'){renderFluids(panel);return;}
+    if(activeTab==='drugs')return renderDrugs(panel);
+    if(activeTab==='growth')return renderGrowth(panel);
+    if(activeTab==='pregwheel')return renderPregWheel(panel);
+}
+
+// ============ Render Drugs ============
+function renderDrugs(panel){
     const wt=getWt(),ageMo=getAgeMo();
-    let html='';
+    const cats=['All',...Array.from(new Set(DRUGS.map(d=>d.cat)))];
+    const catOptions=cats.map(c=>`<option value="${c}"${selectedCat===c?' selected':''}>${c}</option>`).join('');
 
-    if(activeTab==='analgesics'){
-        html+=renderPCM(wt);
+    let html=`<div class="toolbar">
+        <input class="search-input" id="drugSearchInput" placeholder="Search drug..." value="${drugSearch.replace(/"/g,'&quot;')}" oninput="drugSearch=this.value;renderDrugs(document.getElementById('mainPanel'))">
+        <select class="hdr-select" onchange="selectedCat=this.value;render()">${catOptions}</select>
+    </div>`;
+
+    html+=renderPCM(wt);
+
+    let list=DRUGS.filter(d=>{
+        const s=drugSearch.trim().toLowerCase();
+        const catOK=selectedCat==='All'||d.cat===selectedCat;
+        const searchOK=!s||d.name.toLowerCase().includes(s)||d.cat.toLowerCase().includes(s)||(d.note||'').toLowerCase().includes(s);
+        return catOK&&searchOK;
+    });
+
+    if(!list.length){
+        panel.innerHTML=html+'<p style="color:var(--muted);text-align:center;padding:40px">No matching drugs</p>';
+        return;
     }
-
-    const list=drugs[activeTab];
-    if(!list||!list.length){panel.innerHTML=html||'<p style="color:var(--muted);text-align:center;padding:40px">No drugs in this category</p>';return;}
 
     html+=`<table class="dtable"><thead><tr><th>Drug</th><th>Formulation</th><th>Per Dose</th><th>Volume / Amount</th><th>Frequency</th></tr></thead><tbody>`;
 
-    list.forEach((drug,di)=>{
-        const key=activeTab+'_'+di;
+    list.forEach(drug=>{
+        const globalIdx=DRUGS.indexOf(drug);
+        const key='drug_'+globalIdx;
         const fi=formSelections[key]||0;
         const r=calcDrug(drug,wt,ageMo,fi);
-        const ageWarn = isBelowMinAge(drug.note, ageMo);
+        const ageWarn=isBelowMinAge(drug.note,ageMo);
+        const isNoSafe=(r.dose||'').toString().includes('No safe range');
 
-        let rowClass = '';
-        if(r.capped) rowClass = 'capped';
-        if(ageWarn) rowClass = 'age-warn';
+        let rowClass='';
+        if(r.capped)rowClass='capped';
+        if(ageWarn)rowClass='age-warn';
 
         let formOpts=drug.forms.map((f,i)=>`<option value="${i}"${i===fi?' selected':''}>${f.l}</option>`).join('');
         let formHtml=drug.forms.length>1?`<select class="form-select" onchange="formSelections['${key}']=parseInt(this.value);render()">${formOpts}</select>`:`<span style="font-size:13px;color:var(--muted)">${drug.forms[0].l}</span>`;
 
         html+=`<tr${rowClass?' class="'+rowClass+'"':''}>
-            <td><div class="drug-name">${drug.name}${ageWarn?'<span class="age-badge">⚠ AGE</span>':''}</div>${drug.note?'<div class="drug-note">'+drug.note+'</div>':''}</td>
+            <td><div class="drug-name">${drug.name}${ageWarn?'<span class="age-badge">⚠ AGE</span>':''}</div><div class="drug-note">${drug.cat}${drug.note?' · '+drug.note:''}</div></td>
             <td>${formHtml}</td>
-            <td class="dose-val">${r.dose}${r.capped?'<span class="max-badge">MAX</span>':''}</td>
+            <td class="dose-val">${r.dose}${r.capped&&!isNoSafe?'<span class="max-badge">CHECK</span>':''}${r.extra||''}</td>
             <td class="vol-val">${r.vol}</td>
             <td class="freq-val">${r.freq}</td>
         </tr>`;
@@ -637,109 +871,270 @@ function renderPanel(){
 }
 
 function renderPCM(wt){
-    const pcm=calcPCM(wt,pcmFormIdx);
-    if(!pcm) return `<div class="pcm-box"><div class="pcm-title">Paracetamol (Panadol)</div><p style="color:var(--muted);font-size:14px">Enter weight to calculate</p></div>`;
-
-    const w=pcm.winner;
-    const q4=pcm.q4h, q6=pcm.q6h;
-
-    let formOpts=pcm.forms.map((f,i)=>`<option value="${i}"${i===pcmFormIdx?' selected':''}>${f.l}</option>`).join('');
-
+    const pcm=calcPCM(wt);
+    let formOpts=PCM_FORMS.map((f,i)=>`<option value="${i}"${i===pcmFormIdx?' selected':''}>${f.l}</option>`).join('');
+    if(!pcm){
+        return `<div class="pcm-box">
+            <div class="pcm-title">Paracetamol (Panadol)</div>
+            <div class="pcm-form"><label>Formulation:</label><select class="form-select" onchange="pcmFormIdx=parseInt(this.value);render()">${formOpts}</select></div>
+        </div>`;
+    }
+    const doseKg=pcm.dose/getWt();
     return `<div class="pcm-box">
-        <div class="pcm-title">Paracetamol (Panadol) — Max safe daily: ${pcm.dailyMax} mg/day</div>
+        <div class="pcm-title">Paracetamol (Panadol)</div>
         <div class="pcm-grid">
-            <div class="pcm-option${w==='q4h'?' winner':''}">
-                ${w==='q4h'?'<div class="badge">✓ RECOMMENDED</div>':''}
-                <h4>Q4H (6 doses/day)</h4>
-                <div class="big">${fmtNum(q4.per)} mg × 6 = ${q4.daily} mg/day</div>
-                <div class="sub">${q4.vol} per dose</div>
+            <div class="pcm-option winner">
+                <div class="badge">SUGGESTED</div>
+                <h4>Per dose</h4>
+                <div class="big">${fmtNum(pcm.dose)} mg (${fmtNum(doseKg)} mg/kg)</div>
+                <div class="sub">${pcm.vol} per dose · Q4H PRN</div>
             </div>
-            <div class="pcm-option${w==='q6h'?' winner':''}">
-                ${w==='q6h'?'<div class="badge">✓ RECOMMENDED</div>':''}
-                <h4>Q6H (4 doses/day)</h4>
-                <div class="big">${fmtNum(q6.per)} mg × 4 = ${q6.daily} mg/day</div>
-                <div class="sub">${q6.vol} per dose</div>
+            <div class="pcm-option">
+                <h4>Safe range / maximum</h4>
+                <div class="big">${fmtNum(pcm.minPer)}–${fmtNum(pcm.maxPer)} mg/dose</div>
+                <div class="sub">Max ${fmtNum(pcm.dailyMax)} mg/day · up to ${pcm.maxDoses} calculated doses/day</div>
             </div>
         </div>
+        ${pcm.ok?'':'<div class="warn-line" style="margin-top:10px">Rounded dose is outside 10–15 mg/kg/dose range. Consider another formulation.</div>'}
         <div class="pcm-form">
             <label>Formulation:</label>
             <select class="form-select" onchange="pcmFormIdx=parseInt(this.value);render()">${formOpts}</select>
-            <span style="font-size:12px;color:var(--muted)">15mg/kg/dose max · 75mg/kg/day max · 4g/day absolute max · Syr volumes rounded ↓ to 0.5ml</span>
+            <span style="font-size:12px;color:var(--muted)">No quarter tablets · syrup rounded to 0.5 ml and checked against range</span>
         </div>
     </div>`;
 }
 
-function renderFluids(panel){
-    const wt=getWt();
-    if(!wt){panel.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px">Enter weight to calculate fluids</p>';return;}
-    let daily;
-    if(wt<=10)daily=wt*100;else if(wt<=20)daily=1000+(wt-10)*50;else daily=1500+(wt-20)*20;
-    const bolus=20*wt;
+// ============ Growth Chart ============
+function renderGrowth(panel){
+    const wt=getWt(),ageMo=getAgeMo(),gender=document.getElementById('gender').value;
+    const pct=wt&&ageMo!==null?estimatePctFromTable(wt,ageMo,gender):null;
 
-    const rows=[{l:'Maintenance',m:1},{l:'Maint × 1.25',m:1.25},{l:'Maint × 1.5',m:1.5}];
-
-    let html=`<div style="margin-bottom:16px;font-size:15px;color:var(--muted)"><strong style="color:var(--text)">Holliday-Segar</strong> · Daily: <strong style="color:var(--primary-2)">${Math.round(daily)} ml</strong> · Bolus (20ml/kg): <strong style="color:var(--primary-2)">${Math.round(bolus)} ml</strong></div>`;
-    html+=`<div class="fluid-box">
-        <div class="fh"></div><div class="fh">No Bolus</div><div class="fh">+ Bolus ×1</div><div class="fh">+ Bolus ×2</div>`;
-    rows.forEach(r=>{
-        const d=daily*r.m;
-        html+=`<div class="fl">${r.l}</div>
-            <div class="fv">${Math.round(d/24)} ml/hr</div>
-            <div class="fv">${Math.round((d+bolus)/24)} ml/hr</div>
-            <div class="fv">${Math.round((d+bolus*2)/24)} ml/hr</div>`;
-    });
-    html+=`</div>`;
+    let html=`<div class="chart-wrap">
+        <div class="toolbar">
+            <select class="hdr-select" onchange="document.getElementById('gender').value=this.value;onInput()">
+                <option value="M"${gender==='M'?' selected':''}>Male</option>
+                <option value="F"${gender==='F'?' selected':''}>Female</option>
+            </select>
+            <button class="icon-btn ${growthZoom==='toddler'?'active':''}" onclick="growthZoom='toddler';render()">🔍+ 0–3y</button>
+            <button class="icon-btn ${growthZoom==='all'?'active':''}" onclick="growthZoom='all';render()">🔍− 0–18y</button>
+            <span class="toolbar-note">Weight-for-age chart. Use zoom for 0–3 years.</span>
+        </div>
+        <div class="chart-card">
+            <div class="chart-box">${buildGrowthSVG(gender,ageMo,wt,growthZoom)}</div>
+            <div class="chart-legend">
+                ${GROWTH_PCTS.map((p,i)=>`<span class="legend-item"><span class="legend-line" style="background:${chartColor(i)}"></span>P${p}</span>`).join('')}
+                ${wt&&ageMo!==null?'<span class="legend-item"><span class="legend-line" style="background:#ef4444"></span>Patient</span>':''}
+            </div>
+        </div>
+        <div class="result-card">
+            <strong>Patient:</strong> ${wt?wt+' kg':'—'} ·
+            <strong>Age:</strong> ${ageMo!==null?Math.floor(ageMo/12)+'y '+Math.round(ageMo%12)+'m':'—'} ·
+            <strong>Sex:</strong> ${gender==='M'?'Male':'Female'} ·
+            <strong>Estimated weight percentile:</strong> ${pct!==null?'P'+pct:'—'}
+        </div>
+    </div>`;
     panel.innerHTML=html;
 }
+function chartColor(i){return['#94a3b8','#64748b','#38bdf8','#2563eb','#22c55e','#f59e0b','#ef4444'][i]||'#333'}
+function buildGrowthSVG(gender,ageMo,wt,zoomMode='all'){
+    const idx=gender==='F'?2:3;
+    const rows=GROWTH_ROWS;
+    const minX=0,maxX=zoomMode==='toddler'?36:216;
+    let minY=zoomMode==='toddler'?2:2;
+    let maxY=zoomMode==='toddler'?20:95;
+    if(wt&&ageMo!==null&&ageMo<=maxX)maxY=Math.max(maxY,Math.ceil(wt/5)*5+5);
 
-// ============ Auto-recommend formulation ============
+    const W=1000,H=420,padL=58,padR=20,padT=18,padB=48;
+    const x=a=>padL+(a-minX)/(maxX-minX)*(W-padL-padR);
+    const y=v=>padT+(maxY-v)/(maxY-minY)*(H-padT-padB);
+
+    let svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Growth chart">`;
+    svg+=`<rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>`;
+
+    const yearStep=zoomMode==='toddler'?0.5:2;
+    for(let yr=0;yr<=maxX/12;yr+=yearStep){
+        const xx=x(yr*12);
+        svg+=`<line x1="${xx}" y1="${padT}" x2="${xx}" y2="${H-padB}" stroke="rgba(148,163,184,.35)" stroke-width="1"/>`;
+        svg+=`<text x="${xx}" y="${H-20}" text-anchor="middle" font-size="12" fill="#64748b">${yr%1===0?yr:yr.toFixed(1)}</text>`;
+    }
+    const kgStep=zoomMode==='toddler'?2:10;
+    for(let kg=0;kg<=maxY;kg+=kgStep){
+        const yy=y(kg);
+        svg+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="rgba(148,163,184,.35)" stroke-width="1"/>`;
+        svg+=`<text x="${padL-10}" y="${yy+4}" text-anchor="end" font-size="12" fill="#64748b">${kg}</text>`;
+    }
+
+    svg+=`<text x="${W/2}" y="${H-4}" text-anchor="middle" font-size="13" fill="#64748b">Age (years)</text>`;
+    svg+=`<text x="16" y="${H/2}" text-anchor="middle" font-size="13" fill="#64748b" transform="rotate(-90 16 ${H/2})">Weight (kg)</text>`;
+
+    GROWTH_PCTS.forEach((p,j)=>{
+        const visible=rows.filter(r=>r[0]>=minX&&r[0]<=maxX);
+        const pts=visible.map(r=>`${x(r[0])},${y(r[idx][j])}`).join(' ');
+        svg+=`<polyline points="${pts}" fill="none" stroke="${chartColor(j)}" stroke-width="${p===50?3:2}" stroke-linecap="round" stroke-linejoin="round"/>`;
+        const last=visible[visible.length-1];
+        svg+=`<text x="${x(last[0])-4}" y="${y(last[idx][j])-4}" text-anchor="end" font-size="11" fill="${chartColor(j)}" font-weight="800">P${p}</text>`;
+    });
+
+    if(wt&&ageMo!==null&&ageMo>=minX&&ageMo<=maxX){
+        svg+=`<line x1="${x(ageMo)}" y1="${padT}" x2="${x(ageMo)}" y2="${H-padB}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5 5"/>`;
+        svg+=`<circle cx="${x(ageMo)}" cy="${y(wt)}" r="7" fill="#ef4444" stroke="#fff" stroke-width="3"/>`;
+        svg+=`<text x="${x(ageMo)+10}" y="${y(wt)-10}" font-size="13" fill="#ef4444" font-weight="900">${wt} kg</text>`;
+    }
+
+    svg+=`</svg>`;
+    return svg;
+}
+
+// ============ Pregnancy Wheel ============
+function renderPregWheel(panel){
+    const baseDate=getHeaderDate();
+    let html=`<div class="date-kind-box">
+        <span class="hdr-label">Header date is</span>
+        <select class="hdr-select" onchange="pregnancyDateKind=this.value;render()">
+            <option value="DOB"${pregnancyDateKind==='DOB'?' selected':''}>DOB</option>
+            <option value="LMP"${pregnancyDateKind==='LMP'?' selected':''}>LMP</option>
+            <option value="EDD"${pregnancyDateKind==='EDD'?' selected':''}>EDD</option>
+            <option value="SCAN"${pregnancyDateKind==='SCAN'?' selected':''}>Scan Date</option>
+        </select>
+        <span class="hint">Current header date: <strong>${baseDate?fmtDate(baseDate):'—'}</strong></span>
+        ${pregnancyDateKind==='SCAN'
+            ? `<span class="hdr-label">GA at scan</span>
+               <input type="number" class="hdr-input" placeholder="w" value="${scanGAWeeks}" oninput="scanGAWeeks=this.value;render()" style="width:70px">
+               <input type="number" class="hdr-input" placeholder="d" value="${scanGADays}" oninput="scanGADays=this.value;render()" style="width:70px">`
+            : ''}
+    </div>
+    <div class="result-card">${pregResultFromHeaderDate(baseDate,pregnancyDateKind)}</div>
+    <div class="disc" style="margin-top:14px">
+        Pregnancy wheel uses the DOB / Date fields in the header as the source date. Select whether that date represents DOB, LMP, EDD, or scan date.
+        For scan date, enter GA at scan. Standard EDD calculation assumes 280 days from LMP.
+    </div>`;
+    panel.innerHTML=html;
+}
+function gaText(days){
+    if(days<0)return '—';
+    const w=Math.floor(days/7),d=days%7;
+    return `${w}w ${d}d`;
+}
+function trimester(days){
+    if(days<0)return '—';
+    if(days<14*7)return '1st trimester';
+    if(days<28*7)return '2nd trimester';
+    return '3rd trimester';
+}
+function pregResultFromHeaderDate(baseDate,kind){
+    if(!baseDate)return `<div class="result-small">Enter date in the header DOB / Date fields first.</div>`;
+    const today=new Date();
+
+    if(kind==='DOB'){
+        const ageMo=getAgeMo();
+        return `<div class="result-big">DOB mode</div>
+            <div class="result-small">
+                Date is treated as patient DOB.<br>
+                Age: <strong>${ageMo!==null?Math.floor(ageMo/12)+'y '+Math.round(ageMo%12)+'m':'—'}</strong><br>
+                DOB: <strong>${fmtDate(baseDate)}</strong>
+            </div>`;
+    }
+    if(kind==='LMP'){
+        const ga=daysBetween(baseDate,today);
+        const edd=addDays(baseDate,280);
+        return `<div class="result-big">${gaText(ga)}</div>
+            <div class="result-small">
+                Input date treated as LMP: <strong>${fmtDate(baseDate)}</strong><br>
+                EDD: <strong>${fmtDate(edd)}</strong><br>
+                ${trimester(ga)}<br>
+                Estimated conception: ${fmtDate(addDays(baseDate,14))}
+            </div>`;
+    }
+    if(kind==='EDD'){
+        const edd=baseDate;
+        const daysTo=daysBetween(today,edd);
+        const ga=280-daysTo;
+        const lmp=addDays(edd,-280);
+        return `<div class="result-big">${gaText(ga)}</div>
+            <div class="result-small">
+                Input date treated as EDD: <strong>${fmtDate(edd)}</strong><br>
+                Estimated LMP: <strong>${fmtDate(lmp)}</strong><br>
+                ${trimester(ga)}<br>
+                Days to EDD: ${daysTo}
+            </div>`;
+    }
+    if(kind==='SCAN'){
+        const w=parseInt(scanGAWeeks);
+        const d=parseInt(scanGADays||'0');
+        if(isNaN(w))return `<div class="result-small">Input date treated as scan date. Enter GA at scan.</div>`;
+        const gaAtScan=w*7+(isNaN(d)?0:d);
+        const adjustedLMP=addDays(baseDate,-gaAtScan);
+        const edd=addDays(adjustedLMP,280);
+        const gaNow=daysBetween(adjustedLMP,today);
+        return `<div class="result-big">${gaText(gaNow)}</div>
+            <div class="result-small">
+                Input date treated as scan date: <strong>${fmtDate(baseDate)}</strong><br>
+                GA at scan: <strong>${w}w ${isNaN(d)?0:d}d</strong><br>
+                Adjusted EDD: <strong>${fmtDate(edd)}</strong><br>
+                Adjusted LMP: ${fmtDate(adjustedLMP)}<br>
+                ${trimester(gaNow)}
+            </div>`;
+    }
+    return `<div class="result-small">Unknown date type.</div>`;
+}
+
+// ============ Auto Recommend ============
 function autoRecommend(){
     const wt=getWt(),ageMo=getAgeMo();
     if(!wt)return;
 
-    if(wt>=25) pcmFormIdx=1;
+    if(wt>=25)pcmFormIdx=1;
     else pcmFormIdx=0;
-    if(ageMo!==null && ageMo>=72 && wt>=20) pcmFormIdx=3;
+    if(ageMo!==null&&ageMo>=72&&wt>=20)pcmFormIdx=3;
 
-    Object.keys(drugs).forEach(cat=>{
-        drugs[cat].forEach((drug,di)=>{
-            if(drug.forms.length<=1)return;
-            const key=cat+'_'+di;
+    DRUGS.forEach((drug,di)=>{
+        if(drug.forms.length<=1)return;
+        const key='drug_'+di;
 
-            if(drug.custom==='tamiflu'&&wt){
-                const d=wt<=15?30:wt<=23?45:wt<=40?60:75;
-                if(ageMo!==null&&ageMo>=12){
-                    const capIdx=drug.forms.findIndex(f=>f.t==='cap'&&f.c===d);
-                    if(capIdx>=0){formSelections[key]=capIdx;return;}
-                    if(d===60){const c30=drug.forms.findIndex(f=>f.t==='cap'&&f.c===30);if(c30>=0){formSelections[key]=c30;return;}}
-                }
-                formSelections[key]=0;return;
+        if(drug.custom==='augmentin'){
+            if(ageMo!==null&&ageMo>=144&&wt>=40){
+                const t875=drug.forms.findIndex(f=>f.l.includes('875/125'));
+                if(t875>=0){formSelections[key]=t875;return;}
             }
+            const s400=drug.forms.findIndex(f=>f.l.includes('400 mg/5'));
+            if(s400>=0){formSelections[key]=s400;return;}
+        }
 
-            if(drug.custom==='montelukast'){
-                let d=4;
-                if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
-                else{d=wt<20?4:wt<40?5:10;}
-                const idx=drug.forms.findIndex(f=>f.c===d);
-                if(idx>=0)formSelections[key]=idx;
-                return;
+        if(drug.custom==='tamiflu'&&wt){
+            const d=wt<=15?30:wt<=23?45:wt<=40?60:75;
+            if(ageMo!==null&&ageMo>=12){
+                const capIdx=drug.forms.findIndex(f=>f.t==='cap'&&f.c===d);
+                if(capIdx>=0){formSelections[key]=capIdx;return;}
+                if(d===60){const c30=drug.forms.findIndex(f=>f.t==='cap'&&f.c===30);if(c30>=0){formSelections[key]=c30;return;}}
             }
+            formSelections[key]=0;return;
+        }
 
-            if(ageMo!==null && ageMo>=72 && wt>=20){
-                const tabIdx=drug.forms.findIndex(f=>f.t==='tab'||f.t==='cap');
-                if(tabIdx>=0){formSelections[key]=tabIdx;return;}
+        if(drug.custom==='montelukast'){
+            let d=4;
+            if(ageMo!==null){d=ageMo<72?4:ageMo<180?5:10;}
+            else{d=wt<20?4:wt<40?5:10;}
+            const idx=drug.forms.findIndex(f=>f.c===d);
+            if(idx>=0)formSelections[key]=idx;
+            return;
+        }
+
+        if(ageMo!==null&&ageMo>=72&&wt>=20){
+            const tabIdx=drug.forms.findIndex(f=>f.t==='tab'||f.t==='cap');
+            if(tabIdx>=0){formSelections[key]=tabIdx;return;}
+        }
+
+        if(drug.custom)return;
+
+        const dose=(drug.dose||10)*wt;
+        let bestIdx=0,bestVol=999;
+        drug.forms.forEach((f,i)=>{
+            if(f.t==='syr'){
+                const vol=dose/f.c;
+                if(vol>=0.5&&vol<=15&&vol<bestVol){bestVol=vol;bestIdx=i;}
             }
-            if(drug.custom) return;
-            const dose=(drug.dose||10)*wt;
-            let bestIdx=0,bestVol=999;
-            drug.forms.forEach((f,i)=>{
-                if(f.t==='syr'){
-                    const vol=dose/f.c;
-                    if(vol>=0.5&&vol<=15&&vol<bestVol){bestVol=vol;bestIdx=i;}
-                }
-            });
-            formSelections[key]=bestIdx;
         });
+        formSelections[key]=bestIdx;
     });
 }
 
@@ -747,18 +1142,25 @@ function autoRecommend(){
 function clearAll(){
     ['wt','dob-y','dob-m','dob-d','temp-f'].forEach(id=>document.getElementById(id).value='');
     formSelections={};pcmFormIdx=1;render();
-    try{localStorage.removeItem('paedCalc3')}catch(e){}
+    try{localStorage.removeItem('paedCalcFull')}catch(e){}
 }
-
 function onInput(){
     autoRecommend();
     render();
-    try{localStorage.setItem('paedCalc3',JSON.stringify({wt:document.getElementById('wt').value,dy:document.getElementById('dob-y').value,dm:document.getElementById('dob-m').value,dd:document.getElementById('dob-d').value,g:document.getElementById('gender').value,tf:document.getElementById('temp-f').value}))}catch(e){}
+    try{
+        localStorage.setItem('paedCalcFull',JSON.stringify({
+            wt:document.getElementById('wt').value,
+            dy:document.getElementById('dob-y').value,
+            dm:document.getElementById('dob-m').value,
+            dd:document.getElementById('dob-d').value,
+            g:document.getElementById('gender').value,
+            tf:document.getElementById('temp-f').value
+        }));
+    }catch(e){}
 }
-
 function loadSaved(){
     try{
-        const d=JSON.parse(localStorage.getItem('paedCalc3'));
+        const d=JSON.parse(localStorage.getItem('paedCalcFull'));
         if(!d)return;
         if(d.wt)document.getElementById('wt').value=d.wt;
         if(d.dy)document.getElementById('dob-y').value=d.dy;
@@ -768,7 +1170,6 @@ function loadSaved(){
         if(d.tf)document.getElementById('temp-f').value=d.tf;
     }catch(e){}
 }
-
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',onInput));
 
 loadSaved();
