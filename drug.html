@@ -883,15 +883,15 @@ function renderPCM(wt){
     return `<div class="pcm-box">
         <div class="pcm-title">Paracetamol (Panadol)</div>
         <div class="pcm-grid">
-            <div class="pcm-option winner">
+            <div class="pcm-option">
                 <h4>Per dose</h4>
                 <div class="big">${fmtNum(pcm.dose)} mg (${fmtNum(doseKg)} mg/kg)</div>
                 <div class="sub">${pcm.vol} per dose · Q4H PRN</div>
             </div>
             <div class="pcm-option">
-                <h4>Safe range / maximum</h4>
-                <div class="big">${fmtNum(pcm.minPer)}–${fmtNum(pcm.maxPer)} mg/dose</div>
-                <div class="sub">Max ${fmtNum(pcm.dailyMax)} mg/day · up to ${pcm.maxDoses} calculated doses/day</div>
+                <h4>Maximum</h4>
+                <div class="big">${fmtNum(pcm.dailyMax)} mg/day</div>
+                <div class="sub">${fmtNum(pcm.minPer)}–${fmtNum(pcm.maxPer)} mg/dose</div>
             </div>
         </div>
         ${pcm.ok?'':'<div class="warn-line" style="margin-top:10px">Rounded dose is outside 10–15 mg/kg/dose range. Consider another formulation.</div>'}
