@@ -36,9 +36,9 @@ h1{margin:10px 0 6px;font-size:24px;line-height:1.15;font-weight:800;letter-spac
 .dark-toggle{appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.7);border-radius:10px;padding:6px 10px;font-size:14px;cursor:pointer;transition:.25s ease;font-family:var(--ui-font);display:inline-flex;align-items:center;gap:4px;line-height:1}
 .dark-toggle:hover{transform:scale(1.08)}
 
-/* CHANGED: 3-column tabs */
+/* 5-column tabs (wraps to 2 rows) */
 .tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
-.tab-btn{border:1px solid var(--border-strong);background:#fff;color:var(--text);padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:800;font-size:13px;box-shadow:0 1px 2px rgba(15,23,42,.03);transition:.18s ease}
+.tab-btn{border:1px solid var(--border-strong);background:#fff;color:var(--text);padding:12px 10px;border-radius:12px;cursor:pointer;font-weight:800;font-size:12.5px;box-shadow:0 1px 2px rgba(15,23,42,.03);transition:.18s ease}
 .tab-btn:hover{transform:translateY(-1px);border-color:#94a3b8;box-shadow:0 6px 18px rgba(15,23,42,.08)}
 .tab-btn.active{background:linear-gradient(135deg,#111827 0%,#1e3a8a 100%);color:#fff;border-color:#1e3a8a;box-shadow:0 10px 24px rgba(30,58,138,.22)}
 
@@ -149,6 +149,49 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .sidebar.dark .img-label{color:#6b7a94}
 .sidebar.dark .recent-list::-webkit-scrollbar-thumb{background:#333a55}
 
+/* ====== NEW: Receipt & Prescription item table (preview) ====== */
+.item-table{width:100%;border-collapse:collapse;margin-top:4mm;font-size:10.2pt;font-family:var(--en-font)}
+.item-table th{text-align:left;font-weight:700;border-bottom:1.2px solid #111;padding:1.6mm 2mm;font-size:9.6pt}
+.item-table td{padding:1.9mm 2mm;border-bottom:.5px solid #ccc;vertical-align:top}
+.item-table td.num,.item-table th.num{text-align:right}
+.item-table tfoot td{border-bottom:none;border-top:1.2px solid #111;font-weight:700;padding-top:2.4mm}
+
+/* ====== NEW: Receipt page ====== */
+.receipt-title{text-align:center;margin-top:-2mm;margin-bottom:7.5mm}
+.receipt-title .cn{font-size:13.4pt;font-weight:700;font-family:var(--zh-font)}
+.receipt-title .en{font-size:14.8pt;font-weight:700;font-family:var(--en-font);margin-top:.6mm}
+.receipt-meta-row{display:flex;justify-content:space-between;font-size:10.6pt;font-family:var(--en-font);margin-top:2mm}
+.receipt-block{margin-top:8mm;font-size:10.7pt;line-height:1.5}
+.receipt-row{margin-top:6mm;font-size:10.7pt;line-height:1.3}
+.receipt-inline{display:inline-block;border-bottom:1px solid #111;line-height:1.01;padding:0 1px 1px;vertical-align:baseline}
+
+/* ====== NEW: Prescription page ====== */
+.rx-title{text-align:center;margin-top:-2mm;margin-bottom:7.5mm}
+.rx-title .cn{font-size:13.4pt;font-weight:700;font-family:var(--zh-font)}
+.rx-title .en{font-size:14.8pt;font-weight:700;font-family:var(--en-font);margin-top:.6mm}
+.rx-meta-row{display:flex;justify-content:space-between;font-size:10.6pt;font-family:var(--en-font);margin-top:2mm}
+.rx-block{margin-top:8mm;font-size:10.7pt;line-height:1.5}
+.rx-row{margin-top:6mm;font-size:10.7pt;line-height:1.3}
+.rx-regno{margin-top:6mm;font-size:10.2pt;font-family:var(--en-font)}
+
+/* ====== NEW: Sidebar dynamic item rows ====== */
+.item-row{display:grid;grid-template-columns:1fr 90px 28px;gap:6px;margin-bottom:6px;align-items:center}
+.item-row input{padding:9px 10px;font-size:13px;border:1px solid var(--border-strong);border-radius:10px;font-family:var(--ui-font);background:#fff}
+.item-row-remove{width:28px;height:28px;border-radius:8px;background:var(--danger-soft);color:var(--danger);font-weight:800;border:1px solid #fca5a5;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.rx-item-card{border:1px solid var(--border);border-radius:10px;padding:9px;margin-bottom:8px;background:var(--panel-2)}
+.rx-item-card input{width:100%;padding:9px 10px;border:1px solid var(--border-strong);border-radius:10px;font-size:13px;font-family:var(--ui-font);background:#fff;margin-top:6px}
+.rx-item-card input:first-of-type{margin-top:0}
+.rx-item-card .row-3{margin-top:6px}
+.rx-item-card-header{display:flex;justify-content:space-between;align-items:center}
+.rx-item-card-header span{font-size:11px;font-weight:800;color:var(--muted)}
+
+.sidebar.dark .item-row input{background:#242940;border-color:#333a55;color:#dce3ef}
+.sidebar.dark .rx-item-card{background:#1c2035;border-color:#2a3050}
+.sidebar.dark .rx-item-card input{background:#242940;border-color:#333a55;color:#dce3ef}
+.sidebar.dark .rx-item-card-header span{color:#7889a4}
+
+#addRxItemBtn:disabled{opacity:.5;cursor:not-allowed}
+
 /* ====== Preview / Paper ====== */
 .preview{padding:22px;overflow-y:auto;height:100%;position:relative}
 .preview-toolbar{width:fit-content;margin:0 auto 16px;display:flex;gap:10px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(217,226,236,.95);border-radius:16px;padding:14px;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:10}
@@ -226,7 +269,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 .remarks-box{margin-top:1mm;min-height:8mm;white-space:pre-wrap;font-family:var(--en-font);line-height:1.18}
 .sick-sig-wrap{margin-top:12.5mm}
 
-/* ====== NEW: Attendance Certificate ====== */
+/* ====== Attendance Certificate ====== */
 .attend-title{text-align:center;margin-top:-2mm;margin-bottom:7.5mm}
 .attend-title .cn{font-size:13.4pt;font-weight:700;line-height:1.05;font-family:var(--zh-font)}
 .attend-title .en{font-size:14.8pt;font-weight:700;line-height:1.05;font-family:var(--en-font);margin-top:.6mm}
@@ -267,7 +310,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
 @media(max-width:840px){
   .row-2,.row-3,.img-grid{grid-template-columns:1fr}
   .img-grid-3{grid-template-columns:1fr}
-  .tabs{grid-template-columns:1fr 1fr 1fr}
+  .tabs{grid-template-columns:1fr 1fr}
   .sidebar{padding:14px}.preview{padding:12px}
   .paper-shell{width:100%;overflow:auto;padding:10px}
   .toolbar-row{flex-direction:column;align-items:flex-start}
@@ -303,11 +346,13 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <p class="brand-subtitle">Heyyy I'm Smarter than HIS!</p>
   </div>
 
-  <!-- CHANGED: 3 tabs -->
+  <!-- 5 tabs -->
   <div class="tabs">
     <button class="tab-btn active" id="tabReferral">Referral</button>
     <button class="tab-btn" id="tabSick">Sick Leave</button>
     <button class="tab-btn" id="tabAttend">Attendance</button>
+    <button class="tab-btn" id="tabReceipt">Receipt</button>
+    <button class="tab-btn" id="tabPrescription">Prescription</button>
   </div>
 
   <div class="section">
@@ -392,7 +437,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     <div class="overflow-hint hidden" id="sickOverflowHint">⚠ Content may overflow the A4 page</div>
   </div>
 
-  <!-- ====== NEW: Attendance Certificate Section ====== -->
+  <!-- ====== Attendance Certificate Section ====== -->
   <div class="section" id="sectionAttend">
     <h3>Attendance Certificate</h3>
     <div class="field"><label for="attendRecipientCn">Chinese recipient line</label><input id="attendRecipientCn" value="致有關人士:"></div>
@@ -409,6 +454,66 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
     </div>
   </div>
 
+  <!-- ====== NEW: Receipt Section ====== -->
+  <div class="section" id="sectionReceipt">
+    <h3>Receipt</h3>
+    <div class="row-2">
+      <div class="field" id="fieldReceiptNo">
+        <label for="receiptNo">Receipt No.</label>
+        <div class="date-period-row">
+          <input id="receiptNo" readonly>
+          <button class="secondary" id="regenReceiptNoBtn" style="width:auto;padding:0 10px;font-size:12px">🔄 New</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod" style="width:100%">
+          <option value="Cash">Cash</option>
+          <option value="Visa">Visa</option>
+          <option value="Mastercard">Mastercard</option>
+          <option value="UnionPay">UnionPay</option>
+          <option value="FPS">FPS</option>
+          <option value="Octopus">Octopus</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Items</label>
+      <div id="receiptItemsList"></div>
+      <div class="actions"><button class="secondary" id="addReceiptItemBtn" style="font-size:12px;padding:7px 12px">+ Add Item</button></div>
+    </div>
+    <div class="field"><label for="receiptRemarks">Remarks</label><textarea id="receiptRemarks"></textarea></div>
+    <div class="overflow-hint hidden" id="receiptOverflowHint">⚠ Content may overflow the A4 page</div>
+  </div>
+
+  <!-- ====== NEW: Prescription Section ====== -->
+  <div class="section" id="sectionPrescription">
+    <h3>Prescription</h3>
+    <div class="field"><label for="rxPatientAge">Patient Age</label><input id="rxPatientAge" type="number" min="0" max="120"></div>
+    <div class="field">
+      <label>Drug List <span style="font-weight:600;opacity:.6">(max 10)</span></label>
+      <div id="rxItemsList"></div>
+      <div class="actions"><button class="secondary" id="addRxItemBtn" style="font-size:12px;padding:7px 12px">+ Add Drug</button></div>
+      <datalist id="commonDrugsList">
+        <option value="Paracetamol 500mg">
+        <option value="Amoxicillin 500mg">
+        <option value="Ibuprofen 400mg">
+        <option value="Omeprazole 20mg">
+        <option value="Cetirizine 10mg">
+        <option value="Loratadine 10mg">
+        <option value="Metformin 500mg">
+        <option value="Amlodipine 5mg">
+        <option value="Atorvastatin 20mg">
+        <option value="Prednisolone 5mg">
+        <option value="Domperidone 10mg">
+        <option value="Loperamide 2mg">
+      </datalist>
+    </div>
+    <div class="field"><label for="rxRemarks">Instructions / Remarks</label><textarea id="rxRemarks"></textarea></div>
+    <div class="overflow-hint hidden" id="rxOverflowHint">⚠ Content may overflow the A4 page</div>
+  </div>
+
   <!-- ====== Collapsible: Doctor ====== -->
   <div class="section">
     <div class="section-header collapsed" onclick="toggleSection(this)">
@@ -422,6 +527,7 @@ button:hover{transform:translateY(-1px)}button:active{transform:translateY(0)}
         <div class="field"><label for="doctorTitle">Doctor Title</label><textarea id="doctorTitle">Specialist in Emergency Medicine
 MB ChB (CUHK), FHKCEM, FHKAM (Emergency Medicine)
 Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic Unit, CUHK</textarea></div>
+        <div class="field" id="fieldDoctorRegNo"><label for="doctorRegNo">Doctor Registration No. (for Prescription)</label><input id="doctorRegNo" placeholder="e.g. MCHK Reg. No. M12345"></div>
       </div>
     </div>
   </div>
@@ -450,7 +556,6 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
             <input type="file" accept="image/*" hidden>
           </div>
         </div>
-        <!-- NEW: 3-column grid for barcodes -->
         <div class="img-grid-3">
           <div class="img-upload-zone" data-img-key="barcodeRef">
             <img class="img-thumb" id="thumbBarcodeRef" alt="">
@@ -470,6 +575,23 @@ Clinical Assistant Professor (Honorary), Accident & Emergency Medicine Academic 
             <img class="img-thumb" id="thumbBarcodeAttend" alt="">
             <span class="img-plus">+</span>
             <span class="img-label">Attend Barcode</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+        </div>
+        <!-- NEW: Receipt / Rx barcodes -->
+        <div class="img-grid" style="margin-top:8px">
+          <div class="img-upload-zone" data-img-key="barcodeReceipt">
+            <img class="img-thumb" id="thumbBarcodeReceipt" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Receipt Barcode</span>
+            <button class="img-remove-btn" title="Remove">&times;</button>
+            <input type="file" accept="image/*" hidden>
+          </div>
+          <div class="img-upload-zone" data-img-key="barcodeRx">
+            <img class="img-thumb" id="thumbBarcodeRx" alt="">
+            <span class="img-plus">+</span>
+            <span class="img-label">Rx Barcode</span>
             <button class="img-remove-btn" title="Remove">&times;</button>
             <input type="file" accept="image/*" hidden>
           </div>
@@ -602,7 +724,7 @@ Email:general@cuhkmc.hk</div>
           </div>
         </section>
 
-        <!-- ====== NEW: Attendance Certificate Page ====== -->
+        <!-- ====== Attendance Certificate Page ====== -->
         <section class="page hidden" id="attendPage">
           <div class="doc-header">
             <img class="logo" id="logoAttend" alt="CUHKMC logo" src="cuhkmc-logo.png">
@@ -637,6 +759,83 @@ Email:general@cuhkmc.hk</div>
           </div>
         </section>
 
+        <!-- ====== NEW: Receipt Page ====== -->
+        <section class="page hidden" id="receiptPage">
+          <div class="doc-header">
+            <img class="logo" id="logoReceipt" alt="CUHKMC logo" src="cuhkmc-logo.png">
+            <div class="header-right en" id="headerRightReceipt">Emergency Medicine Centre
+CUHK Medical Centre
+9 Chak Cheung Street, Shatin, New Territories, Hong Kong
+Tel: 3946 6888      Fax: /
+Email:general@cuhkmc.hk</div>
+          </div>
+          <div class="content">
+            <div class="receipt-title"><div class="cn zh">收據</div><div class="en">RECEIPT</div></div>
+            <div class="receipt-meta-row">
+              <div class="en"><span class="zh">日期:</span> <span id="pvReceiptDate"></span></div>
+              <div class="en">Receipt No.: <span id="pvReceiptNo"></span></div>
+            </div>
+            <div class="receipt-block">
+              <div class="zh">茲收到</div>
+              <div class="en">Received from <span class="receipt-inline" id="pvReceiptPatientName"></span> (<span id="pvReceiptPatientId"></span>)</div>
+            </div>
+            <table class="item-table">
+              <thead><tr><th>Description</th><th class="num">Amount (HKD)</th></tr></thead>
+              <tbody id="pvReceiptItemsBody"></tbody>
+              <tfoot><tr><td>Total</td><td class="num" id="pvReceiptTotal">$0.00</td></tr></tfoot>
+            </table>
+            <div class="receipt-row"><span class="en">Payment Method: </span><span class="en" id="pvReceiptPayment"></span></div>
+            <div class="receipt-row remarks-row"><div class="zh">備註</div><div class="en">Remarks</div><div class="remarks-box" id="pvReceiptRemarks"></div></div>
+            <div class="sig-wrap sig-wrap-ref">
+              <img class="sig-img" id="sigReceipt" alt="Signature" src="signature.png">
+              <div class="doc-name en" id="pvDoctorNameEnReceipt"></div>
+              <div class="doc-name-cn zh" id="pvDoctorNameCnReceipt"></div>
+              <div class="doc-title en" id="pvDoctorTitleReceipt"></div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="timestamp en" id="pvTimestampReceipt"></div>
+            <div class="footer-right"><div class="page-no en">Page 1 of 1</div><img class="barcode-img" id="barcodeReceipt" alt="Barcode" src="receipt-barcode.png"></div>
+          </div>
+        </section>
+
+        <!-- ====== NEW: Prescription Page ====== -->
+        <section class="page hidden" id="prescriptionPage">
+          <div class="doc-header">
+            <img class="logo" id="logoRx" alt="CUHKMC logo" src="cuhkmc-logo.png">
+            <div class="header-right en" id="headerRightRx">Emergency Medicine Centre
+CUHK Medical Centre
+9 Chak Cheung Street, Shatin, New Territories, Hong Kong
+Tel: 3946 6888      Fax: /
+Email:general@cuhkmc.hk</div>
+          </div>
+          <div class="content">
+            <div class="rx-title"><div class="cn zh">處方箋</div><div class="en">PRESCRIPTION</div></div>
+            <div class="rx-meta-row"><div class="en"><span class="zh">日期:</span> <span id="pvRxDate"></span></div></div>
+            <div class="rx-block">
+              <div class="en">Patient: <span class="receipt-inline" id="pvRxPatientName"></span></div>
+              <div class="en">Age: <span id="pvRxPatientAge"></span> &nbsp;&nbsp; HKID: <span id="pvRxPatientId"></span></div>
+              <div class="en">Diagnosis: <span id="pvRxDiagnosis"></span></div>
+            </div>
+            <table class="item-table">
+              <thead><tr><th>Drug</th><th>Dosage</th><th>Frequency</th><th>Duration/Qty</th></tr></thead>
+              <tbody id="pvRxItemsBody"></tbody>
+            </table>
+            <div class="rx-row remarks-row"><div class="zh">備註</div><div class="en">Instructions</div><div class="remarks-box" id="pvRxRemarks"></div></div>
+            <div class="rx-regno">Doctor Registration No.: <span id="pvDoctorRegNoRx"></span></div>
+            <div class="sig-wrap sig-wrap-ref">
+              <img class="sig-img" id="sigRx" alt="Signature" src="signature.png">
+              <div class="doc-name en" id="pvDoctorNameEnRx"></div>
+              <div class="doc-name-cn zh" id="pvDoctorNameCnRx"></div>
+              <div class="doc-title en" id="pvDoctorTitleRx"></div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="timestamp en" id="pvTimestampRx"></div>
+            <div class="footer-right"><div class="page-no en">Page 1 of 1</div><img class="barcode-img" id="barcodeRx" alt="Barcode" src="rx-barcode.png"></div>
+          </div>
+        </section>
+
       </div>
     </div>
   </div>
@@ -658,11 +857,12 @@ Email:general@cuhkmc.hk</div>
 <div class="floating-status" id="floatingStatus">Saved</div>
 
 <script>
-const STORAGE_KEY='cuhkmc_doc_v44';
-const LAST_PATIENT_KEY='cuhkmc_last_patient_v44';
-const RECENT_KEY='cuhkmc_recent_v44';
-const IMAGES_KEY='cuhkmc_images_v44';
-const DARK_KEY='cuhkmc_dark_v44';
+const STORAGE_KEY='cuhkmc_doc_v45';
+const LAST_PATIENT_KEY='cuhkmc_last_patient_v45';
+const RECENT_KEY='cuhkmc_recent_v45';
+const IMAGES_KEY='cuhkmc_images_v45';
+const DARK_KEY='cuhkmc_dark_v45';
+const RECEIPT_COUNTER_KEY='cuhkmc_receipt_counter_v45';
 let activeTab='referral';
 let zoomLevel=1;
 let shellNaturalWidth=0;
@@ -674,26 +874,30 @@ CUHK Medical Centre
 Tel: 3946 6888      Fax: /
 Email:general@cuhkmc.hk`;
 
-/* CHANGED: added logoAttend, sigAttend, barcodeAttend */
+/* NEW: added logoReceipt/logoRx, sigReceipt/sigRx, barcodeReceipt/barcodeRx */
 const IMG_MAP={
-  logo:['logoReferral','logoSick','logoAttend'],
-  signature:['sigReferral','sigSick','sigAttend'],
+  logo:['logoReferral','logoSick','logoAttend','logoReceipt','logoRx'],
+  signature:['sigReferral','sigSick','sigAttend','sigReceipt','sigRx'],
   barcodeRef:['barcodeReferral'],
   barcodeSick:['barcodeSick'],
-  barcodeAttend:['barcodeAttend']
+  barcodeAttend:['barcodeAttend'],
+  barcodeReceipt:['barcodeReceipt'],
+  barcodeRx:['barcodeRx']
 };
-const IMG_THUMB_MAP={logo:'thumbLogo',signature:'thumbSig',barcodeRef:'thumbBarcodeRef',barcodeSick:'thumbBarcodeSick',barcodeAttend:'thumbBarcodeAttend'};
-const IMG_MAX_W={logo:800,signature:600,barcodeRef:1000,barcodeSick:1000,barcodeAttend:1000};
+const IMG_THUMB_MAP={logo:'thumbLogo',signature:'thumbSig',barcodeRef:'thumbBarcodeRef',barcodeSick:'thumbBarcodeSick',barcodeAttend:'thumbBarcodeAttend',barcodeReceipt:'thumbBarcodeReceipt',barcodeRx:'thumbBarcodeRx'};
+const IMG_MAX_W={logo:800,signature:600,barcodeRef:1000,barcodeSick:1000,barcodeAttend:1000,barcodeReceipt:1000,barcodeRx:1000};
 const TRANSPARENT='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const IMG_DEFAULTS={
   logo:'cuhkmc-logo.png',
   signature:'signature.png',
   barcodeRef:'ref-barcode.png',
   barcodeSick:'sick-barcode.png',
-  barcodeAttend:'attend-barcode.png'
+  barcodeAttend:'attend-barcode.png',
+  barcodeReceipt:'receipt-barcode.png',
+  barcodeRx:'rx-barcode.png'
 };
 
-/* CHANGED: added attendance fields */
+/* NEW: added receipt & prescription fields */
 const fields=[
   'patientLineInput',
   'docDate','printTimestamp',
@@ -703,9 +907,16 @@ const fields=[
   'sickRecipientCn','sickRecipientEn','sickDays',
   'sickFrom','sickFromPeriod','sickTo','sickToPeriod','sickRemarks',
   'attendRecipientCn','attendRecipientEn','attendPeriod',
-  'doctorNameEn','doctorNameCn','doctorTitle',
+  'receiptNo','paymentMethod','receiptRemarks',
+  'rxPatientAge','rxRemarks',
+  'doctorNameEn','doctorNameCn','doctorTitle','doctorRegNo',
   'headerText'
 ];
+
+/* NEW: dynamic item state for Receipt & Prescription */
+let receiptItems=[{desc:'',amount:''},{desc:'',amount:''},{desc:'',amount:''}];
+let rxItems=[{name:'',dosage:'',freq:'',duration:''}];
+const RX_MAX=10;
 
 function el(id){return document.getElementById(id)}
 function pad(n){return String(n).padStart(2,'0')}
@@ -786,7 +997,7 @@ function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'
 function normalizeHkid(i){let r=String(i||'').trim().toUpperCase().replace(/\s+/g,'');if(!r)return'';let m=r.match(/^([A-Z]{1,2}\d{6})\(([0-9A])\)$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})([0-9A])$/);if(m)return m[1]+'('+m[2]+')';m=r.match(/^([A-Z]{1,2}\d{6})$/);if(m)return m[1];return r}
 function maskHkid(h){const r=normalizeHkid(h);if(!r)return'';const m=r.match(/^([A-Z]{1,2})(\d{6})(?:\([0-9A]\))?$/i);if(!m)return r;return m[1]+m[2].slice(0,3)+'***'}
 
-/* ====== NEW: Auto Attendance Period ====== */
+/* ====== Auto Attendance Period ====== */
 function autoAttendPeriod(){
   const h=new Date().getHours();
   el('attendPeriod').value=h<12?'AM':'PM';
@@ -860,20 +1071,92 @@ function fitUnderline(target,minW,extra){
   });
 }
 
-/* ====== Overflow Detection ====== */
+/* ====== Overflow Detection (CHANGED: 5 tabs) ====== */
 function checkOverflow(){
   requestAnimationFrame(()=>{
-    let pageId;
-    if(activeTab==='referral')pageId='referralPage';
-    else if(activeTab==='sick')pageId='sickPage';
-    else pageId='attendPage';
-    const content=document.querySelector('#'+pageId+' .content');
+    const map={referral:'referralPage',sick:'sickPage',attend:'attendPage',receipt:'receiptPage',prescription:'prescriptionPage'};
+    const content=document.querySelector('#'+map[activeTab]+' .content');
     if(!content)return;
     const overflow=content.scrollHeight>content.clientHeight+2;
     el('overflowBadge').classList.toggle('hidden',!overflow);
     el('refOverflowHint').classList.toggle('hidden',!(overflow&&activeTab==='referral'));
     el('sickOverflowHint').classList.toggle('hidden',!(overflow&&activeTab==='sick'));
+    el('receiptOverflowHint').classList.toggle('hidden',!(overflow&&activeTab==='receipt'));
+    el('rxOverflowHint').classList.toggle('hidden',!(overflow&&activeTab==='prescription'));
   });
+}
+
+/* ====== NEW: Receipt Item Rows ====== */
+function renderReceiptItems(){
+  const c=el('receiptItemsList');
+  c.innerHTML=receiptItems.map((it,i)=>`
+    <div class="item-row">
+      <input type="text" placeholder="Description" data-ridx="${i}" data-rfield="desc" value="${escapeHtml(it.desc)}">
+      <input type="number" step="0.1" placeholder="Amount" data-ridx="${i}" data-rfield="amount" value="${escapeHtml(it.amount)}">
+      <button type="button" class="item-row-remove" data-ridx="${i}" title="Remove">&times;</button>
+    </div>`).join('');
+  c.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      receiptItems[+inp.dataset.ridx][inp.dataset.rfield]=inp.value;
+      updatePreview();autoSaveDebounced();
+    });
+  });
+  c.querySelectorAll('.item-row-remove').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      receiptItems.splice(+btn.dataset.ridx,1);
+      if(!receiptItems.length)receiptItems.push({desc:'',amount:''});
+      renderReceiptItems();updatePreview();autoSaveDebounced();
+    });
+  });
+}
+function addReceiptItem(){receiptItems.push({desc:'',amount:''});renderReceiptItems();autoSaveDebounced()}
+function computeReceiptTotal(){return receiptItems.reduce((s,it)=>s+(parseFloat(it.amount)||0),0)}
+
+/* ====== NEW: Prescription Drug Rows ====== */
+function renderRxItems(){
+  const c=el('rxItemsList');
+  c.innerHTML=rxItems.map((it,i)=>`
+    <div class="rx-item-card">
+      <div class="rx-item-card-header"><span>Drug ${i+1}</span>
+        <button type="button" class="item-row-remove" data-ridx="${i}" title="Remove">&times;</button></div>
+      <input type="text" list="commonDrugsList" placeholder="Drug name & strength" data-ridx="${i}" data-rfield="name" value="${escapeHtml(it.name)}">
+      <div class="row-3">
+        <input type="text" placeholder="Dosage e.g. 1 tab" data-ridx="${i}" data-rfield="dosage" value="${escapeHtml(it.dosage)}">
+        <input type="text" placeholder="Freq e.g. TDS" data-ridx="${i}" data-rfield="freq" value="${escapeHtml(it.freq)}">
+        <input type="text" placeholder="Duration/Qty" data-ridx="${i}" data-rfield="duration" value="${escapeHtml(it.duration)}">
+      </div>
+    </div>`).join('');
+  c.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      rxItems[+inp.dataset.ridx][inp.dataset.rfield]=inp.value;
+      updatePreview();autoSaveDebounced();
+    });
+  });
+  c.querySelectorAll('.item-row-remove').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      rxItems.splice(+btn.dataset.ridx,1);
+      if(!rxItems.length)rxItems.push({name:'',dosage:'',freq:'',duration:''});
+      renderRxItems();updatePreview();autoSaveDebounced();
+    });
+  });
+  el('addRxItemBtn').disabled=rxItems.length>=RX_MAX;
+}
+function addRxItem(){
+  if(rxItems.length>=RX_MAX){showStatus('已達 10 隻藥物上限');return}
+  rxItems.push({name:'',dosage:'',freq:'',duration:''});
+  renderRxItems();autoSaveDebounced();
+}
+
+/* ====== NEW: Receipt No. Auto-increment ====== */
+function nextReceiptNo(){
+  let n=0;try{n=parseInt(localStorage.getItem(RECEIPT_COUNTER_KEY)||'0')}catch(e){}
+  n+=1;try{localStorage.setItem(RECEIPT_COUNTER_KEY,String(n))}catch(e){}
+  const d=new Date();
+  return 'CUHKMC-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'-'+String(n).padStart(4,'0');
+}
+function regenerateReceiptNo(){
+  el('receiptNo').value=nextReceiptNo();
+  updatePreview();autoSaveDebounced();showStatus('已生成新收據編號');
 }
 
 function updatePreview(){
@@ -884,6 +1167,8 @@ function updatePreview(){
   el('headerRightRef').textContent=ht;
   el('headerRightSick').textContent=ht;
   el('headerRightAttend').textContent=ht;
+  el('headerRightReceipt').textContent=ht;
+  el('headerRightRx').textContent=ht;
 
   /* Referral */
   el('pvRefDate').textContent=formatDDMMMYYYY(dd);
@@ -914,7 +1199,7 @@ function updatePreview(){
   el('pvDoctorNameCnSick').textContent=el('doctorNameCn').value;
   el('pvDoctorTitleSick').textContent=el('doctorTitle').value;
 
-  /* NEW: Attendance Certificate */
+  /* Attendance Certificate */
   el('pvAttendDate').textContent=formatDDMMYYYY(dd);
   el('pvAttendRecipientCn').textContent=el('attendRecipientCn').value;
   el('pvAttendRecipientEn').textContent=el('attendRecipientEn').value;
@@ -929,6 +1214,36 @@ function updatePreview(){
   el('pvDoctorNameCnAttend').textContent=el('doctorNameCn').value;
   el('pvDoctorTitleAttend').textContent=el('doctorTitle').value;
 
+  /* NEW: Receipt */
+  el('pvReceiptDate').textContent=formatDDMMYYYY(dd);
+  el('pvReceiptNo').textContent=el('receiptNo').value;
+  el('pvReceiptPatientName').innerHTML=sickPatientNameHtml();
+  el('pvReceiptPatientId').textContent=maskHkid(el('patientId').value);
+  el('pvReceiptItemsBody').innerHTML=receiptItems.filter(it=>it.desc||it.amount).map(it=>
+    `<tr><td>${escapeHtml(it.desc)}</td><td class="num">${it.amount?('$'+parseFloat(it.amount).toFixed(2)):''}</td></tr>`).join('');
+  el('pvReceiptTotal').textContent='$'+computeReceiptTotal().toFixed(2);
+  el('pvReceiptPayment').textContent=el('paymentMethod').value;
+  el('pvReceiptRemarks').textContent=el('receiptRemarks').value;
+  el('pvTimestampReceipt').textContent=st;
+  el('pvDoctorNameEnReceipt').textContent=el('doctorNameEn').value;
+  el('pvDoctorNameCnReceipt').textContent=el('doctorNameCn').value;
+  el('pvDoctorTitleReceipt').textContent=el('doctorTitle').value;
+
+  /* NEW: Prescription */
+  el('pvRxDate').textContent=formatDDMMYYYY(dd);
+  el('pvRxPatientName').innerHTML=sickPatientNameHtml();
+  el('pvRxPatientAge').textContent=el('rxPatientAge').value;
+  el('pvRxPatientId').textContent=maskHkid(el('patientId').value);
+  el('pvRxDiagnosis').textContent=el('diagnosis').value;
+  el('pvRxItemsBody').innerHTML=rxItems.filter(it=>it.name).map((it,i)=>
+    `<tr><td>${i+1}. ${escapeHtml(it.name)}</td><td>${escapeHtml(it.dosage)}</td><td>${escapeHtml(it.freq)}</td><td>${escapeHtml(it.duration)}</td></tr>`).join('');
+  el('pvRxRemarks').textContent=el('rxRemarks').value;
+  el('pvDoctorRegNoRx').textContent=el('doctorRegNo').value;
+  el('pvTimestampRx').textContent=st;
+  el('pvDoctorNameEnRx').textContent=el('doctorNameEn').value;
+  el('pvDoctorNameCnRx').textContent=el('doctorNameCn').value;
+  el('pvDoctorTitleRx').textContent=el('doctorTitle').value;
+
   /* Fit underlines */
   fitUnderline(el('pvSickPatientName'),24,4);
   fitUnderline(el('pvSickDiagnosis'),24,4);
@@ -937,12 +1252,19 @@ function updatePreview(){
   fitUnderline(el('pvSickTo'),84,4);
   fitUnderline(el('pvAttendPatientName'),24,4);
   fitUnderline(el('pvAttendDiagnosis'),24,4);
+  fitUnderline(el('pvReceiptPatientName'),24,4);
+  fitUnderline(el('pvRxPatientName'),24,4);
 
   checkOverflow();
 }
 
 /* ====== Auto-save / Draft ====== */
-function getDraftData(){const d={};fields.forEach(id=>{if(el(id))d[id]=el(id).value});d.activeTab=activeTab;d.lastDiagAutoPrefix=lastDiagAutoPrefix;return d}
+function getDraftData(){
+  const d={};fields.forEach(id=>{if(el(id))d[id]=el(id).value});
+  d.activeTab=activeTab;d.lastDiagAutoPrefix=lastDiagAutoPrefix;
+  d.receiptItems=receiptItems;d.rxItems=rxItems;
+  return d;
+}
 
 function autoSave(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(getDraftData()));saveCurrentPatientToRecent();showStatus('Auto-saved')}catch(e){}
@@ -956,6 +1278,8 @@ function autoLoad(){
     fields.forEach(id=>{if(d[id]!==undefined&&el(id))el(id).value=d[id]});
     if(d.activeTab)activeTab=d.activeTab;
     if(d.lastDiagAutoPrefix!==undefined)lastDiagAutoPrefix=d.lastDiagAutoPrefix;
+    if(d.receiptItems&&d.receiptItems.length)receiptItems=d.receiptItems;
+    if(d.rxItems&&d.rxItems.length)rxItems=d.rxItems;
     return true;
   }catch(e){return false}
 }
@@ -1056,23 +1380,19 @@ function clearPatientFields(){
   updatePreview();autoSaveDebounced();showStatus('Patient fields cleared');
 }
 
-/* ====== CHANGED: Tab Switch (3 tabs + sidebar section show/hide) ====== */
+/* ====== CHANGED: Tab Switch (5 tabs + sidebar section show/hide) ====== */
 function switchTab(tab){
   activeTab=tab;
-  el('referralPage').classList.toggle('hidden',tab!=='referral');
-  el('sickPage').classList.toggle('hidden',tab!=='sick');
-  el('attendPage').classList.toggle('hidden',tab!=='attend');
-  el('tabReferral').classList.toggle('active',tab==='referral');
-  el('tabSick').classList.toggle('active',tab==='sick');
-  el('tabAttend').classList.toggle('active',tab==='attend');
-  /* Show/hide sidebar doc-specific sections */
-  el('sectionReferral').classList.toggle('hidden',tab!=='referral');
-  el('sectionSick').classList.toggle('hidden',tab!=='sick');
-  el('sectionAttend').classList.toggle('hidden',tab!=='attend');
+  const pages={referral:'referralPage',sick:'sickPage',attend:'attendPage',receipt:'receiptPage',prescription:'prescriptionPage'};
+  const tabs={referral:'tabReferral',sick:'tabSick',attend:'tabAttend',receipt:'tabReceipt',prescription:'tabPrescription'};
+  const sections={referral:'sectionReferral',sick:'sectionSick',attend:'sectionAttend',receipt:'sectionReceipt',prescription:'sectionPrescription'};
+  Object.keys(pages).forEach(t=>el(pages[t]).classList.toggle('hidden',t!==tab));
+  Object.keys(tabs).forEach(t=>el(tabs[t]).classList.toggle('active',t===tab));
+  Object.keys(sections).forEach(t=>el(sections[t]).classList.toggle('hidden',t!==tab));
   checkOverflow();
 }
 
-/* ====== CHANGED: Refresh Timestamp + auto attend period ====== */
+/* ====== Refresh Timestamp + auto attend period ====== */
 function refreshTimestamp(){
   el('printTimestamp').value=timestampNow();
   autoAttendPeriod();
@@ -1086,23 +1406,27 @@ function setToday(){
 
 function resetHeader(){el('headerText').value=DEFAULT_HEADER_TEXT;updatePreview();autoSaveDebounced();showStatus('Header reset to default')}
 
-/* ====== CHANGED: Clear Form — also reset attendance fields ====== */
+/* ====== CHANGED: Clear Form — also reset receipt/rx items ====== */
 function clearFormKeepDoctor(){
   showConfirm('Clear current form but keep doctor & header settings?').then(ok=>{
     if(!ok)return;
-    const de=el('doctorNameEn').value,dc=el('doctorNameCn').value,dt=el('doctorTitle').value,ht=el('headerText').value;
-    fields.forEach(id=>{if(['doctorNameEn','doctorNameCn','doctorTitle','headerText'].includes(id))return;if(el(id))el(id).value=''});
-    el('doctorNameEn').value=de;el('doctorNameCn').value=dc;el('doctorTitle').value=dt;el('headerText').value=ht;
+    const de=el('doctorNameEn').value,dc=el('doctorNameCn').value,dt=el('doctorTitle').value,dr=el('doctorRegNo').value,ht=el('headerText').value;
+    fields.forEach(id=>{if(['doctorNameEn','doctorNameCn','doctorTitle','doctorRegNo','headerText'].includes(id))return;if(el(id))el(id).value=''});
+    el('doctorNameEn').value=de;el('doctorNameCn').value=dc;el('doctorTitle').value=dt;el('doctorRegNo').value=dr;el('headerText').value=ht;
     el('refRecipientEn').value='To Whom It May Concern,';
     el('sickRecipientCn').value='致有關人士:';el('sickRecipientEn').value='To Whom It May Concern,';
     el('sickDays').value='1';el('sickFromPeriod').value='';el('sickToPeriod').value='';
     el('attendRecipientCn').value='致有關人士:';el('attendRecipientEn').value='To Whom It May Concern,';
+    el('paymentMethod').value='Cash';
+    receiptItems=[{desc:'',amount:''}];rxItems=[{name:'',dosage:'',freq:'',duration:''}];
+    renderReceiptItems();renderRxItems();
+    el('receiptNo').value=nextReceiptNo();
     lastDiagAutoPrefix='';
     setToday();updatePreview();autoSaveDebounced();showStatus('Form cleared');
   });
 }
 
-/* ====== CHANGED: Print Validation — handle attend tab ====== */
+/* ====== CHANGED: Print Validation — handle receipt/prescription tabs ====== */
 function validateAndPrint(){
   const warns=[];const warnFields=[];clearFieldWarnings();
   if(!el('docDate').value){warns.push('Document Date is empty');warnFields.push('fieldDocDate')}
@@ -1117,6 +1441,12 @@ function validateAndPrint(){
     if(!el('sickTo').value){warns.push('Leave To date is empty');warnFields.push('fieldTo')}
   }else if(activeTab==='attend'){
     if(!el('diagnosis').value.trim()){warns.push('Diagnosis is empty');warnFields.push('fieldDiagnosis')}
+  }else if(activeTab==='receipt'){
+    if(!el('receiptNo').value.trim()){warns.push('Receipt No. is empty');warnFields.push('fieldReceiptNo')}
+    if(!receiptItems.some(it=>it.desc&&it.amount))warns.push('No receipt items added');
+  }else if(activeTab==='prescription'){
+    if(!rxItems.some(it=>it.name))warns.push('No drug items added');
+    if(!el('doctorRegNo').value.trim()){warns.push('Doctor Registration No. is empty');warnFields.push('fieldDoctorRegNo')}
   }
 
   if(!warns.length){
@@ -1213,6 +1543,7 @@ function initDefaults(){
   computeToFromDays();
   if(!el('printTimestamp').value)refreshTimestamp();
   autoAttendPeriod();
+  if(!el('receiptNo').value)el('receiptNo').value=nextReceiptNo();
 }
 
 /* ====== Event Binding ====== */
@@ -1231,6 +1562,8 @@ fields.forEach(id=>{
 el('tabReferral').addEventListener('click',()=>{switchTab('referral');autoSaveDebounced()});
 el('tabSick').addEventListener('click',()=>{switchTab('sick');autoSaveDebounced()});
 el('tabAttend').addEventListener('click',()=>{switchTab('attend');autoSaveDebounced()});
+el('tabReceipt').addEventListener('click',()=>{switchTab('receipt');autoSaveDebounced()});
+el('tabPrescription').addEventListener('click',()=>{switchTab('prescription');autoSaveDebounced()});
 
 el('toolbarTodayBtn').addEventListener('click',setToday);
 el('toolbarRefreshBtn').addEventListener('click',()=>{refreshTimestamp();updatePreview();autoSaveDebounced();showStatus('Timestamp refreshed')});
@@ -1246,6 +1579,10 @@ el('clearImagesBtn').addEventListener('click',clearAllImages);
 el('resetHeaderBtn').addEventListener('click',resetHeader);
 el('darkToggle').addEventListener('click',toggleDarkMode);
 
+el('addReceiptItemBtn').addEventListener('click',addReceiptItem);
+el('regenReceiptNoBtn').addEventListener('click',regenerateReceiptNo);
+el('addRxItemBtn').addEventListener('click',addRxItem);
+
 el('zoomInBtn').addEventListener('click',()=>setZoom(zoomLevel+.1));
 el('zoomOutBtn').addEventListener('click',()=>setZoom(zoomLevel-.1));
 el('zoomFitBtn').addEventListener('click',zoomFit);
@@ -1255,7 +1592,9 @@ window.addEventListener('resize',debounce(zoomFit,250));
 loadDarkMode();
 const didLoad=autoLoad();
 if(!didLoad)initDefaults();
-else{computeToFromDays()}
+else{computeToFromDays();if(!el('receiptNo').value)el('receiptNo').value=nextReceiptNo()}
+renderReceiptItems();
+renderRxItems();
 switchTab(activeTab);
 renderRecentPatients();
 initImageUploadZones();
