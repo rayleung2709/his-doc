@@ -520,7 +520,7 @@ const PCM_FORMS=[
 function calcPCM(wt){
     if(!wt)return null;
     const form=PCM_FORMS[pcmFormIdx]||PCM_FORMS[0];
-    const minPer=10*wt,targetPer=15*wt,maxPer=15*wt,dailyMax=Math.min(75*wt,4000),adultSingleMax=1000;
+    const minPer=10*wt,targetPer=12.5*wt,maxPer=15*wt,dailyMax=Math.min(75*wt,4000),adultSingleMax=1000;
     const finalMaxPer=Math.min(maxPer,adultSingleMax,dailyMax/4);
     const finalTarget=Math.min(targetPer,finalMaxPer);
     function dispensePCM(f){
@@ -884,7 +884,6 @@ function renderPCM(wt){
         <div class="pcm-title">Paracetamol (Panadol)</div>
         <div class="pcm-grid">
             <div class="pcm-option winner">
-                <div class="badge">SUGGESTED</div>
                 <h4>Per dose</h4>
                 <div class="big">${fmtNum(pcm.dose)} mg (${fmtNum(doseKg)} mg/kg)</div>
                 <div class="sub">${pcm.vol} per dose · Q4H PRN</div>
