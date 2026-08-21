@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Ray Leung | 拜拜 CUMC 倒數</title>
     <style>
         :root {
             --bg-primary: #090d16;
             --bg-card: rgba(20, 29, 48, 0.85);
-            --border-color: rgba(212, 175, 55, 0.25);
+            --bg-card-deep: rgba(9, 13, 22, 0.85);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(212, 175, 55, 0.25);
             --gold-accent: #d4af37;
             --gold-light: #fef08a;
             --cyan-accent: #38bdf8;
@@ -16,101 +18,129 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --off-color: #64748b;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+            --radius-xl: 20px;
+            --radius-lg: 14px;
+            --radius-md: 12px;
+            --radius-sm: 10px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang HK", "Microsoft JhengHei", sans-serif;
+        }
+
+        html {
+            color-scheme: dark;
         }
 
         body {
+            min-height: 100vh;
+            padding: 24px 16px 40px;
             background-color: var(--bg-primary);
             background-image:
                 radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.12) 0px, transparent 50%);
             color: var(--text-main);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang HK", "Microsoft JhengHei", sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 16px;
+            justify-content: center;
         }
 
-        .container {
-            max-width: 880px;
+        .app {
             width: 100%;
+            max-width: 880px;
+        }
+
+        .stack {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .header-card {
+        .panel {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .panel--gold {
+            border-color: var(--border-gold);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-card {
+            position: relative;
             padding: 26px 20px;
             text-align: center;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
+            overflow: hidden;
         }
 
         .header-card::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold-accent), var(--cyan-accent), transparent);
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--gold-accent),
+                var(--cyan-accent),
+                transparent
+            );
         }
 
         .badge {
             display: inline-block;
+            padding: 4px 14px;
+            margin-bottom: 10px;
+            border-radius: 999px;
+            border: 1px solid var(--gold-accent);
             background: rgba(212, 175, 55, 0.15);
             color: var(--gold-accent);
-            border: 1px solid var(--gold-accent);
             font-size: 0.8rem;
             font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 50px;
-            margin-bottom: 10px;
             letter-spacing: 1.5px;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             font-weight: 800;
-            margin-bottom: 6px;
             color: #ffffff;
+            margin-bottom: 6px;
         }
 
         .subtitle {
-            font-size: 0.9rem;
             color: var(--text-muted);
+            font-size: 0.92rem;
         }
 
         .today-banner {
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 12px;
             padding: 12px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 0.08);
         }
 
         .today-title {
-            font-size: 0.9rem;
-            font-weight: 600;
             color: var(--cyan-accent);
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
         .today-val {
+            color: #ffffff;
             font-size: 1rem;
             font-weight: 700;
-            color: #ffffff;
         }
 
         .grid-countdown {
@@ -119,17 +149,8 @@
             gap: 18px;
         }
 
-        @media (max-width: 720px) {
-            .grid-countdown { grid-template-columns: 1fr; }
-        }
-
         .card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
             padding: 22px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -139,65 +160,83 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             margin-bottom: 14px;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            gap: 8px;
         }
 
         .card-title {
-            font-size: 1.05rem;
-            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
         }
 
-        .card-title.gold { color: var(--gold-accent); }
-        .card-title.cyan { color: var(--cyan-accent); }
+        .card-title.gold {
+            color: var(--gold-accent);
+        }
 
-        .calendar-display {
+        .card-title.cyan {
+            color: var(--cyan-accent);
+        }
+
+        .card-note {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+
+        .card-micro {
+            font-size: 0.75rem;
+        }
+
+        .calendar-display,
+        .work-display {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             margin: 10px 0;
+        }
+
+        .calendar-display {
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
         }
 
         .work-display {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 10px 0;
+            grid-template-columns: repeat(3, minmax(90px, 1fr));
         }
 
         .time-block {
-            background: rgba(9, 13, 22, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
             padding: 10px 4px;
             text-align: center;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--bg-card-deep);
         }
 
         .time-val {
+            color: #ffffff;
             font-size: 1.6rem;
             font-weight: 800;
-            color: #ffffff;
             font-variant-numeric: tabular-nums;
         }
 
         .time-label {
-            font-size: 0.72rem;
-            color: var(--text-muted);
             margin-top: 4px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+        }
+
+        .workhours-summary {
+            text-align: center;
+            color: var(--cyan-accent);
+            font-size: 0.78rem;
+            min-height: 1.2em;
         }
 
         .tenure-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 20px;
             padding: 24px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .tenure-content {
@@ -216,12 +255,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .pie-svg {
-            transform: rotate(-90deg);
             width: 100%;
             height: 100%;
+            transform: rotate(-90deg);
         }
 
         .pie-bg {
@@ -246,16 +286,16 @@
         }
 
         .pie-percentage {
+            color: #ffffff;
             font-size: 1.7rem;
             font-weight: 900;
-            color: #ffffff;
             font-variant-numeric: tabular-nums;
             line-height: 1.1;
         }
 
         .pie-subtext {
-            font-size: 0.72rem;
             color: var(--gold-accent);
+            font-size: 0.72rem;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -272,37 +312,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 14px;
-            background: rgba(9, 13, 22, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            font-size: 0.88rem;
             gap: 12px;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(9, 13, 22, 0.6);
+            font-size: 0.88rem;
         }
 
         .stat-label {
-            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 6px;
+            color: var(--text-muted);
         }
 
         .stat-value {
-            font-weight: 700;
             color: #ffffff;
+            font-weight: 700;
             font-variant-numeric: tabular-nums;
             text-align: right;
         }
 
+        .stat-value.accent {
+            color: var(--gold-accent);
+        }
+
         .roster-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
             padding: 22px;
-            backdrop-filter: blur(12px);
         }
 
         .roster-list {
+            list-style: none;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -312,25 +353,35 @@
             margin-top: 14px;
         }
 
-        .roster-list::-webkit-scrollbar { width: 6px; }
-        .roster-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 8px; }
-        .roster-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 8px; }
+        .roster-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .roster-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .roster-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
 
         .roster-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
             padding: 10px 14px;
-            background: rgba(10, 15, 26, 0.6);
+            border-radius: var(--radius-sm);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 10px;
+            background: rgba(10, 15, 26, 0.6);
             font-size: 0.88rem;
             transition: all 0.2s ease;
-            gap: 10px;
         }
 
         .roster-item.today {
-            border: 1px solid var(--cyan-accent);
+            border-color: var(--cyan-accent);
             background: rgba(56, 189, 248, 0.12);
         }
 
@@ -341,49 +392,85 @@
         }
 
         .roster-date {
-            font-weight: 600;
+            min-width: 120px;
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 110px;
+            font-weight: 600;
         }
 
         .roster-shift {
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: #ffffff;
             flex: 1;
             text-align: center;
+            color: #ffffff;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 0.9rem;
+        }
+
+        .roster-tag-today {
+            color: var(--cyan-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
         }
 
         .roster-badge {
-            font-size: 0.75rem;
+            white-space: nowrap;
             padding: 2px 8px;
             border-radius: 6px;
+            font-size: 0.75rem;
             font-weight: 600;
-            white-space: nowrap;
         }
 
-        .badge-duty { background: rgba(56, 189, 248, 0.2); color: var(--cyan-accent); }
-        .badge-off { background: rgba(100, 116, 139, 0.2); color: var(--off-color); text-decoration: none !important; }
-        .badge-last { background: rgba(212, 175, 55, 0.3); color: var(--gold-light); font-weight: bold; }
-        .badge-done { background: rgba(16, 185, 129, 0.2); color: var(--green-accent); text-decoration: none !important; }
+        .badge-duty {
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--cyan-accent);
+        }
+
+        .badge-off {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--off-color);
+        }
+
+        .badge-last {
+            background: rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .badge-done {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--green-accent);
+        }
 
         .footer-quote {
             text-align: center;
-            font-size: 0.85rem;
             color: var(--gold-accent);
-            padding: 10px 0;
+            font-size: 0.85rem;
             letter-spacing: 0.5px;
+            padding: 6px 0 0;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 720px) {
+            .grid-countdown {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 560px) {
-            .calendar-display {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .work-display {
-                grid-template-columns: repeat(3, 1fr);
+            h1 {
+                font-size: 1.6rem;
             }
 
             .roster-item {
@@ -391,361 +478,445 @@
             }
 
             .roster-shift {
-                text-align: left;
                 width: 100%;
+                text-align: left;
+            }
+
+            .today-banner {
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 <body>
+    <div class="app">
+        <header class="panel header-card">
+            <div class="badge">MISSION FREEDOM 2026</div>
+            <h1>拜拜 CUMC 倒數</h1>
+            <p class="subtitle">Dr. Ray Leung ・ 最後服役階段倒數中</p>
+        </header>
 
-<div class="container">
+        <main class="stack">
+            <section class="today-banner" aria-labelledby="today-overview-title">
+                <div class="today-title" id="today-overview-title">
+                    📅 今日狀態概覽 (<span id="cur-date-display">--</span>)
+                </div>
+                <div class="today-val" id="today-duty-desc" aria-live="polite">
+                    正在加載班表數據...
+                </div>
+            </section>
 
-    <div class="header-card">
-        <div class="badge">MISSION FREEDOM 2026</div>
-        <h1>拜拜 CUMC 倒數</h1>
-        <p class="subtitle"></p>
-    </div>
+            <section class="grid-countdown" aria-label="倒數資訊">
+                <article class="panel card">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title gold">📅 曆日精確時間 (Calendar)</span>
+                            <span class="card-micro" style="color: var(--gold-accent);">實時秒數</span>
+                        </div>
+                        <p class="card-note">距離正式卸任：</p>
 
-    <div class="today-banner">
-        <div class="today-title">📅 今日狀態概覽 (<span id="cur-date-display">--</span>)</div>
-        <div class="today-val" id="today-duty-desc">正在加載班表數據...</div>
-    </div>
+                        <div class="calendar-display" role="timer" aria-live="polite" aria-atomic="true">
+                            <div class="time-block">
+                                <div class="time-val" id="c-days">00</div>
+                                <div class="time-label">天</div>
+                            </div>
+                            <div class="time-block">
+                                <div class="time-val" id="c-hours">00</div>
+                                <div class="time-label">時</div>
+                            </div>
+                            <div class="time-block">
+                                <div class="time-val" id="c-mins">00</div>
+                                <div class="time-label">分</div>
+                            </div>
+                            <div class="time-block">
+                                <div class="time-val" id="c-secs">00</div>
+                                <div class="time-label">秒</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-    <div class="grid-countdown">
+                <article class="panel card">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title cyan">⚡ 實際剩餘工時 (Working Hours)</span>
+                            <span class="card-micro" style="color: var(--cyan-accent);">按班表實時計</span>
+                        </div>
+                        <p class="card-note">按班表累計尚餘執勤時間：</p>
 
-        <div class="card">
-            <div>
+                        <div class="work-display" role="timer" aria-live="polite" aria-atomic="true">
+                            <div class="time-block">
+                                <div class="time-val" id="w-hours">000</div>
+                                <div class="time-label">小時</div>
+                            </div>
+                            <div class="time-block">
+                                <div class="time-val" id="w-mins">00</div>
+                                <div class="time-label">分</div>
+                            </div>
+                            <div class="time-block">
+                                <div class="time-val" id="w-secs">00</div>
+                                <div class="time-label">秒</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workhours-summary" id="workhours-summary"></div>
+                </article>
+            </section>
+
+            <section class="panel panel--gold tenure-card" aria-labelledby="tenure-title">
                 <div class="card-header">
-                    <span class="card-title gold">📅 曆日精確時間 (Calendar)</span>
-                    <span style="font-size: 0.75rem; color: var(--gold-accent);">實時秒數</span>
+                    <span class="card-title gold" id="tenure-title">🏛️ CUHKMC 總服役歷程圓形圖 (Overall Tenure)</span>
+                    <span class="card-micro" style="color: var(--gold-accent);">2023 年 5 月 1 日 09:00 起計</span>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">距離正式卸任：</p>
-                <div class="calendar-display">
-                    <div class="time-block">
-                        <div class="time-val" id="c-days">00</div>
-                        <div class="time-label">天</div>
-                    </div>
-                    <div class="time-block">
-                        <div class="time-val" id="c-hours">00</div>
-                        <div class="time-label">時</div>
-                    </div>
-                    <div class="time-block">
-                        <div class="time-val" id="c-mins">00</div>
-                        <div class="time-label">分</div>
-                    </div>
-                    <div class="time-block">
-                        <div class="time-val" id="c-secs">00</div>
-                        <div class="time-label">秒</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="card">
-            <div>
+                <div class="tenure-content">
+                    <div class="pie-container" aria-hidden="true">
+                        <svg class="pie-svg" viewBox="0 0 160 160">
+                            <defs>
+                                <linearGradient id="goldCyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8"></stop>
+                                    <stop offset="100%" stop-color="#d4af37"></stop>
+                                </linearGradient>
+                            </defs>
+                            <circle class="pie-bg" cx="80" cy="80" r="70"></circle>
+                            <circle class="pie-fill" id="pie-progress" cx="80" cy="80" r="70"></circle>
+                        </svg>
+                        <div class="pie-center-info">
+                            <div class="pie-percentage" id="tenure-pct">0.00%</div>
+                            <div class="pie-subtext">完成度</div>
+                        </div>
+                    </div>
+
+                    <div class="tenure-details">
+                        <div class="stat-row">
+                            <span class="stat-label">⏳ 在職已歷時</span>
+                            <span class="stat-value" id="elapsed-time-str">計算中...</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">📅 總服務總天數</span>
+                            <span class="stat-value" id="total-service-str">計算中...</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">🏁 終點卸任時間</span>
+                            <span class="stat-value accent">2026 年 9 月 12 日 17:30</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel roster-card" aria-labelledby="roster-title">
                 <div class="card-header">
-                    <span class="card-title cyan">⚡ 實際剩餘工時 (Working Hours)</span>
-                    <span style="font-size: 0.75rem; color: var(--cyan-accent);">按班表實時計</span>
+                    <span class="card-title" id="roster-title" style="color: #ffffff;">📋 剩餘執勤清單檢核 (Roster)</span>
+                    <span class="card-micro" style="color: var(--text-muted);">按香港時間判定</span>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">按班表累計尚餘執勤時間：</p>
-                <div class="work-display">
-                    <div class="time-block">
-                        <div class="time-val" id="w-hours">000</div>
-                        <div class="time-label">小時</div>
-                    </div>
-                    <div class="time-block">
-                        <div class="time-val" id="w-mins">00</div>
-                        <div class="time-label">分</div>
-                    </div>
-                    <div class="time-block">
-                        <div class="time-val" id="w-secs">00</div>
-                        <div class="time-label">秒</div>
-                    </div>
-                </div>
-            </div>
-            <div style="font-size: 0.78rem; color: var(--cyan-accent); text-align: center;" id="workhours-summary">
-            </div>
-        </div>
 
+                <ul class="roster-list" id="roster-list-container" aria-live="polite"></ul>
+            </section>
+        </main>
+
+        <footer class="footer-quote">
+            Bye Bye Your Tail ~
+        </footer>
     </div>
 
-    <div class="tenure-card">
-        <div class="card-header">
-            <span class="card-title gold">🏛️ CUHKMC 總服役歷程圓形圖 (Overall Tenure)</span>
-            <span style="font-size: 0.8rem; color: var(--gold-accent);">2023 年 5 月 1 日 09 時 00 分起計</span>
-        </div>
+    <script>
+        const rosterData = [
+            { date: '2026-08-17', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-08-18', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
+            { date: '2026-08-19', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-08-20', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
+            { date: '2026-08-21', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
+            { date: '2026-08-22', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
+            { date: '2026-08-23', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-08-24', start: '08:00', end: '16:30', raw: '0800-1630', isWork: true },
+            { date: '2026-08-25', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
+            { date: '2026-08-26', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
+            { date: '2026-08-27', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
+            { date: '2026-08-28', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-08-29', start: '08:00', end: '16:30', raw: '0800-1630', isWork: true },
+            { date: '2026-08-30', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
+            { date: '2026-08-31', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-01', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
+            { date: '2026-09-02', start: '08:30', end: '16:30', raw: '0830-1630', isWork: true },
+            { date: '2026-09-03', start: '15:00', end: '23:00', raw: '1500-2300', isWork: true },
+            { date: '2026-09-04', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-05', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-06', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-07', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
+            { date: '2026-09-08', start: '11:30', end: '20:00', raw: '1130-2000', isWork: true },
+            { date: '2026-09-09', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-10', start: null, end: null, raw: 'OFF', isWork: false },
+            { date: '2026-09-11', start: '11:30', end: '20:00', raw: '1130-2000', isWork: true },
+            { date: '2026-09-12', start: '09:00', end: '17:30', raw: '0900-1730', isWork: true, isLast: true }
+        ].map(item => ({
+            ...item,
+            shiftStart: item.isWork ? new Date(`${item.date}T${item.start}:00+08:00`) : null,
+            shiftEnd: item.isWork ? new Date(`${item.date}T${item.end}:00+08:00`) : null
+        }));
 
-        <div class="tenure-content">
-            <div class="pie-container">
-                <svg class="pie-svg" viewBox="0 0 160 160">
-                    <defs>
-                        <linearGradient id="goldCyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#38bdf8" />
-                            <stop offset="100%" stop-color="#d4af37" />
-                        </linearGradient>
-                    </defs>
-                    <circle class="pie-bg" cx="80" cy="80" r="70"></circle>
-                    <circle class="pie-fill" id="pie-progress" cx="80" cy="80" r="70"></circle>
-                </svg>
-                <div class="pie-center-info">
-                    <div class="pie-percentage" id="tenure-pct">0.00%</div>
-                    <div class="pie-subtext">完成度</div>
-                </div>
-            </div>
+        const careerStart = new Date('2023-05-01T09:00:00+08:00');
+        const finalDutyEnd = new Date('2026-09-12T17:30:00+08:00');
+        const totalTenureMs = finalDutyEnd - careerStart;
+        const totalWorkShifts = rosterData.filter(item => item.isWork).length;
+        const CIRCUMFERENCE = 2 * Math.PI * 70;
 
-            <div class="tenure-details">
-                <div class="stat-row">
-                    <span class="stat-label">⏳ 在職已歷時 </span>
-                    <span class="stat-value" id="elapsed-time-str">計算中...</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">📅 總服務總天數 </span>
-                    <span class="stat-value">1230 日 8 時 30 分</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">🏁 終點卸任時間 </span>
-                    <span class="stat-value" style="color: var(--gold-accent);">2026 年 9 月 12 日 17 時 30 分</span>
-                </div>
-            </div>
-        </div>
-    </div>
+        const els = {
+            curDateDisplay: document.getElementById('cur-date-display'),
+            todayDutyDesc: document.getElementById('today-duty-desc'),
+            cDays: document.getElementById('c-days'),
+            cHours: document.getElementById('c-hours'),
+            cMins: document.getElementById('c-mins'),
+            cSecs: document.getElementById('c-secs'),
+            wHours: document.getElementById('w-hours'),
+            wMins: document.getElementById('w-mins'),
+            wSecs: document.getElementById('w-secs'),
+            workhoursSummary: document.getElementById('workhours-summary'),
+            elapsedTimeStr: document.getElementById('elapsed-time-str'),
+            totalServiceStr: document.getElementById('total-service-str'),
+            tenurePct: document.getElementById('tenure-pct'),
+            pieProgress: document.getElementById('pie-progress'),
+            rosterList: document.getElementById('roster-list-container')
+        };
 
-    <div class="roster-card">
-        <div class="card-header">
-            <span class="card-title" style="color: #ffffff;">📋 剩餘執勤清單檢核 (Roster)</span>
-            <span style="font-size: 0.8rem; color: var(--text-muted);"></span>
-        </div>
-        <div class="roster-list" id="roster-list-container">
-        </div>
-    </div>
+        const rosterRowRefs = [];
 
-    <div class="footer-quote"></div>
+        function getHongKongISODate(date = new Date()) {
+            return new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Hong_Kong',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).format(date);
+        }
 
-</div>
+        function formatHongKongDisplayDate(date = new Date()) {
+            return new Intl.DateTimeFormat('zh-HK', {
+                timeZone: 'Asia/Hong_Kong',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            }).format(date);
+        }
 
-<script>
-    const rosterData = [
-        { date: '2026-08-17', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-08-18', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
-        { date: '2026-08-19', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-08-20', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
-        { date: '2026-08-21', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
-        { date: '2026-08-22', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
-        { date: '2026-08-23', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-08-24', start: '08:00', end: '16:30', raw: '0800-1630', isWork: true },
-        { date: '2026-08-25', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
-        { date: '2026-08-26', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
-        { date: '2026-08-27', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
-        { date: '2026-08-28', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-08-29', start: '08:00', end: '16:30', raw: '0800-1630', isWork: true },
-        { date: '2026-08-30', start: '14:30', end: '23:00', raw: '1430-2300', isWork: true },
-        { date: '2026-08-31', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-01', start: '13:30', end: '22:00', raw: '1330-2200', isWork: true },
-        { date: '2026-09-02', start: '08:30', end: '16:30', raw: '0830-1630', isWork: true },
-        { date: '2026-09-03', start: '15:00', end: '23:00', raw: '1500-2300', isWork: true },
-        { date: '2026-09-04', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-05', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-06', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-07', start: '08:30', end: '17:00', raw: '0830-1700', isWork: true },
-        { date: '2026-09-08', start: '11:30', end: '20:00', raw: '1130-2000', isWork: true },
-        { date: '2026-09-09', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-10', start: null, end: null, raw: 'OFF', isWork: false },
-        { date: '2026-09-11', start: '11:30', end: '20:00', raw: '1130-2000', isWork: true },
-        { date: '2026-09-12', start: '09:00', end: '17:30', raw: '0900-1730', isWork: true, isLast: true }
-    ];
+        function formatDateLabel(isoDate) {
+            const [, month, day] = isoDate.split('-');
+            return `${parseInt(month, 10)}月${parseInt(day, 10)}日`;
+        }
 
-    const careerStart = new Date('2023-05-01T09:00:00+08:00');
-    const finalDutyEnd = new Date('2026-09-12T17:30:00+08:00');
-    const totalTenureMs = finalDutyEnd - careerStart;
-    const totalWorkShifts = rosterData.filter(d => d.isWork).length;
-    const CIRCUMFERENCE = 2 * Math.PI * 70;
+        function pad(value, length = 2) {
+            return String(value).padStart(length, '0');
+        }
 
-    function getHongKongDateStr(date = new Date()) {
-        return new Intl.DateTimeFormat('en-CA', {
-            timeZone: 'Asia/Hong_Kong',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }).format(date);
-    }
+        function formatHMS(ms) {
+            const safeMs = Math.max(0, ms);
+            const totalSeconds = Math.floor(safeMs / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+            return `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+        }
 
-    function getShiftStart(item) {
-        return new Date(`${item.date}T${item.start}:00+08:00`);
-    }
+        function formatDaysHoursMinutes(ms) {
+            const safeMs = Math.max(0, ms);
+            const totalMinutes = Math.floor(safeMs / 1000 / 60);
+            const days = Math.floor(totalMinutes / (60 * 24));
+            const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+            const mins = totalMinutes % 60;
+            return `${days} 日 ${hours} 時 ${mins} 分`;
+        }
 
-    function getShiftEnd(item) {
-        return new Date(`${item.date}T${item.end}:00+08:00`);
-    }
+        function formatHoursMinutes(ms) {
+            const safeMs = Math.max(0, ms);
+            const totalMinutes = Math.floor(safeMs / 1000 / 60);
+            const hours = Math.floor(totalMinutes / 60);
+            const mins = totalMinutes % 60;
+            return `尚餘 ${hours} 小時 ${mins} 分`;
+        }
 
-    function formatHMS(ms) {
-        const safeMs = Math.max(0, ms);
-        const totalSeconds = Math.floor(safeMs / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const mins = Math.floor((totalSeconds % 3600) / 60);
-        const secs = totalSeconds % 60;
-        return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
+        function renderRosterList() {
+            const fragment = document.createDocumentFragment();
 
-    function formatHoursMinutes(ms) {
-        const safeMs = Math.max(0, ms);
-        const totalMinutes = Math.floor(safeMs / 1000 / 60);
-        const hours = Math.floor(totalMinutes / 60);
-        const mins = totalMinutes % 60;
-        return `尚餘 ${hours} 小時 ${mins} 分`;
-    }
+            rosterData.forEach((item, index) => {
+                const row = document.createElement('li');
+                row.className = 'roster-item';
 
-    function getRemainingWorkMs(now) {
-        let remainingMs = 0;
+                const dateWrap = document.createElement('div');
+                dateWrap.className = 'roster-date';
 
-        rosterData.forEach(item => {
-            if (!item.isWork) return;
+                const dateText = document.createElement('span');
+                dateText.textContent = formatDateLabel(item.date);
 
-            const shiftStart = getShiftStart(item);
-            const shiftEnd = getShiftEnd(item);
+                const todayTag = document.createElement('span');
+                todayTag.className = 'roster-tag-today';
+                todayTag.textContent = '[今日]';
+                todayTag.hidden = true;
 
-            if (now < shiftStart) {
-                remainingMs += (shiftEnd - shiftStart);
-            } else if (now >= shiftStart && now < shiftEnd) {
-                remainingMs += (shiftEnd - now);
-            }
-        });
+                dateWrap.appendChild(dateText);
+                dateWrap.appendChild(todayTag);
 
-        return Math.max(0, remainingMs);
-    }
+                const shiftText = document.createElement('div');
+                shiftText.className = 'roster-shift';
+                shiftText.textContent = item.raw;
 
-    function renderRosterAndCount() {
-        const now = new Date();
-        const todayStr = getHongKongDateStr(now);
+                const badgeWrap = document.createElement('div');
+                const badge = document.createElement('span');
+                badge.className = 'roster-badge';
+                badgeWrap.appendChild(badge);
 
-        document.getElementById('cur-date-display').innerText = todayStr;
+                row.appendChild(dateWrap);
+                row.appendChild(shiftText);
+                row.appendChild(badgeWrap);
 
-        let completedShifts = 0;
-        let todayStatusText = "今日無排班 (非執勤期 / 休息)";
-        const container = document.getElementById('roster-list-container');
-        container.innerHTML = '';
+                fragment.appendChild(row);
 
-        rosterData.forEach(item => {
-            const row = document.createElement('div');
-            row.className = 'roster-item';
+                rosterRowRefs[index] = {
+                    row,
+                    todayTag,
+                    badge
+                };
+            });
 
-            const [year, month, day] = item.date.split('-');
-            const dateLabel = `${parseInt(month)}月${parseInt(day)}日`;
+            els.rosterList.innerHTML = '';
+            els.rosterList.appendChild(fragment);
+        }
 
-            let isCompleted = false;
-            const isToday = (item.date === todayStr);
+        function getLiveState(now) {
+            const todayStr = getHongKongISODate(now);
+            let completedShifts = 0;
+            let remainingWorkMs = 0;
+            let todayStatusText = '今日無排班 (非執勤期 / 休息)';
 
-            if (isToday) {
-                row.classList.add('today');
+            for (const item of rosterData) {
                 if (!item.isWork) {
-                    todayStatusText = "🌴 今日放假 (OFF) ── 好好陪伴 Theodore 與太太！";
+                    if (item.date === todayStr) {
+                        todayStatusText = '🌴 今日放假 (OFF) ';
+                    }
+                    continue;
                 }
-            }
 
-            if (item.isWork) {
-                const shiftStart = getShiftStart(item);
-                const shiftEnd = getShiftEnd(item);
-
-                if (now >= shiftEnd) {
-                    isCompleted = true;
+                if (now >= item.shiftEnd) {
                     completedShifts++;
-                    row.classList.add('completed');
-                } else if (now >= shiftStart && now < shiftEnd) {
-                    const leftMs = shiftEnd - now;
-                    if (isToday) todayStatusText = `🔥 執勤中 (${item.raw}) ── 本更尚餘 ${formatHMS(leftMs)}`;
-                } else if (isToday && now < shiftStart) {
-                    todayStatusText = `⏳ 今日開工時間為 ${item.start} (${item.raw})`;
+                } else if (now < item.shiftStart) {
+                    remainingWorkMs += item.shiftEnd - item.shiftStart;
+                    if (item.date === todayStr) {
+                        todayStatusText = `⏳ 今日開工時間為 ${item.start} (${item.raw})`;
+                    }
+                } else if (now >= item.shiftStart && now < item.shiftEnd) {
+                    remainingWorkMs += item.shiftEnd - now;
+                    if (item.date === todayStr) {
+                        todayStatusText = `🔥 執勤中 (${item.raw}) ── 本更尚餘 ${formatHMS(item.shiftEnd - now)}`;
+                    }
                 }
             }
 
-            let badgeHtml = '';
-            if (!item.isWork) {
-                badgeHtml = `<span class="roster-badge badge-off">OFF</span>`;
-            } else if (isCompleted) {
-                badgeHtml = `<span class="roster-badge badge-done">✅ 已完成</span>`;
-            } else if (item.isLast) {
-                badgeHtml = `<span class="roster-badge badge-last">🏆 拜拜</span>`;
-            } else {
-                badgeHtml = `<span class="roster-badge badge-duty">執勤更</span>`;
-            }
+            const retired = now >= finalDutyEnd;
 
-            row.innerHTML = `
-                <div class="roster-date">
-                    <span>${dateLabel}</span>
-                    ${isToday ? '<span style="color:var(--cyan-accent); font-weight:bold; font-size:0.75rem;">[今日]</span>' : ''}
-                </div>
-                <div class="roster-shift">${item.raw}</div>
-                <div>${badgeHtml}</div>
-            `;
+            return {
+                todayStr,
+                retired,
+                completedShifts: retired ? totalWorkShifts : completedShifts,
+                remainingShifts: retired ? 0 : Math.max(0, totalWorkShifts - completedShifts),
+                remainingWorkMs: retired ? 0 : Math.max(0, remainingWorkMs),
+                todayStatusText: retired
+                    ? '🎉 已功成身退！正式告別 CUHKMC！'
+                    : todayStatusText
+            };
+        }
 
-            container.appendChild(row);
-        });
+        function updateBanner(now, state) {
+            els.curDateDisplay.textContent = formatHongKongDisplayDate(now);
+            els.todayDutyDesc.textContent = state.todayStatusText;
+            els.workhoursSummary.textContent = `${formatHoursMinutes(state.remainingWorkMs)} ｜ 尚餘 ${state.remainingShifts} 更`;
+        }
 
-        document.getElementById('today-duty-desc').innerText = todayStatusText;
+        function updateCalendarCountdown(now) {
+            const diff = Math.max(0, finalDutyEnd - now);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-        const remainingShifts = Math.max(0, totalWorkShifts - completedShifts);
-        const remainingWorkMs = getRemainingWorkMs(now);
-        document.getElementById('workhours-summary').innerText =
-            `${formatHoursMinutes(remainingWorkMs)} ｜ 尚餘 ${remainingShifts} 更`;
-    }
+            els.cDays.textContent = pad(days);
+            els.cHours.textContent = pad(hours);
+            els.cMins.textContent = pad(mins);
+            els.cSecs.textContent = pad(secs);
+        }
 
-    function updateLiveTimers() {
-        const now = new Date();
-
-        const diff = finalDutyEnd - now;
-        if (diff <= 0) {
-            document.getElementById('c-days').innerText = "00";
-            document.getElementById('c-hours').innerText = "00";
-            document.getElementById('c-mins').innerText = "00";
-            document.getElementById('c-secs').innerText = "00";
-
-            document.getElementById('w-hours').innerText = "000";
-            document.getElementById('w-mins').innerText = "00";
-            document.getElementById('w-secs').innerText = "00";
-
-            document.getElementById('workhours-summary').innerText = "尚餘 0 小時 0 分 ｜ 尚餘 0 更";
-            document.getElementById('today-duty-desc').innerText = "🎉 已功成身退！正式告別中大醫院！";
-        } else {
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('c-days').innerText = String(d).padStart(2, '0');
-            document.getElementById('c-hours').innerText = String(h).padStart(2, '0');
-            document.getElementById('c-mins').innerText = String(m).padStart(2, '0');
-            document.getElementById('c-secs').innerText = String(s).padStart(2, '0');
-
-            const remainingWorkMs = getRemainingWorkMs(now);
-            const totalSeconds = Math.floor(remainingWorkMs / 1000);
+        function updateWorkingCountdown(state) {
+            const totalSeconds = Math.floor(state.remainingWorkMs / 1000);
             const hours = Math.floor(totalSeconds / 3600);
             const mins = Math.floor((totalSeconds % 3600) / 60);
             const secs = totalSeconds % 60;
 
-            document.getElementById('w-hours').innerText = String(hours).padStart(3, '0');
-            document.getElementById('w-mins').innerText = String(mins).padStart(2, '0');
-            document.getElementById('w-secs').innerText = String(secs).padStart(2, '0');
+            els.wHours.textContent = pad(hours, 3);
+            els.wMins.textContent = pad(mins);
+            els.wSecs.textContent = pad(secs);
         }
 
-        const elapsedMs = Math.min(Math.max(0, now - careerStart), totalTenureMs);
-        const tenurePercent = (elapsedMs / totalTenureMs) * 100;
+        function updateTenure(now) {
+            const elapsedMs = Math.min(Math.max(0, now - careerStart), totalTenureMs);
+            const tenurePercent = (elapsedMs / totalTenureMs) * 100;
+            const offset = CIRCUMFERENCE - (tenurePercent / 100) * CIRCUMFERENCE;
 
-        const elapDays = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
-        const elapHours = Math.floor((elapsedMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const elapMins = Math.floor((elapsedMs % (1000 * 60 * 60)) / (1000 * 60));
+            els.elapsedTimeStr.textContent = formatDaysHoursMinutes(elapsedMs);
+            els.tenurePct.textContent = `${tenurePercent.toFixed(2)}%`;
+            els.pieProgress.style.strokeDashoffset = offset;
+        }
 
-        document.getElementById('elapsed-time-str').innerText = `${elapDays} 日 ${elapHours} 時 ${elapMins} 分`;
-        document.getElementById('tenure-pct').innerText = `${tenurePercent.toFixed(2)}%`;
+        function updateRosterState(now, state) {
+            rosterData.forEach((item, index) => {
+                const refs = rosterRowRefs[index];
+                const isToday = item.date === state.todayStr;
+                const isCompleted = item.isWork && now >= item.shiftEnd;
 
-        const offset = CIRCUMFERENCE - (tenurePercent / 100) * CIRCUMFERENCE;
-        document.getElementById('pie-progress').style.strokeDashoffset = offset;
-    }
+                refs.row.classList.toggle('today', isToday && !state.retired);
+                refs.row.classList.toggle('completed', isCompleted || (state.retired && item.isWork));
+                refs.todayTag.hidden = !isToday || state.retired;
 
-    renderRosterAndCount();
-    updateLiveTimers();
-    setInterval(updateLiveTimers, 1000);
-    setInterval(renderRosterAndCount, 1000);
-</script>
+                if (!item.isWork) {
+                    refs.badge.className = 'roster-badge badge-off';
+                    refs.badge.textContent = 'OFF';
+                    return;
+                }
 
+                if (isCompleted || state.retired) {
+                    refs.badge.className = 'roster-badge badge-done';
+                    refs.badge.textContent = '✅ 已完成';
+                    return;
+                }
+
+                if (item.isLast) {
+                    refs.badge.className = 'roster-badge badge-last';
+                    refs.badge.textContent = '🏆 拜拜';
+                    return;
+                }
+
+                refs.badge.className = 'roster-badge badge-duty';
+                refs.badge.textContent = '執勤更';
+            });
+        }
+
+        function tick() {
+            const now = new Date();
+            const state = getLiveState(now);
+
+            updateBanner(now, state);
+            updateCalendarCountdown(now);
+            updateWorkingCountdown(state);
+            updateTenure(now);
+            updateRosterState(now, state);
+        }
+
+        function init() {
+            els.totalServiceStr.textContent = formatDaysHoursMinutes(totalTenureMs);
+            renderRosterList();
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        init();
+    </script>
 </body>
 </html>
