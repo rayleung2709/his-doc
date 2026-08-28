@@ -915,7 +915,35 @@
             tick();
             setInterval(tick, 1000);
         }
-
+        // 1. 在 init() 結尾加入自動滾動至今日的功能
+        function scrollToCurrentDay() {
+            const todayStr = getHongKongISODate(new Date());
+            const targetIndex = rosterData.findIndex(item => item.date === todayStr);
+            
+            if (targetIndex !== -1 && rosterRowRefs[targetIndex]) {
+                setTimeout(() => {
+                    rosterRowRefs[targetIndex].row.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 300);
+            }
+        }
+        
+        // 2. 升級後的 init 函式
+        function init() {
+            // 補上副標題文字
+            const subtitleEl = document.querySelector('.subtitle');
+            if (subtitleEl) {
+                subtitleEl.textContent = "告別體制紛擾 ｜ 擁抱家庭、健康與自由的全新起點";
+            }
+        
+            els.totalServiceStr.textContent = formatDaysHoursMinutes(totalTenureMs);
+            renderRosterList();
+            tick();
+            scrollToCurrentDay(); // 自動聚焦今日
+            setInterval(tick, 1000);
+        }
         init();
     </script>
 </body>
