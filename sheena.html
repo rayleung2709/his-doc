@@ -28,6 +28,13 @@
   }
   header h1 { font-size: 1.4rem; }
   header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+  #syncBar {
+    padding: 8px 14px; font-size: 0.82rem; text-align: center;
+    background: #e2e8f0; color: var(--muted);
+  }
+  #syncBar.synced { background: #d1fae5; color: #065f46; }
+  #syncBar.dirty { background: #fef3c7; color: #92400e; }
+  #syncBar.norem { background: #e0f2fe; color: #075985; }
   nav {
     display: flex; background: var(--card); border-bottom: 2px solid var(--border);
     position: sticky; top: 0; z-index: 10; overflow-x: auto;
@@ -132,6 +139,8 @@
   <p>Salary · Holidays · Advances · Receipts</p>
 </header>
 
+<div id="syncBar">Loading data…</div>
+
 <nav>
   <button class="active" onclick="showTab('payroll', this)">💰 Payroll</button>
   <button onclick="showTab('receipt', this)">🧾 Receipt</button>
@@ -235,6 +244,13 @@
 <!-- ============ SETTINGS TAB ============ -->
 <div id="tab-settings" class="tab">
   <div class="card">
+    <h2>🌐 GitHub Sync</h2>
+    <p class="hint" style="margin-top:0;">This app loads records from <strong>data.json</strong> in the same GitHub repo. After adding new entries, press "Export data.json" below and upload the file to GitHub (replace the old one). Anyone with the link will then see the updated records.</p>
+    <button class="btn" onclick="exportDataJson()">⬇️ Export data.json (upload to GitHub)</button>
+    <button class="btn btn-outline" onclick="forceReloadRemote()">🔄 Reload from GitHub (discard local changes)</button>
+  </div>
+
+  <div class="card">
     <h2>⚙️ Basic Settings</h2>
     <div class="row">
       <div>
@@ -277,8 +293,6 @@
 
   <div class="card">
     <h2>📦 Backup & Data</h2>
-    <p class="hint" style="margin-top:0;">Data is stored only in this browser on this device. Export a backup regularly! Clearing browser data or switching devices will lose your records.</p>
-    <button class="btn btn-outline" onclick="exportData()">⬇️ Export Backup (JSON)</button>
     <button class="btn btn-outline" onclick="document.getElementById('importFile').click()">⬆️ Import Backup (JSON)</button>
     <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
     <button class="btn btn-outline" onclick="resetToPreloaded()">♻️ Reset to Preloaded Records</button>
@@ -304,11 +318,11 @@ let state = {
     leavePer2Years: 14,
     leaveTaken: 0
   },
-  entries: []
+  entries: [],
+  meta: { lastModified: '' }
 };
 
 // Full historical records: June 2024 – August 2026
-// Format: [date, item, category, amount]
 const PRELOADED = [
   // ===== June 2024 (contract rate HK$4,870/month, daily HK$160) =====
   ['2024-06-08','Octopus Card ($150 + $50 deposit)','deduction',200],
@@ -558,17 +572,92 @@ const SH_HOLIDAYS = [
   ['2027-09-16','Day after Mid-Autumn Festival']
 ];
 
-// ================= STORAGE =================
+// ================= STORAGE & SYNC =================
 const STORAGE_KEY = 'helperPayroll_v2';
-function save() {
+let syncStatus = 'loading'; // 'synced' | 'dirty' | 'norem' | 'loading'
+let remoteTime = '';
+
+function persistLocal() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
 }
-function load() {
+function save() {
+  if (!state.meta) state.meta = {};
+  state.meta.lastModified = new Date().toISOString();
+  persistLocal();
+  syncStatus = 'dirty';
+  updateSyncBar();
+}
+function loadLocal() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) { state = JSON.parse(raw); return; }
+    if (raw) {
+      state = JSON.parse(raw);
+      if (!state.meta) state.meta = { lastModified: '' };
+      return true;
+    }
   } catch(e) {}
-  state.entries = preloadedEntries(); // First run: load full history
+  state.entries = preloadedEntries();
+  state.meta = { lastModified: '' };
+  return false;
+}
+async function fetchRemote() {
+  const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+  if (!res.ok) throw new Error('not found');
+  const remote = await res.json();
+  if (!remote || !remote.entries || !remote.settings) throw new Error('bad format');
+  return remote;
+}
+async function initSync() {
+  loadLocal();
+  try {
+    const remote = await fetchRemote();
+    remoteTime = (remote.meta && remote.meta.lastModified) || '';
+    const localTime = (state.meta && state.meta.lastModified) || '';
+    if (!localTime || remoteTime >= localTime) {
+      // Remote is same or newer → use remote as source of truth
+      state = remote;
+      if (!state.meta) state.meta = { lastModified: remoteTime };
+      persistLocal();
+      syncStatus = 'synced';
+    } else {
+      // Local has unpublished changes
+      syncStatus = 'dirty';
+    }
+  } catch(e) {
+    syncStatus = 'norem';
+  }
+  renderAll();
+}
+async function forceReloadRemote() {
+  if (!confirm('Reload records from GitHub? Any local changes not yet uploaded will be DISCARDED.')) return;
+  try {
+    const remote = await fetchRemote();
+    state = remote;
+    if (!state.meta) state.meta = { lastModified: '' };
+    persistLocal();
+    syncStatus = 'synced';
+    renderAll();
+    showMsg('Reloaded from GitHub ✔');
+  } catch(e) {
+    showMsg('Could not load data.json from GitHub');
+  }
+}
+function updateSyncBar() {
+  const bar = document.getElementById('syncBar');
+  bar.className = '';
+  if (syncStatus === 'synced') {
+    bar.classList.add('synced');
+    const t = (state.meta && state.meta.lastModified) ? new Date(state.meta.lastModified).toLocaleString('en-HK') : '—';
+    bar.innerHTML = '✅ Synced with GitHub (data last updated: ' + t + ')';
+  } else if (syncStatus === 'dirty') {
+    bar.classList.add('dirty');
+    bar.innerHTML = '⚠️ Local changes not yet on GitHub — go to <strong>Settings → Export data.json</strong> and upload it to your repo so others can see the update.';
+  } else if (syncStatus === 'norem') {
+    bar.classList.add('norem');
+    bar.innerHTML = 'ℹ️ data.json not found — showing local data only. Export data.json in Settings and upload it to your GitHub repo to enable shared viewing.';
+  } else {
+    bar.textContent = 'Loading data…';
+  }
 }
 
 // ================= HELPERS =================
@@ -624,7 +713,7 @@ function addEntry() {
   renderEntries();
   document.getElementById('entryItem').value = '';
   document.getElementById('entryAmount').value = '';
-  showMsg('Entry added ✔');
+  showMsg('Entry added ✔ Remember to export & upload data.json');
 }
 function deleteEntry(id) {
   if (confirm('Delete this entry?')) {
@@ -701,13 +790,13 @@ function showMsg(msg) {
   if (!bar) {
     bar = document.createElement('div');
     bar.id = 'msgBar';
-    bar.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:10px 20px;border-radius:20px;font-size:0.9rem;z-index:99;transition:opacity .3s;';
+    bar.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:10px 20px;border-radius:20px;font-size:0.9rem;z-index:99;transition:opacity .3s;max-width:90%;text-align:center;';
     document.body.appendChild(bar);
   }
   bar.textContent = msg;
   bar.style.opacity = '1';
   clearTimeout(bar._t);
-  bar._t = setTimeout(() => bar.style.opacity = '0', 2000);
+  bar._t = setTimeout(() => bar.style.opacity = '0', 2600);
 }
 
 // ================= RECEIPT =================
@@ -808,21 +897,23 @@ function saveSettings() {
   s.contractEnd = document.getElementById('setContractEnd').value;
   s.leavePer2Years = parseFloat(document.getElementById('setLeave2y').value) || 14;
   save();
-  showMsg('Settings saved ✔');
+  showMsg('Settings saved ✔ Remember to export & upload data.json');
 }
 function saveSettingsQuiet() {
   state.settings.leaveTaken = parseFloat(document.getElementById('leaveTaken').value) || 0;
   save();
 }
 
-// ================= BACKUP =================
-function exportData() {
+// ================= EXPORT / IMPORT =================
+function exportDataJson() {
+  if (!state.meta) state.meta = {};
+  if (!state.meta.lastModified) state.meta.lastModified = new Date().toISOString();
   const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'helper-payroll-backup-' + todayStr() + '.json';
+  a.download = 'data.json';
   a.click();
-  showMsg('Backup exported ✔');
+  showMsg('data.json exported — now upload it to your GitHub repo ✔');
 }
 function importData(ev) {
   const file = ev.target.files[0];
@@ -832,7 +923,9 @@ function importData(ev) {
     try {
       const data = JSON.parse(e.target.result);
       if (data.settings && data.entries) {
-        state = data; save();
+        state = data;
+        if (!state.meta) state.meta = { lastModified: '' };
+        save();
         loadSettingsForm(); renderEntries(); renderLeave();
         showMsg('Backup imported ✔');
       } else showMsg('Invalid file format');
@@ -842,26 +935,29 @@ function importData(ev) {
   ev.target.value = '';
 }
 function resetToPreloaded() {
-  if (confirm('Replace all current records with the preloaded history (Jun 2024 – Aug 2026)?\nExport a backup first if unsure!')) {
+  if (confirm('Replace all current records with the preloaded history (Jun 2024 – Aug 2026)?\nExport data.json first if unsure!')) {
     state.entries = preloadedEntries();
     save(); renderEntries();
     showMsg('Preloaded records restored ✔');
   }
 }
 function clearAll() {
-  if (confirm('Delete ALL records? (Settings will be kept)\nExport a backup first!')) {
+  if (confirm('Delete ALL records? (Settings will be kept)\nExport data.json first!')) {
     state.entries = [];
     save(); renderEntries();
     showMsg('All records cleared');
   }
 }
 
-// ================= INIT =================
-load();
-loadSettingsForm();
-renderEntries();
-renderLeave();
-document.getElementById('entryDate').value = todayStr();
+// ================= RENDER ALL / INIT =================
+function renderAll() {
+  loadSettingsForm();
+  renderEntries();
+  renderLeave();
+  updateSyncBar();
+  document.getElementById('entryDate').value = todayStr();
+}
+initSync();
 </script>
 </body>
 </html>
