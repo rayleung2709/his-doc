@@ -754,8 +754,8 @@ function renderReceipt() {
     </table>
     <p class="ack">I hereby acknowledge receipt of the sum of <strong>HK$${fmt(t.payable)}</strong> being my salary and allowances for ${monthName(k)}.</p>
     <div class="sig-row">
-      <div class="sig-box"><div style="height:40px;"></div><div class="sig-line">Employee Signature<br>Date: ________________</div></div>
-      <div class="sig-box"><div style="height:40px;"></div><div class="sig-line">Employer Signature<br>Date: ________________</div></div>
+      <div class="sig-box"><div style="height:40px;"></div><div class="sig-line">${s.employer || '____________'}<br>Employer</div></div>
+      <div class="sig-box"><div style="height:40px;"></div><div class="sig-line">${s.helper || '____________'}<br>Employee</div></div>
     </div>
   `;
 }
