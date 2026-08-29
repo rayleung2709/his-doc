@@ -135,8 +135,8 @@
 <body>
 
 <header>
-  <h1>🏠 Helper Payroll & Holiday Tracker</h1>
-  <p>Salary · Holidays · Advances · Receipts</p>
+  <h1>🏠 Helper Payroll System</h1>
+  <p>Salary and Holiday all-in-one</p>
 </header>
 
 <div id="syncBar">Loading data…</div>
@@ -648,7 +648,7 @@ function updateSyncBar() {
   if (syncStatus === 'synced') {
     bar.classList.add('synced');
     const t = (state.meta && state.meta.lastModified) ? new Date(state.meta.lastModified).toLocaleString('en-HK') : '—';
-    bar.innerHTML = '✅ Synced with GitHub (data last updated: ' + t + ')';
+    bar.innerHTML = '✅ Synced with GitHub';
   } else if (syncStatus === 'dirty') {
     bar.classList.add('dirty');
     bar.innerHTML = '⚠️ Local changes not yet on GitHub — go to <strong>Settings → Export data.json</strong> and upload it to your repo so others can see the update.';
